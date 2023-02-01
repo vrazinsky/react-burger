@@ -1,0 +1,25 @@
+.header {   
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1c1c21;
+    height: 88px;
+}
+
+.headerWrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 1280px;
+    align-items: center;
+}
+
+.toolbar {
+    display: flex;
+}
+
+.button {
+    display: flex;
+    height: 56px;
+    align-items: center;
+}
