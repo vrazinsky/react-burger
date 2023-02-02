@@ -7,7 +7,7 @@
     height: 88px;
 }
 
-.headerWrapper {
+.header_wrapper {
     display: flex;
     justify-content: space-between;
     width: 1280px;

@@ -3,7 +3,7 @@ import appHeaderStyles from './AppHeader.module.css'
 function AppHeader() {
     return (
         <header className={appHeaderStyles.header}>
-            <div className={appHeaderStyles.headerWrapper  + ' pt-4 pb-4'}>
+            <div className={appHeaderStyles.header_wrapper  + ' pt-4 pb-4'}>
                 <div className={appHeaderStyles.toolbar}>
                     <div className={appHeaderStyles.button + ' pl-5 pr-5'}>
                         <BurgerIcon />
