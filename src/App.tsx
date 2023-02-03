@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import logo from './logo.svg';
 import './App.css';
 import AppHeader from './components/AppHeader/AppHeader'
 import BurgerIngredients from './components/BurgerIngredients/BurgerIngredients'
@@ -15,7 +14,7 @@ function App() {
         <div className='wrapper'>
           <div>
           <div className='text text_type_main-large mt-10 mb-5'>
-            СОБЕРИТЕ БУРГЕР
+            Соберите Бургер
           </div>
             <BurgerIngredients ingredients={ingredients} />
           </div>

@@ -25,7 +25,7 @@ function BurgerIngredients(props) {
                 {props.ingredients.filter(d => d.type === 'bun').map((item, index) => (
                     <div key={item._id} className={burgerIngredientsStyles.item + ' mt-6'}>
                         <img className={burgerIngredientsStyles.img} src={item.image} alt={item.name}></img>
-                        <Counter count={1} size="default" extraClass="m-1"/>
+                        {index === 0 ? <Counter count={1} size="default" extraClass="m-1"/> : null}
                         <div className={ burgerIngredientsStyles.price + ' text text_type_digits-default mt-1'}>
                             {item.price}
                             <div className='ml-1'>
@@ -46,14 +46,14 @@ function BurgerIngredients(props) {
                 {props.ingredients.filter(d => d.type === 'sauce').map((item, index) => (
                     <div key={item._id} className={burgerIngredientsStyles.item + ' mt-6'}>
                         <img className={burgerIngredientsStyles.img} src={item.image} alt={item.name}></img>
-                        <Counter count={1} size="default" extraClass="m-1"/>
+                        {index === 2 ? <Counter count={1} size="default" extraClass="m-1"/> : null}
                         <div className={ burgerIngredientsStyles.price + ' text text_type_digits-default mt-1'}>
                             {item.price}
                             <div className='ml-1'>
                             <CurrencyIcon />
                             </div>
                         </div>
-                        <div className='text text_type_main-default mt-1'>
+                        <div className={burgerIngredientsStyles.center + ' text text_type_main-default mt-1'}>
                             {item.name}
                         </div>
 
@@ -67,7 +67,6 @@ function BurgerIngredients(props) {
                 {props.ingredients.filter(d => d.type === 'main').map((item, index) => (
                     <div key={item._id} className={burgerIngredientsStyles.item + ' mb-8'}>
                         <img className={burgerIngredientsStyles.img} src={item.image} alt={item.name}></img>
-                        <Counter count={1} size="default" extraClass="m-1"/>
                         <div className={ burgerIngredientsStyles.price + ' text text_type_digits-default mt-1'}>
                             {item.price}
                             <div className='ml-1'>

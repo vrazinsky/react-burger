@@ -5,8 +5,19 @@ function BurgerConstructor(props) {
 
     return (
         <div className='mt-25'>
+            
+                <div className={burgerConstructorStyles.list_item + ' pb-4 ml-4 mr-4'}>
+                    <div style={{width: '536px'}}>
+                        <ConstructorElement  
+                        type={'top'}
+                        isLocked={true}
+                        text ={props.ingredients[0].name}
+                        price={props.ingredients[0].price}
+                        thumbnail={props.ingredients[0].image}/>
+                    </div>
+                </div>            
             <div className={burgerConstructorStyles.list_container}>
-            {props.ingredients.map((item, index) => (
+            {props.ingredients.slice(1, props.ingredients.length-2).map((item, index) => (
                 <div className={burgerConstructorStyles.list_item + ' pb-4 ml-4 mr-4'}>
                     <div style={{width: '36px' }}>
                         <DragIcon />
@@ -14,7 +25,7 @@ function BurgerConstructor(props) {
                     <div style={{width: '536px'}}>
                         <ConstructorElement  
                         type={item.type}
-                        isLocked={true}
+                        isLocked={false}
                         text ={item.name}
                         price={item.price}
                         thumbnail={item.image}/>
@@ -22,9 +33,19 @@ function BurgerConstructor(props) {
                 </div>
             ))}
             </div>
+            <div className={burgerConstructorStyles.list_item + ' pb-4 ml-4 mr-4 mt-4'}>
+                    <div style={{width: '536px'}}>
+                        <ConstructorElement  
+                        type={'bottom'}
+                        isLocked={true}
+                        text ={props.ingredients[props.ingredients.length-1].name}
+                        price={props.ingredients[props.ingredients.length-1].price}
+                        thumbnail={props.ingredients[props.ingredients.length-1].image}/>
+                    </div>
+                </div>     
             <div className={burgerConstructorStyles.total_price + ' mt-10 mr-6'}>
                 <div className='text text_type_digits-medium'>
-                        450
+                        610
                 </div>
                 <div className='ml-1'>
                     <CurrencyIcon />
