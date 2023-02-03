@@ -1,7 +1,7 @@
 .list_item {
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: flex-end;
 }
 
 .list_container {
@@ -12,5 +12,5 @@
 .total_price {
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: flex-end;
 }
