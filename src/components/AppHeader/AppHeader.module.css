@@ -27,3 +27,9 @@
 .secondary {
     color: #8585AD;
 }
+
+.nostyle {
+    text-decoration: inherit;
+    color: inherit;
+    
+}

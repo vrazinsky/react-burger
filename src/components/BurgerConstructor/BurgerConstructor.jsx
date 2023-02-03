@@ -1,8 +1,9 @@
 import burgerConstructorStyles from './BurgerConstructor.module.css'
 import { ConstructorElement, Button, DragIcon, CurrencyIcon  } from '@ya.praktikum/react-developer-burger-ui-components'
+import ingredientShape from '../../utils/prop-types'
 import PropTypes from 'prop-types';
-function BurgerConstructor(props) {
-
+function BurgerConstructor({ingredients}) {
+    const activeIngredients = ingredients.slice(1, ingredients.length-2);
     return (
         <div className='mt-25'>
             
@@ -11,13 +12,13 @@ function BurgerConstructor(props) {
                         <ConstructorElement  
                         type={'top'}
                         isLocked={true}
-                        text ={props.ingredients[0].name}
-                        price={props.ingredients[0].price}
-                        thumbnail={props.ingredients[0].image}/>
+                        text ={ingredients[0].name}
+                        price={ingredients[0].price}
+                        thumbnail={ingredients[0].image}/>
                     </div>
                 </div>            
             <div className={burgerConstructorStyles.list_container}>
-            {props.ingredients.slice(1, props.ingredients.length-2).map((item, index) => (
+            {activeIngredients.map((item, index) => (
                 <div className={burgerConstructorStyles.list_item + ' pb-4 ml-4 mr-4'}>
                     <div style={{width: '36px' }}>
                         <DragIcon />
@@ -38,9 +39,9 @@ function BurgerConstructor(props) {
                         <ConstructorElement  
                         type={'bottom'}
                         isLocked={true}
-                        text ={props.ingredients[props.ingredients.length-1].name}
-                        price={props.ingredients[props.ingredients.length-1].price}
-                        thumbnail={props.ingredients[props.ingredients.length-1].image}/>
+                        text ={ingredients[ingredients.length-1].name}
+                        price={ingredients[ingredients.length-1].price}
+                        thumbnail={ingredients[ingredients.length-1].image}/>
                     </div>
                 </div>     
             <div className={burgerConstructorStyles.total_price + ' mt-10 mr-6'}>
@@ -61,22 +62,8 @@ function BurgerConstructor(props) {
 
 }
 
-const ingredientShape = PropTypes.shape({
-    _id: PropTypes.string,
-    name: PropTypes.string,
-    type: PropTypes.string,
-    proteins: PropTypes.number,
-    fat: PropTypes.number,
-    carbohydrates: PropTypes.number,
-    calories: PropTypes.number,
-    price: PropTypes.number,
-    image:PropTypes.string,
-    image_mobile:PropTypes.string,
-    image_large:PropTypes.string,
-    __v: PropTypes.number
-  })
-  BurgerConstructor.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientShape)
+BurgerConstructor.propTypes = {
+  ingredients: PropTypes.arrayOf(ingredientShape).isRequired
 }
 
 

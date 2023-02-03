@@ -2,8 +2,14 @@ import burgerIngredientsStyles from './BurgerIngredients.module.css'
 import { Tab, Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useState } from 'react'
 import PropTypes from 'prop-types';
-function BurgerIngredients(props) {
+import ingredientShape from '../../utils/prop-types'
+
+function BurgerIngredients({ingredients}) {
     const [current, setCurrent] = useState('bun')
+    const bunIngredients = ingredients.filter(d => d.type === 'bun')
+    const sauceIngredients = ingredients.filter(d => d.type === 'sauce');
+    const mainIngredients =  ingredients.filter(d => d.type === 'main')
+
     return (        
         <div>       
         <div style={{ display: 'flex' }} className='mb-10'>
@@ -22,7 +28,7 @@ function BurgerIngredients(props) {
                 Булки
             </div>
             <div className={burgerIngredientsStyles.list}>            
-                {props.ingredients.filter(d => d.type === 'bun').map((item, index) => (
+                {bunIngredients.map((item, index) => (
                     <div key={item._id} className={burgerIngredientsStyles.item + ' mt-6'}>
                         <img className={burgerIngredientsStyles.img} src={item.image} alt={item.name}></img>
                         {index === 0 ? <Counter count={1} size="default" extraClass="m-1"/> : null}
@@ -43,7 +49,7 @@ function BurgerIngredients(props) {
                 Соусы
             </div>
             <div className={burgerIngredientsStyles.list}>            
-                {props.ingredients.filter(d => d.type === 'sauce').map((item, index) => (
+                {sauceIngredients.map((item, index) => (
                     <div key={item._id} className={burgerIngredientsStyles.item + ' mt-6'}>
                         <img className={burgerIngredientsStyles.img} src={item.image} alt={item.name}></img>
                         {index === 2 ? <Counter count={1} size="default" extraClass="m-1"/> : null}
@@ -64,7 +70,7 @@ function BurgerIngredients(props) {
                 Начинки
             </div>
             <div className={burgerIngredientsStyles.list}>            
-                {props.ingredients.filter(d => d.type === 'main').map((item, index) => (
+                {mainIngredients.map((item, index) => (
                     <div key={item._id} className={burgerIngredientsStyles.item + ' mb-8'}>
                         <img className={burgerIngredientsStyles.img} src={item.image} alt={item.name}></img>
                         <div className={ burgerIngredientsStyles.price + ' text text_type_digits-default mt-1'}>
@@ -86,22 +92,8 @@ function BurgerIngredients(props) {
     )
 }
 
-const ingredientShape = PropTypes.shape({
-    _id: PropTypes.string,
-    name: PropTypes.string,
-    type: PropTypes.string,
-    proteins: PropTypes.number,
-    fat: PropTypes.number,
-    carbohydrates: PropTypes.number,
-    calories: PropTypes.number,
-    price: PropTypes.number,
-    image:PropTypes.string,
-    image_mobile:PropTypes.string,
-    image_large:PropTypes.string,
-    __v: PropTypes.number
-  })
 BurgerIngredients.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientShape)
+  ingredients: PropTypes.arrayOf(ingredientShape).isRequired
 }
 
 
