@@ -75,7 +75,7 @@ const ingredientShape = PropTypes.shape({
     image_large:PropTypes.string,
     __v: PropTypes.number
   })
-  BurgerConstructor.propsType = {
+  BurgerConstructor.propTypes = {
   ingredients: PropTypes.arrayOf(ingredientShape)
 }
 

@@ -100,7 +100,7 @@ const ingredientShape = PropTypes.shape({
     image_large:PropTypes.string,
     __v: PropTypes.number
   })
-BurgerIngredients.propsType = {
+BurgerIngredients.propTypes = {
   ingredients: PropTypes.arrayOf(ingredientShape)
 }
 
