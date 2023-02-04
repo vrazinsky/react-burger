@@ -1,0 +1,16 @@
+.list_item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.list_container {
+    height: 465px;
+    overflow-y: scroll;
+}
+
+.total_price {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}

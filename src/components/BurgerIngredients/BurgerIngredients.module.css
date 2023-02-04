@@ -1,0 +1,28 @@
+.list {
+    display: grid;
+    grid-template-columns: 272px 272px;
+    justify-content: space-between;
+}
+
+.img {
+    width: 240px;
+    height: 120px;
+}
+
+.price {
+    display: flex;
+    justify-content: center;
+}
+
+.item {
+    position: relative;
+}
+
+.container {
+    height: 700px;
+    overflow-y: scroll;
+}
+
+.center {
+    text-align: center;
+}
