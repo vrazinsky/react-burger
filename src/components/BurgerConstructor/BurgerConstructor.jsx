@@ -1,8 +1,27 @@
+import { useState } from 'react'
 import burgerConstructorStyles from './BurgerConstructor.module.css'
 import { ConstructorElement, Button, DragIcon, CurrencyIcon  } from '@ya.praktikum/react-developer-burger-ui-components'
-import ingredientShape from '../../utils/prop-types'
+import{ ingredientShape }from '../../utils/prop-types'
+import data from '../../utils/orderDetails'
 import PropTypes from 'prop-types';
+
+import OrderDetails from '../OrderDetails/OrderDetails'
+
 function BurgerConstructor({ingredients}) {
+    const [isModalVisible, setIsModalVisible] = useState(false)
+    const [orderDetails, setOrderDetails] = useState(data)
+
+    const onModalClose = () =>{
+        setIsModalVisible(false)
+    }
+
+    const modalOptions = {isVisible: isModalVisible, onClose:onModalClose}
+
+    const handleOrderClick = (e) => {
+        e.stopPropagation()        
+        setIsModalVisible(true)
+    }
+
     const activeIngredients = ingredients.slice(1, ingredients.length-2);
     return (
         <div className='mt-25'>
@@ -19,7 +38,7 @@ function BurgerConstructor({ingredients}) {
                 </div>            
             <div className={burgerConstructorStyles.list_container}>
             {activeIngredients.map((item, index) => (
-                <div className={burgerConstructorStyles.list_item + ' pb-4 ml-4 mr-4'}>
+                <div className={burgerConstructorStyles.list_item + ' pb-4 ml-4 mr-4'} key={item._id}>
                     <div style={{width: '36px' }}>
                         <DragIcon />
                     </div>
@@ -52,11 +71,12 @@ function BurgerConstructor({ingredients}) {
                     <CurrencyIcon />
                 </div>
                 <div className='ml-10'>
-                    <Button htmlType="button" type="primary" size="large">
+                    <Button htmlType="button" type="primary" size="large" onClick={handleOrderClick}>
                 Оформить заказ
                     </Button>
                 </div>
             </div>
+            <OrderDetails modalOptions={modalOptions} {...orderDetails}/>
         </div>
     )
 

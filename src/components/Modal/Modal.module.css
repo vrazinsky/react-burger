@@ -1,0 +1,25 @@
+.modal {    
+    z-index: 2;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    border: 1px solid rgba(76, 76, 255, 0.2);
+    border-radius: 40px;
+    background-color: #1C1C21;
+}
+
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+}
+
+.close {
+    cursor: pointer;
+}

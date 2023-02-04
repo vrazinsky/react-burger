@@ -15,4 +15,10 @@ const ingredientShape = PropTypes.shape({
     __v: PropTypes.number
   })
 
-  export default ingredientShape;
+  const modalOptionsShape = PropTypes.shape({
+    isVisible: PropTypes.bool.isRequired,
+    onClose: PropTypes.func.isRequired,
+    title: PropTypes.string
+})
+
+export {ingredientShape, modalOptionsShape}  

@@ -1,0 +1,10 @@
+.center {
+    text-align: center;
+}
+
+.macronutrients {
+    display: flex;
+    flex-direction: row;
+justify-content: center;
+
+}
