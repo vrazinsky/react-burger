@@ -2,13 +2,30 @@ import burgerIngredientsStyles from './BurgerIngredients.module.css'
 import { Tab, Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useState } from 'react'
 import PropTypes from 'prop-types';
-import ingredientShape from '../../utils/prop-types'
+import { ingredientShape } from '../../utils/prop-types'
+import IngredientDetails from '../IngredientDetails/IngredientDetails'
 
 function BurgerIngredients({ingredients}) {
     const [current, setCurrent] = useState('bun')
+    const [isModalVisible, setIsModalVisible] = useState(false)
+    const [ingredientDetails, setIngredientDetails] = useState(null)
+    
+
     const bunIngredients = ingredients.filter(d => d.type === 'bun')
     const sauceIngredients = ingredients.filter(d => d.type === 'sauce');
-    const mainIngredients =  ingredients.filter(d => d.type === 'main')
+    const mainIngredients =  ingredients.filter(d => d.type === 'main');
+
+    const onModalClose = () =>{
+        setIsModalVisible(false)
+    }
+
+    const openIngredientModal = (ingredient) => {
+        setIngredientDetails(ingredient)
+        setIsModalVisible(true)
+    }
+    
+    const modalOptions = {isVisible: isModalVisible, onClose:onModalClose, title: 'Детали ингредиента'}
+
 
     return (        
         <div>       
@@ -29,7 +46,7 @@ function BurgerIngredients({ingredients}) {
             </div>
             <div className={burgerIngredientsStyles.list}>            
                 {bunIngredients.map((item, index) => (
-                    <div key={item._id} className={burgerIngredientsStyles.item + ' mt-6'}>
+                    <div key={item._id} className={burgerIngredientsStyles.item + ' mt-6'} onClick={() => openIngredientModal(item)}>
                         <img className={burgerIngredientsStyles.img} src={item.image} alt={item.name}></img>
                         {index === 0 ? <Counter count={1} size="default" extraClass="m-1"/> : null}
                         <div className={ burgerIngredientsStyles.price + ' text text_type_digits-default mt-1'}>
@@ -50,7 +67,7 @@ function BurgerIngredients({ingredients}) {
             </div>
             <div className={burgerIngredientsStyles.list}>            
                 {sauceIngredients.map((item, index) => (
-                    <div key={item._id} className={burgerIngredientsStyles.item + ' mt-6'}>
+                    <div key={item._id} className={burgerIngredientsStyles.item + ' mt-6'} onClick={() => openIngredientModal(item)}>
                         <img className={burgerIngredientsStyles.img} src={item.image} alt={item.name}></img>
                         {index === 2 ? <Counter count={1} size="default" extraClass="m-1"/> : null}
                         <div className={ burgerIngredientsStyles.price + ' text text_type_digits-default mt-1'}>
@@ -71,7 +88,7 @@ function BurgerIngredients({ingredients}) {
             </div>
             <div className={burgerIngredientsStyles.list}>            
                 {mainIngredients.map((item, index) => (
-                    <div key={item._id} className={burgerIngredientsStyles.item + ' mb-8'}>
+                    <div key={item._id} className={burgerIngredientsStyles.item + ' mb-8'} onClick={() => openIngredientModal(item)}>
                         <img className={burgerIngredientsStyles.img} src={item.image} alt={item.name}></img>
                         <div className={ burgerIngredientsStyles.price + ' text text_type_digits-default mt-1'}>
                             {item.price}
@@ -87,7 +104,7 @@ function BurgerIngredients({ingredients}) {
                 ))}
             </div>
         </div>
-      
+      {ingredientDetails && <IngredientDetails modalOptions={modalOptions} ingredientDetails={ingredientDetails} />}
       </div>
     )
 }
