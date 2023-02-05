@@ -33,7 +33,7 @@ OrderDetails.propTypes = {
     id: PropTypes.string,
     state: PropTypes.string,
     description: PropTypes.string,
-    modalProps: modalOptionsShape
+    modalOptions: modalOptionsShape
 }
 
 export default OrderDetails;

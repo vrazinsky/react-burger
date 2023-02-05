@@ -16,9 +16,11 @@ function App() {
         (result) => {
           if(result.success) {
             setIngredients(result.data);
+          }else {
+            alert('Что-то пошло не так')
           }            
         })
-        .catch(e => console.log(e));
+        .catch(e => alert('Сервер временно недоступен.'));
   },[])
   
 

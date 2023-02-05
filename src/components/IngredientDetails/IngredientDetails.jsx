@@ -1,7 +1,5 @@
 import ingredientDetailsStyles from './IngredientDetails.module.css'
 import Modal from '../Modal/Modal'
-import PropTypes from 'prop-types'
-import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import {  ingredientShape ,modalOptionsShape } from '../../utils/prop-types'
 
 function IngredientDetails({modalOptions, ingredientDetails}) {  
@@ -40,7 +38,7 @@ function IngredientDetails({modalOptions, ingredientDetails}) {
 }
 
 IngredientDetails.propTypes = {
-    modalProps: modalOptionsShape,    
+    modalOptions: modalOptionsShape,    
     ingredientDetails: ingredientShape
 }
 
