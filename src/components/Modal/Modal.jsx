@@ -30,7 +30,8 @@ function Modal({modalOptions, children}) {
     })
     
     return createPortal((
-        isVisible && <ModalOverlay close={close}>
+        isVisible && <>
+        <ModalOverlay close={close} />
             <div className={modalStyles.modal + ' pt-10 pb-10'} onClick={handleModalClick}>                
                 <div className={modalStyles.toolbar + ' ml-10 mr-10'}>
                     <div className='text text_type_main-large'>{title}</div>
@@ -39,14 +40,14 @@ function Modal({modalOptions, children}) {
                 <div className={modalStyles.content + ' ml-30 mr-30'}>
                     {children}
                 </div>
-            </div>
-        </ModalOverlay>    
+            </div>       
+        </>    
         
     ), modalRoot)
 }
 
 Modal.propTypes = {
-    modalOptions: modalOptionsShape
+    modalOptions: modalOptionsShape.isRequired
 }
 
 export default Modal;

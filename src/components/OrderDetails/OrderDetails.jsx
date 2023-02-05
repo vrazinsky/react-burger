@@ -30,10 +30,10 @@ function OrderDetails({modalOptions, id, state, description}) {
 }
 
 OrderDetails.propTypes = {
-    id: PropTypes.string,
-    state: PropTypes.string,
-    description: PropTypes.string,
-    modalOptions: modalOptionsShape
+    id: PropTypes.string.isRequired,
+    state: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    modalOptions: modalOptionsShape.isRequired
 }
 
 export default OrderDetails;

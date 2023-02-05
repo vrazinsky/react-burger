@@ -1,19 +1,23 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import burgerConstructorStyles from './BurgerConstructor.module.css'
 import { ConstructorElement, Button, DragIcon, CurrencyIcon  } from '@ya.praktikum/react-developer-burger-ui-components'
 import{ ingredientShape }from '../../utils/prop-types'
-import data from '../../utils/orderDetails'
 import PropTypes from 'prop-types';
+import { getOrderDetails } from '../../utils/burger-api'
 
 import OrderDetails from '../OrderDetails/OrderDetails'
 
 function BurgerConstructor({ingredients}) {
     const [isModalVisible, setIsModalVisible] = useState(false)
-    const [orderDetails, setOrderDetails] = useState(data)
+    const [orderDetails, setOrderDetails] = useState(null)
 
     const onModalClose = () =>{
         setIsModalVisible(false)
     }
+
+    useEffect(() => {
+        setOrderDetails(getOrderDetails())
+    },[])
 
     const modalOptions = {isVisible: isModalVisible, onClose:onModalClose}
 
@@ -76,7 +80,7 @@ function BurgerConstructor({ingredients}) {
                     </Button>
                 </div>
             </div>
-            <OrderDetails modalOptions={modalOptions} {...orderDetails}/>
+            {orderDetails && <OrderDetails modalOptions={modalOptions} {...orderDetails}/>}
         </div>
     )
 

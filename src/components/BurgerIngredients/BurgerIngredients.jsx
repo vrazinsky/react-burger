@@ -8,7 +8,7 @@ import IngredientDetails from '../IngredientDetails/IngredientDetails'
 function BurgerIngredients({ingredients}) {
     const [current, setCurrent] = useState('bun')
     const [isModalVisible, setIsModalVisible] = useState(false)
-    const [ingredientDetails, setIngredientDetails] = useState({})
+    const [ingredientDetails, setIngredientDetails] = useState(null)
     
 
     const bunIngredients = ingredients.filter(d => d.type === 'bun')
@@ -104,7 +104,7 @@ function BurgerIngredients({ingredients}) {
                 ))}
             </div>
         </div>
-      <IngredientDetails modalOptions={modalOptions} ingredientDetails={ingredientDetails} />
+      {ingredientDetails && <IngredientDetails modalOptions={modalOptions} ingredientDetails={ingredientDetails} />}
       </div>
     )
 }

@@ -38,8 +38,8 @@ function IngredientDetails({modalOptions, ingredientDetails}) {
 }
 
 IngredientDetails.propTypes = {
-    modalOptions: modalOptionsShape,    
-    ingredientDetails: ingredientShape
+    modalOptions: modalOptionsShape.isRequired,    
+    ingredientDetails: ingredientShape.isRequired
 }
 
 export default IngredientDetails;

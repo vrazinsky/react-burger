@@ -3,6 +3,7 @@ import './App.css';
 import AppHeader from './components/AppHeader/AppHeader'
 import BurgerIngredients from './components/BurgerIngredients/BurgerIngredients'
 import BurgerConstructor from './components/BurgerConstructor/BurgerConstructor'
+import { getIngredients } from './utils/burger-api'
 
 const APIURL = 'https://norma.nomoreparties.space/api/ingredients'
 
@@ -10,17 +11,13 @@ function App() {
   const [ingredients, setIngredients] = useState(null)
   
   useEffect(() => {
-    fetch(APIURL)
-    .then(res => res.json())
-      .then(
-        (result) => {
-          if(result.success) {
-            setIngredients(result.data);
-          }else {
-            alert('Что-то пошло не так')
-          }            
-        })
-        .catch(e => alert('Сервер временно недоступен.'));
+    getIngredients().then(result => {
+      if(result.success) {
+          setIngredients(result.data);
+        }else {
+          alert('Что-то пошло не так')
+        }
+    })       
   },[])
   
 
