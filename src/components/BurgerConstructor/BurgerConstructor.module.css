@@ -5,8 +5,8 @@
 }
 
 .list_container {
-    height: 465px;
-    overflow-y: scroll;
+    max-height: 465px;
+    overflow-y: auto;
 }
 
 .total_price {

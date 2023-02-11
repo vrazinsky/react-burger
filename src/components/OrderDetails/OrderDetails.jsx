@@ -1,15 +1,18 @@
+import {useContext} from 'react'
 import orderDetailsStyles from './OrderDetails.module.css'
 import Modal from '../Modal/Modal'
 import PropTypes from 'prop-types'
 import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { modalOptionsShape } from '../../utils/prop-types'
+import {OrderDetailsContext  } from '../../utils/order-details-context'
 
-function OrderDetails({modalOptions, id, state, description}) {
-    return (
+function OrderDetails({modalOptions}) {
+    const { orderId } = useContext(OrderDetailsContext)
+    return (        
         <Modal modalOptions={modalOptions} >
             <div> 
                 <div className={orderDetailsStyles.center + ' text text_type_digits-large'}>
-                    {id}
+                    {orderId}
                 </div>
                 <div className={orderDetailsStyles.center + ' text text_type_main-medium mt-8'} >
                     идентификатор заказа
@@ -18,10 +21,10 @@ function OrderDetails({modalOptions, id, state, description}) {
                 <CheckMarkIcon />
                 </div>
                 <div className={orderDetailsStyles.center + ' text text_type_main-small mt-15'} >
-                   {state}
+                    Ваш заказ начали готовить
                 </div>
                 <div className={orderDetailsStyles.center + ' text text_type_main-small text_color_inactive mt-2 mb-20'} >
-                   {description}
+                    Дождитесь готовности на орбитальной станции
                 </div>
             </div>
         </Modal>    
@@ -30,9 +33,6 @@ function OrderDetails({modalOptions, id, state, description}) {
 }
 
 OrderDetails.propTypes = {
-    id: PropTypes.string.isRequired,
-    state: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
     modalOptions: modalOptionsShape.isRequired
 }
 

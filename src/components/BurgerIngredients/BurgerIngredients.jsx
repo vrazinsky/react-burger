@@ -1,12 +1,12 @@
 import burgerIngredientsStyles from './BurgerIngredients.module.css'
 import { Tab, Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import { useState } from 'react'
-import PropTypes from 'prop-types';
-import { ingredientShape } from '../../utils/prop-types'
+import { useState, useContext } from 'react'
 import IngredientDetails from '../IngredientDetails/IngredientDetails'
+import {BurgerIngredientsContext } from '../../utils/burger-ingredients-context'
 
-function BurgerIngredients({ingredients}) {
+function BurgerIngredients() {
     const [current, setCurrent] = useState('bun')
+    const { ingredients } = useContext(BurgerIngredientsContext)
     const [isModalVisible, setIsModalVisible] = useState(false)
     const [ingredientDetails, setIngredientDetails] = useState(null)
     
@@ -108,10 +108,5 @@ function BurgerIngredients({ingredients}) {
       </div>
     )
 }
-
-BurgerIngredients.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientShape).isRequired
-}
-
 
 export default BurgerIngredients;
