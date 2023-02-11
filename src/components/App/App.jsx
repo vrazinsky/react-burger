@@ -1,12 +1,10 @@
 import { useState, useEffect } from 'react';
 import './App.css';
-import AppHeader from './components/AppHeader/AppHeader'
-import BurgerIngredients from './components/BurgerIngredients/BurgerIngredients'
-import BurgerConstructor from './components/BurgerConstructor/BurgerConstructor'
-import { getIngredients } from './utils/burger-api'
-import { BurgerIngredientsContext } from './utils/burger-ingredients-context'
-
-const APIURL = 'https://norma.nomoreparties.space/api/ingredients'
+import AppHeader from '../AppHeader/AppHeader'
+import BurgerIngredients from '../BurgerIngredients/BurgerIngredients'
+import BurgerConstructor from '../BurgerConstructor/BurgerConstructor'
+import { getIngredients } from '../../utils/burger-api'
+import { BurgerIngredientsContext } from '../../services/burger-ingredients-context'
 
 function App() {  
   const [ingredients, setIngredients] = useState(null)

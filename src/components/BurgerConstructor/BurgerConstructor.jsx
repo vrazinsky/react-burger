@@ -1,46 +1,35 @@
-import { useState, useEffect, useContext, useReducer } from 'react'
+import { useState, useContext, useMemo } from 'react'
 import burgerConstructorStyles from './BurgerConstructor.module.css'
 import { ConstructorElement, Button, DragIcon, CurrencyIcon  } from '@ya.praktikum/react-developer-burger-ui-components'
 import { getOrderDetails } from '../../utils/burger-api'
-import {BurgerIngredientsContext } from '../../utils/burger-ingredients-context'
-import {OrderDetailsContext  } from '../../utils/order-details-context'
+import {BurgerIngredientsContext } from '../../services/burger-ingredients-context'
+import {OrderDetailsContext  } from '../../services/order-details-context'
 import OrderDetails from '../OrderDetails/OrderDetails'
 
 function BurgerConstructor() {
     const { ingredients } = useContext(BurgerIngredientsContext)
     const [isModalVisible, setIsModalVisible] = useState(false)
     const [orderId, setOrderId] = useState(null)
-    const [bun, setBun] = useState({})
-    const [innerIngredients, setInnerIngredients] = useState([])
-    const [sum, dispatch] = useReducer((state,action) => {              
-        let price = action.bun.price*2;
-        action.ingredients.forEach(i => {
-            price += i.price
-        })
-        return price;
-    }, 0)
     
     const onModalClose = () =>{        
         setIsModalVisible(false)
     }
+    const {bun, innerIngredients} = useMemo(() => ({
+        bun: ingredients.find(ingredient => ingredient.type === 'bun'),
+        innerIngredients: ingredients.filter(ingredient => ingredient.type !== 'bun').slice(0, 7)
+     }), [ingredients]);
 
-    useEffect(() => {        
-        setBun(ingredients.filter(i => i.type === 'bun')[0])        
-        setInnerIngredients(ingredients.filter(i => i.type !== 'bun').slice(0, 7))
-        dispatch({bun: bun, ingredients: innerIngredients})       
-    },[])
+     const sum = useMemo(() => {
+        return innerIngredients.reduce((prev, curr) =>prev + curr.price, bun?.price*2 || 0)
+     },[bun, innerIngredients])
 
     const modalOptions = {isVisible: isModalVisible, onClose:onModalClose}
 
     const handleOrderClick = (e) => {
-        const dataForOreder = [bun._id]
-        innerIngredients.forEach(i => {
-            dataForOreder.push(i._id)
-        })        
+        const dataForOreder = [bun._id, ...innerIngredients.map(i => i._id), bun._id]
         getOrderDetails(dataForOreder).then(result => {
             e.stopPropagation()                
             if(result.success) {
-                console.log(result)
                 setOrderId(result.order.number);
                 setIsModalVisible(true);
             } else {
@@ -53,14 +42,14 @@ function BurgerConstructor() {
         <div className='mt-25'>
             
                 <div className={burgerConstructorStyles.list_item + ' pb-4 ml-4 mr-4'}>
-                    <div style={{width: '536px'}}>
+                {bun && <div style={{width: '536px'}}>
                         <ConstructorElement  
                         type={'top'}
                         isLocked={true}
-                        text ={bun.name}
+                        text ={`${bun.name} (верх)`}
                         price={bun.price}
                         thumbnail={bun.image}/>
-                    </div>
+                    </div>}
                 </div>            
             <div className={burgerConstructorStyles.list_container}>
             {innerIngredients.map((item, index) => (
@@ -80,14 +69,14 @@ function BurgerConstructor() {
             ))}
             </div>
             <div className={burgerConstructorStyles.list_item + ' pb-4 ml-4 mr-4 mt-4'}>
-                    <div style={{width: '536px'}}>
+            {bun && <div style={{width: '536px'}}>
                         <ConstructorElement  
                         type={'bottom'}
                         isLocked={true}
-                        text ={bun.name}
+                        text ={`${bun.name} (низ)`}
                         price={bun.price}
                         thumbnail={bun.image}/>
-                    </div>
+                    </div>}
                 </div>     
             <div className={burgerConstructorStyles.total_price + ' mt-10 mr-6'}>
                 <div className='text text_type_digits-medium'>

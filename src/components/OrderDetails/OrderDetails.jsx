@@ -1,10 +1,9 @@
 import {useContext} from 'react'
 import orderDetailsStyles from './OrderDetails.module.css'
 import Modal from '../Modal/Modal'
-import PropTypes from 'prop-types'
 import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { modalOptionsShape } from '../../utils/prop-types'
-import {OrderDetailsContext  } from '../../utils/order-details-context'
+import {OrderDetailsContext  } from '../../services/order-details-context'
 
 function OrderDetails({modalOptions}) {
     const { orderId } = useContext(OrderDetailsContext)

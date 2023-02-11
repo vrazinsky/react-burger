@@ -1,19 +1,38 @@
 import burgerIngredientsStyles from './BurgerIngredients.module.css'
 import { Tab, Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import { useState, useContext } from 'react'
+import { useState, useContext, useRef, useMemo } from 'react'
 import IngredientDetails from '../IngredientDetails/IngredientDetails'
-import {BurgerIngredientsContext } from '../../utils/burger-ingredients-context'
+import {BurgerIngredientsContext } from '../../services/burger-ingredients-context'
 
 function BurgerIngredients() {
     const [current, setCurrent] = useState('bun')
     const { ingredients } = useContext(BurgerIngredientsContext)
     const [isModalVisible, setIsModalVisible] = useState(false)
     const [ingredientDetails, setIngredientDetails] = useState(null)
+
+    const handleTabClick = (current) => {
+        switch(current) {
+            case 'bun':
+                bunRef.current.scrollIntoView({behavior: 'smooth'})
+                break;
+            case 'sauce':
+                sauceRef.current.scrollIntoView({behavior: 'smooth'})
+                break;
+            case 'main':
+                mainRef.current.scrollIntoView({behavior: 'smooth'})
+                break;
+            default:
+                break;
+        }
+        setCurrent(current)
+    }
     
 
-    const bunIngredients = ingredients.filter(d => d.type === 'bun')
-    const sauceIngredients = ingredients.filter(d => d.type === 'sauce');
-    const mainIngredients =  ingredients.filter(d => d.type === 'main');
+    const {bunIngredients, sauceIngredients, mainIngredients} =  useMemo(() => ({
+        bunIngredients: ingredients.filter(d => d.type === 'bun'),
+        sauceIngredients: ingredients.filter(d => d.type === 'sauce'),
+        mainIngredients: ingredients.filter(d => d.type === 'main')}
+        ),[ingredients]);
 
     const onModalClose = () =>{
         setIsModalVisible(false)
@@ -23,6 +42,10 @@ function BurgerIngredients() {
         setIngredientDetails(ingredient)
         setIsModalVisible(true)
     }
+
+    const bunRef = useRef(null)
+    const sauceRef = useRef(null)
+    const mainRef = useRef(null)
     
     const modalOptions = {isVisible: isModalVisible, onClose:onModalClose, title: 'Детали ингредиента'}
 
@@ -30,18 +53,18 @@ function BurgerIngredients() {
     return (        
         <div>       
         <div style={{ display: 'flex' }} className='mb-10'>
-            <Tab value="bun" active={current === 'bun'} onClick={setCurrent}>
+            <Tab value="bun" active={current === 'bun'} onClick={handleTabClick}>
                 Булки
             </Tab>
-            <Tab value="sauce" active={current === 'sauce'} onClick={setCurrent}>
+            <Tab value="sauce" active={current === 'sauce'} onClick={handleTabClick}>
                 Соусы
             </Tab>
-            <Tab value="main" active={current === 'main'} onClick={setCurrent}>
+            <Tab value="main" active={current === 'main'} onClick={handleTabClick}>
                 Начинки
             </Tab>
         </div>
         <div className={burgerIngredientsStyles.container}>
-            <div className='text text_type_main-large mb-6'>
+            <div className='text text_type_main-large mb-6' ref={bunRef}>
                 Булки
             </div>
             <div className={burgerIngredientsStyles.list}>            
@@ -62,7 +85,7 @@ function BurgerIngredients() {
                     </div>
                 ))}
             </div>
-            <div className='text text_type_main-large mt-10 mb-6'>
+            <div className='text text_type_main-large mt-10 mb-6' ref={sauceRef}>
                 Соусы
             </div>
             <div className={burgerIngredientsStyles.list}>            
@@ -83,7 +106,7 @@ function BurgerIngredients() {
                     </div>
                 ))}
             </div>
-            <div className='text text_type_main-large mt-10 mb-6'>
+            <div className='text text_type_main-large mt-10 mb-6' ref={mainRef}>
                 Начинки
             </div>
             <div className={burgerIngredientsStyles.list}>            
