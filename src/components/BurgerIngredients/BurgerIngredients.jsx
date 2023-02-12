@@ -1,15 +1,15 @@
 import burgerIngredientsStyles from './BurgerIngredients.module.css'
 import { Tab, Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import { useState, useContext, useRef, useMemo } from 'react'
+import { useState, useRef, useMemo } from 'react'
 import IngredientDetails from '../IngredientDetails/IngredientDetails'
-import {BurgerIngredientsContext } from '../../services/burger-ingredients-context'
+import { useSelector } from 'react-redux';
 
 function BurgerIngredients() {
     const [current, setCurrent] = useState('bun')
-    const { ingredients } = useContext(BurgerIngredientsContext)
     const [isModalVisible, setIsModalVisible] = useState(false)
     const [ingredientDetails, setIngredientDetails] = useState(null)
-
+    const {ingredients, ingredientsFailed, ingredientsRequest} = useSelector(store => store.ingredientsReducer)
+    console.log({ingredients, ingredientsFailed, ingredientsRequest})
     const handleTabClick = (current) => {
         switch(current) {
             case 'bun':

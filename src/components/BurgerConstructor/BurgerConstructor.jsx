@@ -1,23 +1,19 @@
-import { useState, useContext, useMemo } from 'react'
+import { useState, useMemo } from 'react'
 import burgerConstructorStyles from './BurgerConstructor.module.css'
 import { ConstructorElement, Button, DragIcon, CurrencyIcon  } from '@ya.praktikum/react-developer-burger-ui-components'
 import { getOrderDetails } from '../../utils/burger-api'
-import {BurgerIngredientsContext } from '../../services/burger-ingredients-context'
 import {OrderDetailsContext  } from '../../services/order-details-context'
 import OrderDetails from '../OrderDetails/OrderDetails'
+import { useSelector } from 'react-redux';
 
 function BurgerConstructor() {
-    const { ingredients } = useContext(BurgerIngredientsContext)
+    const { bun, innerIngredients } = useSelector(store => store.constructorItemsReducer.constructorIngredients)
     const [isModalVisible, setIsModalVisible] = useState(false)
     const [orderId, setOrderId] = useState(null)
     
     const onModalClose = () =>{        
         setIsModalVisible(false)
-    }
-    const {bun, innerIngredients} = useMemo(() => ({
-        bun: ingredients.find(ingredient => ingredient.type === 'bun'),
-        innerIngredients: ingredients.filter(ingredient => ingredient.type !== 'bun').slice(0, 7)
-     }), [ingredients]);
+    }  
 
      const sum = useMemo(() => {
         return innerIngredients.reduce((prev, curr) =>prev + curr.price, bun?.price*2 || 0)

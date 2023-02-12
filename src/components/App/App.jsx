@@ -5,40 +5,34 @@ import BurgerIngredients from '../BurgerIngredients/BurgerIngredients'
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor'
 import { getIngredients } from '../../utils/burger-api'
 import { BurgerIngredientsContext } from '../../services/burger-ingredients-context'
+import { useDispatch } from 'react-redux';
+import { getIngredientsThunk } from '../../services/thunks/thunks'
 
-function App() {  
-  const [ingredients, setIngredients] = useState(null)
-  
+
+function App() {      
+  const dispatch = useDispatch()
   useEffect(() => {
-    getIngredients().then(result => {
-      if(result.success) {
-          setIngredients(result.data);
-        }else {
-          alert('Что-то пошло не так')
-        }
-    })       
-  },[])
+    dispatch(getIngredientsThunk())  
+  },[dispatch])
   
 
   return (
     <>
     <main className='main'>
       <AppHeader />
-      <BurgerIngredientsContext.Provider value={{ingredients, setIngredients}}>
-      <section className='section'>        
+      <section className='section'>
         <div className='wrapper'>
           <div>
           <div className='text text_type_main-large mt-10 mb-5'>
             Соберите Бургер
           </div>
-            {ingredients && <BurgerIngredients />}
+            <BurgerIngredients />
           </div>
           <div>
-          {ingredients && <BurgerConstructor />}
+          <BurgerConstructor />
           </div>
         </div>
-      </section>  
-      </BurgerIngredientsContext.Provider>   
+      </section>
       </main>
        <div id="modals">
        </div>
