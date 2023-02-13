@@ -3,15 +3,16 @@ import orderDetailsStyles from './OrderDetails.module.css'
 import Modal from '../Modal/Modal'
 import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { modalOptionsShape } from '../../utils/prop-types'
-import {OrderDetailsContext  } from '../../services/order-details-context'
+import { useSelector } from 'react-redux';
 
 function OrderDetails({modalOptions}) {
-    const { orderId } = useContext(OrderDetailsContext)
+    const {orderDetails} = useSelector(store => store.orderDetailsReducer)    
     return (        
-        <Modal modalOptions={modalOptions} >
+        <>
+        {orderDetails && (<Modal modalOptions={modalOptions}>
             <div> 
                 <div className={orderDetailsStyles.center + ' text text_type_digits-large'}>
-                    {orderId}
+                    {orderDetails.number}
                 </div>
                 <div className={orderDetailsStyles.center + ' text text_type_main-medium mt-8'} >
                     идентификатор заказа
@@ -25,8 +26,9 @@ function OrderDetails({modalOptions}) {
                 <div className={orderDetailsStyles.center + ' text text_type_main-small text_color_inactive mt-2 mb-20'} >
                     Дождитесь готовности на орбитальной станции
                 </div>
-            </div>
-        </Modal>    
+            </div>        
+        </Modal> )}
+        </>        
     )
     
 }

@@ -2,15 +2,30 @@ import burgerIngredientsStyles from './BurgerIngredients.module.css'
 import { Tab, Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useState, useRef, useMemo, useEffect } from 'react'
 import IngredientDetails from '../IngredientDetails/IngredientDetails'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { addCurrentIngredient, removeCurrentIngredient } from '../../services/actions/actions'
 
-const SCROLL_DIST_BOUND = 41;
+import DraggableIngredient from '../DraggableIngredient/DraggableIngredient'
+
 
 function BurgerIngredients() {
     const [current, setCurrent] = useState('bun')
     const [isModalVisible, setIsModalVisible] = useState(false)
-    const [ingredientDetails, setIngredientDetails] = useState(null)
-    const {ingredients} = useSelector(store => store.ingredientsReducer)    
+    const {ingredients} = useSelector(store => store.ingredientsReducer)
+    const { bun, innerIngredients } = useSelector(store => store.constructorItemsReducer.constructorIngredients)
+
+    const  countInfo = useMemo(() => {        
+        return innerIngredients.reduce((prev, curr) => {
+            if (!prev[curr._id]) {
+                prev[curr._id] = 0
+            }
+            prev[curr._id]++;
+            return prev;
+        }, bun ? {[bun._id]: 1} : {})
+    }, [bun, innerIngredients])    
+
+    const dispatch = useDispatch()
+
     const handleTabClick = (current) => {
         switch(current) {
             case 'bun':
@@ -28,7 +43,6 @@ function BurgerIngredients() {
         setCurrent(current)
     }
     
-
     const {bunIngredients, sauceIngredients, mainIngredients} =  useMemo(() => ({
         bunIngredients: ingredients.filter(d => d.type === 'bun'),
         sauceIngredients: ingredients.filter(d => d.type === 'sauce'),
@@ -37,10 +51,11 @@ function BurgerIngredients() {
 
     const onModalClose = () =>{
         setIsModalVisible(false)
+        dispatch(removeCurrentIngredient())        
     }
 
     const openIngredientModal = (ingredient) => {
-        setIngredientDetails(ingredient)
+        dispatch(addCurrentIngredient(ingredient))        
         setIsModalVisible(true)
     }
 
@@ -57,17 +72,19 @@ function BurgerIngredients() {
     const modalOptions = {isVisible: isModalVisible, onClose:onModalClose, title: 'Детали ингредиента'}
    
 
-    const handleScroll = (e) => {                
-        const sauceDist = sauceRef.current.getBoundingClientRect().top - parentRect.current.bottom;
-        const mainDist =  mainRef.current.getBoundingClientRect().top - parentRect.current.bottom;        
-        if (mainDist <= SCROLL_DIST_BOUND) {    
-            setCurrent('main')            
-        }
-        else if (sauceDist <= SCROLL_DIST_BOUND) {
-            setCurrent('sauce')            
-        }
-        else {
+    const handleScroll = (e) => {
+        const bunDist = Math.abs(bunRef.current.getBoundingClientRect().top - parentRect.current.bottom);
+        const sauceDist = Math.abs(sauceRef.current.getBoundingClientRect().top - parentRect.current.bottom);
+        const mainDist =  Math.abs(mainRef.current.getBoundingClientRect().top - parentRect.current.bottom);        
+        const minDist = Math.min(bunDist, sauceDist, mainDist)
+        if (minDist === bunDist) {
             setCurrent('bun')
+        }
+        else if (minDist === sauceDist) {    
+            setCurrent('sauce')            
+        }        
+        else {
+            setCurrent('main')
         }
     }
 
@@ -89,21 +106,8 @@ function BurgerIngredients() {
                 Булки
             </div>
             <div className={burgerIngredientsStyles.list}>            
-                {bunIngredients.map((item, index) => (
-                    <div key={item._id} className={burgerIngredientsStyles.item + ' mt-6'} onClick={() => openIngredientModal(item)}>
-                        <img className={burgerIngredientsStyles.img} src={item.image} alt={item.name}></img>
-                        {index === 0 ? <Counter count={1} size="default" extraClass="m-1"/> : null}
-                        <div className={ burgerIngredientsStyles.price + ' text text_type_digits-default mt-1'}>
-                            {item.price}
-                            <div className='ml-1'>
-                            <CurrencyIcon />
-                            </div>
-                        </div>
-                        <div className='text text_type_main-default mt-1'>
-                            {item.name}
-                        </div>
-
-                    </div>
+                {bunIngredients.map((item) => (
+                    <DraggableIngredient ingredient={item} openIngredientModal={openIngredientModal} key={item._id} count={countInfo[item._id]}/>
                 ))}
             </div>
             <div className='text text_type_main-large mt-10 mb-6' ref={sauceRef}>
@@ -111,20 +115,7 @@ function BurgerIngredients() {
             </div>
             <div className={burgerIngredientsStyles.list}>            
                 {sauceIngredients.map((item, index) => (
-                    <div key={item._id} className={burgerIngredientsStyles.item + ' mt-6'} onClick={() => openIngredientModal(item)}>
-                        <img className={burgerIngredientsStyles.img} src={item.image} alt={item.name}></img>
-                        {index === 2 ? <Counter count={1} size="default" extraClass="m-1"/> : null}
-                        <div className={ burgerIngredientsStyles.price + ' text text_type_digits-default mt-1'}>
-                            {item.price}
-                            <div className='ml-1'>
-                            <CurrencyIcon />
-                            </div>
-                        </div>
-                        <div className={burgerIngredientsStyles.center + ' text text_type_main-default mt-1'}>
-                            {item.name}
-                        </div>
-
-                    </div>
+                        <DraggableIngredient ingredient={item} openIngredientModal={openIngredientModal} key={item._id} count={countInfo[item._id]}/>
                 ))}
             </div>
             <div className='text text_type_main-large mt-10 mb-6' ref={mainRef}>
@@ -132,23 +123,11 @@ function BurgerIngredients() {
             </div>
             <div className={burgerIngredientsStyles.list}>            
                 {mainIngredients.map((item, index) => (
-                    <div key={item._id} className={burgerIngredientsStyles.item + ' mb-8'} onClick={() => openIngredientModal(item)}>
-                        <img className={burgerIngredientsStyles.img} src={item.image} alt={item.name}></img>
-                        <div className={ burgerIngredientsStyles.price + ' text text_type_digits-default mt-1'}>
-                            {item.price}
-                            <div className='ml-1'>
-                            <CurrencyIcon />
-                            </div>
-                        </div>
-                        <div className='text text_type_main-default mt-1'>
-                            {item.name}
-                        </div>
-
-                    </div>
+                    <DraggableIngredient ingredient={item} openIngredientModal={openIngredientModal} key={item._id} count={countInfo[item._id]}/>
                 ))}
             </div>
-        </div>
-      {ingredientDetails && <IngredientDetails modalOptions={modalOptions} ingredientDetails={ingredientDetails} />}
+        </div>       
+      <IngredientDetails modalOptions={modalOptions}/>
       </div>
     )
 }

@@ -1,12 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import './App.css';
 import AppHeader from '../AppHeader/AppHeader'
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients'
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor'
-import { getIngredients } from '../../utils/burger-api'
-import { BurgerIngredientsContext } from '../../services/burger-ingredients-context'
+
 import { useDispatch } from 'react-redux';
 import { getIngredientsThunk } from '../../services/thunks/thunks'
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 
 function App() {      
@@ -16,13 +17,15 @@ function App() {
   },[dispatch])
   
 
-  return (
+  return (  
     <>
     <main className='main'>
       <AppHeader />
+      <DndProvider backend={HTML5Backend}>
       <section className='section'>
         <div className='wrapper'>
           <div>
+          
           <div className='text text_type_main-large mt-10 mb-5'>
             Соберите Бургер
           </div>
@@ -32,11 +35,13 @@ function App() {
           <BurgerConstructor />
           </div>
         </div>
+        
       </section>
+      </DndProvider>
       </main>
        <div id="modals">
-       </div>
-       </>
+       </div> 
+       </>    
   );
 }
 

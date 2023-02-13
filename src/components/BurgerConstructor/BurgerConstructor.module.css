@@ -2,15 +2,24 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    align-content: end;
 }
 
 .list_container {
-    max-height: 465px;
+    height: 465px;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .total_price {
     display: flex;
     align-items: center;
     justify-content: flex-end;
+}
+
+.container {
+    border: 1px solid grey;    
+    height: 775px;
 }

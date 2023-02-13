@@ -1,14 +1,16 @@
 import {
     ADD_BUN_TO_CONSTRUCTOR, 
     ADD_CURRENT_INGREDIENT,     
-    ADD_INNER_INGREDIENT_TO_CONSTRUCTOR, 
-    ADD_ORDER_DETAILS, 
+    ADD_INNER_INGREDIENT_TO_CONSTRUCTOR,     
     REMOVE_CURRENT_INGREDIENT, 
-    REMOVE_INNER_INGREDIENT_FROM_CONSTRUCTOR,
-    REMOVE_ORDER_DETAILS,
+    CHANGE_INNER_INGREDIENTS,    
     GET_INGREDIENTS,
     GET_INGREDIENTS_FAILED,
-    GET_INGREDIENTS_SUCCESS
+    GET_INGREDIENTS_SUCCESS,
+    GET_ORDER_DETAILS,
+    GET_ORDER_DETAILS_FAILED,
+    GET_ORDER_DETAILS_SUCCESS,
+    REMOVE_ORDER_DETAILS
 } from '../../utils/action-types'
 
 export function addBunToCunstructor(bun) {
@@ -32,13 +34,6 @@ export function addInnerIngredientToConstructor(ingredient) {
     }
 }
 
-export function addOrderDetails(orderDetails) {
-    return {
-        type: ADD_ORDER_DETAILS,
-        payload: orderDetails
-    }
-}
-
 export function removeCurrentIngredient() {
     return {
         type: REMOVE_CURRENT_INGREDIENT, 
@@ -46,21 +41,16 @@ export function removeCurrentIngredient() {
     }
 }
 
-export function removeInnerIngredientToConstructor(ingredient) {
+export function changeInnerIngredients(innerIngredients) {
     return {
-        type: REMOVE_INNER_INGREDIENT_FROM_CONSTRUCTOR
-    }
-}
-
-export function removeOrderDetails() {
-    return {
-        type: REMOVE_ORDER_DETAILS, 
+        type: CHANGE_INNER_INGREDIENTS,
+        payload: innerIngredients
     }
 }
 
 export function getIngredients() {
     return {
-        type:GET_INGREDIENTS
+        type: GET_INGREDIENTS
     }
 }
 
@@ -73,7 +63,31 @@ export function getIngredientsSuccess(data) {
 
 export function getIngredientsFailed() {
     return {
-        type:GET_INGREDIENTS_FAILED
+        type: GET_INGREDIENTS_FAILED        
     }
 }
 
+export function getOrderDetails() {
+    return {
+        type: GET_ORDER_DETAILS
+    }
+}
+
+export function getOrderDetailsSuccess(data) {
+    return {
+        type: GET_ORDER_DETAILS_SUCCESS,
+        payload: data
+    }
+}
+
+export function getOrderDetailsFailed() {
+    return {
+        type: GET_ORDER_DETAILS_FAILED        
+    }
+}
+
+export function removeOrderDetails() {
+    return {
+        type: REMOVE_ORDER_DETAILS
+    }
+}
