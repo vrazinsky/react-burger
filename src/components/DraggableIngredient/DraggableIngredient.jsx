@@ -6,7 +6,7 @@ const DraggableIngredient = ({ingredient, openIngredientModal, count = 0}) => {
     const { name, image, price} = ingredient;
     const [, dragRef] = useDrag({
         type: "food",
-        item: {ingredient},
+        item: ingredient,
         collect: monitor => ({
             isDrag: monitor.isDragging()
         })
@@ -14,7 +14,7 @@ const DraggableIngredient = ({ingredient, openIngredientModal, count = 0}) => {
     return (
          <div className={draggableIngredientStyles.item + ' mt-6'} onClick={() => openIngredientModal(ingredient)} ref={dragRef}>
             <img className={draggableIngredientStyles.img} src={image} alt={name}></img>
-            {count && <Counter count={count} size="default" extraClass="m-1"/>}
+            {count > 0 && <Counter count={count} size="default" extraClass="m-1"/>}
             <div className={ draggableIngredientStyles.price + ' text text_type_digits-default mt-1'}>
                 {price}
                 <div className='ml-1'>

@@ -1,40 +1,64 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useCallback, useEffect } from 'react'
 import burgerConstructorStyles from './BurgerConstructor.module.css'
-import { ConstructorElement, Button, DragIcon, CurrencyIcon  } from '@ya.praktikum/react-developer-burger-ui-components'
+import { ConstructorElement, Button, CurrencyIcon  } from '@ya.praktikum/react-developer-burger-ui-components'
 import OrderDetails from '../OrderDetails/OrderDetails'
 import { useSelector, useDispatch } from 'react-redux';
 import { getOrderDetailsThunk } from '../../services/thunks/thunks'
 import { useDrop } from 'react-dnd'
-import { addBunToCunstructor, addInnerIngredientToConstructor, removeOrderDetails, changeInnerIngredients } from '../../services/actions/actions'
+import { addBunToCunstructor, addInnerIngredientToConstructor, removeOrderDetails, changeInnerIngredients, increaseIngredientCounter, decreaseIngredientCounter } from '../../services/actions/actions'
+import DraggableConstructorElement from '../DraggableConstructorElement/DraggableConstructorElement'
+import update from 'immutability-helper'
+import { v4 as uuidv4 } from 'uuid';
 
 function BurgerConstructor() {
-    const { bun, innerIngredients } = useSelector(store => store.constructorItemsReducer.constructorIngredients)
+    const storeIngredients = useSelector(store => store.constructorItemsReducer.constructorIngredients)
+    const [bun, setBun] = useState(null)
+    const [innerIngredients, setInnerIngredients] = useState([])
     const [isModalVisible, setIsModalVisible] = useState(false)
     const {orderDetails} = useSelector(store => store.orderDetailsReducer)
     const dispatch = useDispatch()
 
-    const onDrop = (data) => {        
-        if (data.ingredient.type === 'bun') {
-            dispatch(addBunToCunstructor(data.ingredient))
+    useEffect(() => {
+        if (storeIngredients.bun) {
+            setBun(storeIngredients.bun)
+        }            
+    },[storeIngredients.bun])
+
+    useEffect(() => {
+        if (storeIngredients.innerIngredients) {
+            setInnerIngredients(storeIngredients.innerIngredients)
+        }            
+    },[storeIngredients.innerIngredients])
+
+    const onDrop = (ingredient) => {          
+        if (ingredient.type === 'bun') {
+            if (bun) {
+                dispatch(decreaseIngredientCounter(bun._id))
+            }
+            dispatch(addBunToCunstructor(ingredient))            
+            dispatch(increaseIngredientCounter(ingredient._id))
         } else {
             if (bun) {
-                dispatch(addInnerIngredientToConstructor(data.ingredient))
+                const curIngredient = {...ingredient, uuid: uuidv4()}                
+                dispatch(addInnerIngredientToConstructor(curIngredient))
+                dispatch(increaseIngredientCounter(ingredient._id))
             }
         }
     }
 
     const [, dropTarget] = useDrop({
         accept: "food",
-        drop(itemId) {
-            onDrop(itemId)
+        drop(ingredient) {
+            onDrop(ingredient)
         },
     });
 
-    const onInnerIngredientRemove = (index) => {
+    const onInnerIngredientRemove = useCallback((id, index) => {    
         const newInnerIngredients = JSON.parse(JSON.stringify(innerIngredients))
         newInnerIngredients.splice(index, 1)
         dispatch(changeInnerIngredients(newInnerIngredients))
-    }
+        dispatch(decreaseIngredientCounter(id))
+    },[dispatch, innerIngredients])
     
     const onModalClose = () =>{        
         setIsModalVisible(false)
@@ -42,7 +66,7 @@ function BurgerConstructor() {
     }  
 
      const sum = useMemo(() => {
-        return innerIngredients.reduce((prev, curr) =>prev + curr.price, bun?.price*2 || 0)
+        return innerIngredients.reduce((prev, curr) =>prev + curr?.price, bun?.price*2 || 0)
      },[bun, innerIngredients])
 
     const modalOptions = {isVisible: isModalVisible, onClose:onModalClose}
@@ -55,7 +79,24 @@ function BurgerConstructor() {
         dispatch(getOrderDetailsThunk(dataForOrder))
         setIsModalVisible(true)
     }
+
+    const moveCard = useCallback((dragIndex, hoverIndex) => {        
+        setInnerIngredients((prevInnerIngredients) => update(prevInnerIngredients, {
+            $splice: [
+              [dragIndex, 1],
+              [hoverIndex, 0, prevInnerIngredients[dragIndex]],
+            ],
+          })
+        )
+    },[]) 
     
+    const renderDraggableConstructorElement = useCallback((item, index) => {
+        console.log('render', item)
+        return (
+            <DraggableConstructorElement ingredient={item} onInnerIngredientRemove={onInnerIngredientRemove} moveCard={moveCard} uuid={item.uuid} index={index} key={item.uuid}/>
+        )
+    },[moveCard, onInnerIngredientRemove])
+
     return (
         <div className={burgerConstructorStyles.container + ' mt-25 pt-2 pb-2'} ref={dropTarget}>
             <div className={burgerConstructorStyles.list_item + ' pb-4 ml-4 mr-4'}>
@@ -69,22 +110,7 @@ function BurgerConstructor() {
                 </div>)}                
             </div>
             <div className={burgerConstructorStyles.list_container}>
-            {innerIngredients.map((item, index) => (
-                <div className={burgerConstructorStyles.list_item + ' pb-4 ml-4 mr-4'} key={item._id + '_' + index}>
-                    <div style={{width: '36px' }}>
-                        <DragIcon />
-                    </div>
-                    <div style={{width: '536px'}}>
-                        <ConstructorElement  
-                        type={item.type}
-                        isLocked={false}
-                        text ={item.name}
-                        price={item.price}
-                        thumbnail={item.image}
-                        handleClose={() => onInnerIngredientRemove(index) }/>
-                    </div>
-                </div>
-            ))}
+            {innerIngredients.map((item, index) => renderDraggableConstructorElement(item, index))}                
             </div>
             <div className={burgerConstructorStyles.list_item + ' pb-4 ml-4 mr-4 mt-4'}>
             {bun && <div style={{width: '536px'}}>

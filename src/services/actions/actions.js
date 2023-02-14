@@ -10,7 +10,9 @@ import {
     GET_ORDER_DETAILS,
     GET_ORDER_DETAILS_FAILED,
     GET_ORDER_DETAILS_SUCCESS,
-    REMOVE_ORDER_DETAILS
+    REMOVE_ORDER_DETAILS,
+    INCREASE_INGREDIENT_COUNTER,
+    DECREASE_INGREDIENT_COUNTER
 } from '../../utils/action-types'
 
 export function addBunToCunstructor(bun) {
@@ -89,5 +91,19 @@ export function getOrderDetailsFailed() {
 export function removeOrderDetails() {
     return {
         type: REMOVE_ORDER_DETAILS
+    }
+}
+
+export function increaseIngredientCounter(id) {
+    return {
+        type: INCREASE_INGREDIENT_COUNTER,
+        payload: id
+    }
+}
+
+export function decreaseIngredientCounter(id) {
+    return {
+        type: DECREASE_INGREDIENT_COUNTER,
+        payload: id
     }
 }

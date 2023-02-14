@@ -10,7 +10,9 @@ import {
     GET_INGREDIENTS_SUCCESS,
     GET_ORDER_DETAILS_SUCCESS,
     GET_ORDER_DETAILS,
-    GET_ORDER_DETAILS_FAILED,    
+    GET_ORDER_DETAILS_FAILED,
+    INCREASE_INGREDIENT_COUNTER,
+    DECREASE_INGREDIENT_COUNTER,    
 } from '../../utils/action-types'
 
 const ingredientsInitialState = {
@@ -30,7 +32,10 @@ const orderDetailsInitialState = {
     orderDetails: null,
     orderDetailsRequest: false,
     orderDetailsFailed: false
-}    
+}  
+
+const ingredientCountersState = {    
+}
 
 
 export const ingredientsReducer = (state = ingredientsInitialState, action) => {
@@ -60,6 +65,7 @@ export const ingredientsReducer = (state = ingredientsInitialState, action) => {
   } 
 
 export const constructorItemsReducer = (state = constructorItemsInitialState, action) => {
+    console.log(state, action.payload)
     switch (action.type) {
         case ADD_INNER_INGREDIENT_TO_CONSTRUCTOR:            
             return {
@@ -93,13 +99,11 @@ export const constructorItemsReducer = (state = constructorItemsInitialState, ac
 export const currentIngredientReducer = (state = currentIngredientInitialState, action) => {
     switch (action.type) {
         case ADD_CURRENT_INGREDIENT:
-            return {
-                ...state,
+            return {                
                 currentIngredient: action.payload
             }
         case REMOVE_CURRENT_INGREDIENT:
-            return {
-                ...state,
+            return {                
                 currentIngredient: null
             }
         default:
@@ -134,4 +138,21 @@ export const orderDetailsReducer = (state = orderDetailsInitialState, action) =>
       default:
           return state
       }
+}
+
+export const ingredientCountersReducer = (state = ingredientCountersState, action) => {    
+    switch (action.type) {        
+        case INCREASE_INGREDIENT_COUNTER:
+            return {             
+                ...state,
+                [action.payload]: state[action.payload] ? (state[action.payload] + 1) : 1             
+            }            
+        case DECREASE_INGREDIENT_COUNTER:
+            return {
+                    ...state,
+                    [action.payload]: state[action.payload] - 1
+                    }
+        default: 
+            return state
+    }
 }
