@@ -64,8 +64,7 @@ export const ingredientsReducer = (state = ingredientsInitialState, action) => {
     }
   } 
 
-export const constructorItemsReducer = (state = constructorItemsInitialState, action) => {
-    console.log(state, action.payload)
+export const constructorItemsReducer = (state = constructorItemsInitialState, action) => {    
     switch (action.type) {
         case ADD_INNER_INGREDIENT_TO_CONSTRUCTOR:            
             return {

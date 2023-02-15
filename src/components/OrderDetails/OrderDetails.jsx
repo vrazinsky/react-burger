@@ -1,4 +1,3 @@
-import {useContext} from 'react'
 import orderDetailsStyles from './OrderDetails.module.css'
 import Modal from '../Modal/Modal'
 import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components'

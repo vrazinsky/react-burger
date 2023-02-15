@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useEffect } from 'react'
+import { useState, useMemo, useCallback, useEffect, useRef } from 'react'
 import burgerConstructorStyles from './BurgerConstructor.module.css'
 import { ConstructorElement, Button, CurrencyIcon  } from '@ya.praktikum/react-developer-burger-ui-components'
 import OrderDetails from '../OrderDetails/OrderDetails'
@@ -9,6 +9,7 @@ import { addBunToCunstructor, addInnerIngredientToConstructor, removeOrderDetail
 import DraggableConstructorElement from '../DraggableConstructorElement/DraggableConstructorElement'
 import update from 'immutability-helper'
 import { v4 as uuidv4 } from 'uuid';
+import {useDndScrolling } from 'react-dnd-scrolling';
 
 function BurgerConstructor() {
     const storeIngredients = useSelector(store => store.constructorItemsReducer.constructorIngredients)
@@ -17,6 +18,9 @@ function BurgerConstructor() {
     const [isModalVisible, setIsModalVisible] = useState(false)
     const {orderDetails} = useSelector(store => store.orderDetailsReducer)
     const dispatch = useDispatch()
+
+    const ref = useRef(null);
+    useDndScrolling(ref)
 
     useEffect(() => {
         if (storeIngredients.bun) {
@@ -45,7 +49,7 @@ function BurgerConstructor() {
             }
         }
     }
-
+    
     const [, dropTarget] = useDrop({
         accept: "food",
         drop(ingredient) {
@@ -64,6 +68,14 @@ function BurgerConstructor() {
         setIsModalVisible(false)
         dispatch(removeOrderDetails())
     }  
+
+    const onConstructorElementDrop = (isDropSuccessful) => {
+        if (isDropSuccessful) {
+            dispatch(changeInnerIngredients(innerIngredients))
+        } else {
+            setInnerIngredients(storeIngredients.innerIngredients)
+        }        
+    }
 
      const sum = useMemo(() => {
         return innerIngredients.reduce((prev, curr) =>prev + curr?.price, bun?.price*2 || 0)
@@ -89,13 +101,7 @@ function BurgerConstructor() {
           })
         )
     },[]) 
-    
-    const renderDraggableConstructorElement = useCallback((item, index) => {
-        console.log('render', item)
-        return (
-            <DraggableConstructorElement ingredient={item} onInnerIngredientRemove={onInnerIngredientRemove} moveCard={moveCard} uuid={item.uuid} index={index} key={item.uuid}/>
-        )
-    },[moveCard, onInnerIngredientRemove])
+        
 
     return (
         <div className={burgerConstructorStyles.container + ' mt-25 pt-2 pb-2'} ref={dropTarget}>
@@ -109,8 +115,10 @@ function BurgerConstructor() {
                     thumbnail={bun.image}/>
                 </div>)}                
             </div>
-            <div className={burgerConstructorStyles.list_container}>
-            {innerIngredients.map((item, index) => renderDraggableConstructorElement(item, index))}                
+            <div className={burgerConstructorStyles.list_container} ref={ref}>
+            {innerIngredients.map((item, index) => 
+             <  DraggableConstructorElement ingredient={item} onInnerIngredientRemove={onInnerIngredientRemove} moveCard={moveCard} uuid={item.uuid} index={index} key={item.uuid} onDrop={onConstructorElementDrop}/>
+             )}                
             </div>
             <div className={burgerConstructorStyles.list_item + ' pb-4 ml-4 mr-4 mt-4'}>
             {bun && <div style={{width: '536px'}}>

@@ -1,25 +1,13 @@
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import draggableConstructorElementStyles from './DraggableConstructorElement.module.css' 
 import { useDrag, useDrop } from 'react-dnd'
-import { useRef, useState, useEffect } from 'react'
+import { useRef, useState } from 'react'
 
 
-const DraggableConstructorElement = ({ingredient, onInnerIngredientRemove, index, moveCard}) => {
+const DraggableConstructorElement = ({ingredient, onInnerIngredientRemove, index, moveCard, onDrop}) => {
     const {type, name, price, _id, image, uuid} = ingredient;    
     const [isHovering, setIsHovering] = useState(false)
-    const ref = useRef(null)
-  
-    useEffect(() => {
-        console.log(uuid + ': isHovering ', isHovering)    
-    },[isHovering])
-    
-
-    useEffect(() => {
-        return () => {
-            console.log('isOver', isHovering)
-        }
-    })
-    
+    const ref = useRef(null)      
  
     const [{handlerId}, drop] = useDrop({    
         accept: 'sort',
@@ -52,15 +40,13 @@ const DraggableConstructorElement = ({ingredient, onInnerIngredientRemove, index
             if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
                 return
             }
-            console.log('123',dragIndex, hoverIndex , hoverClientY, hoverMiddleY )
             setIsHovering(false)
             moveCard(dragIndex, hoverIndex)          
             item.index = hoverIndex
         },
-        drop() {
-            console.log('drop')
-            setIsHovering(false)
-        },
+        // drop() {            
+        //     setIsHovering(false)
+        // },
     })    
     const [, drag] = useDrag({  
         type: 'sort',      
@@ -70,6 +56,10 @@ const DraggableConstructorElement = ({ingredient, onInnerIngredientRemove, index
         collect: (monitor) => ({
           isDragging: monitor.isDragging(),
         }),
+        end(item, monitor) {
+            setIsHovering(false)
+            onDrop(monitor.didDrop())
+        }
       })    
     drop(drag(ref))
     return (        
