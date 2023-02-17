@@ -44,9 +44,6 @@ const DraggableConstructorElement = ({ingredient, onInnerIngredientRemove, index
             moveCard(dragIndex, hoverIndex)          
             item.index = hoverIndex
         },
-        // drop() {            
-        //     setIsHovering(false)
-        // },
     })    
     const [, drag] = useDrag({  
         type: 'sort',      

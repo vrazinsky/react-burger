@@ -7,7 +7,6 @@ import { getOrderDetailsThunk } from '../../services/thunks/thunks'
 import { useDrop } from 'react-dnd'
 import { addBunToCunstructor, addInnerIngredientToConstructor, removeOrderDetails, changeInnerIngredients, increaseIngredientCounter, decreaseIngredientCounter } from '../../services/actions/actions'
 import DraggableConstructorElement from '../DraggableConstructorElement/DraggableConstructorElement'
-import update from 'immutability-helper'
 import { v4 as uuidv4 } from 'uuid';
 import {useDndScrolling } from 'react-dnd-scrolling';
 
@@ -39,7 +38,7 @@ function BurgerConstructor() {
             if (bun) {
                 dispatch(decreaseIngredientCounter(bun._id))
             }
-            dispatch(addBunToCunstructor(ingredient))            
+            dispatch(addBunToCunstructor({...ingredient}))            
             dispatch(increaseIngredientCounter(ingredient._id))
         } else {
             if (bun) {
@@ -93,14 +92,10 @@ function BurgerConstructor() {
     }
 
     const moveCard = useCallback((dragIndex, hoverIndex) => {        
-        setInnerIngredients((prevInnerIngredients) => update(prevInnerIngredients, {
-            $splice: [
-              [dragIndex, 1],
-              [hoverIndex, 0, prevInnerIngredients[dragIndex]],
-            ],
-          })
-        )
-    },[]) 
+        const newInnerIngredients = JSON.parse(JSON.stringify(innerIngredients))        
+        newInnerIngredients[dragIndex] = newInnerIngredients.splice(hoverIndex, 1, newInnerIngredients[dragIndex])[0]        
+        setInnerIngredients(newInnerIngredients)        
+    },[innerIngredients]) 
         
 
     return (
