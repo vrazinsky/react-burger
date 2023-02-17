@@ -1,16 +1,13 @@
 import ingredientDetailsStyles from './IngredientDetails.module.css'
-import Modal from '../Modal/Modal'
-import { modalOptionsShape } from '../../utils/prop-types'
 import { useSelector } from 'react-redux'
 
-function IngredientDetails({modalOptions}) {  
-    const currentIngredient = useSelector(store => store.currentIngredientReducer.currentIngredient);     
+function IngredientDetails() {
+    const currentIngredient = useSelector(store => store.currentIngredientReducer.currentIngredient);
     return (
-        <>
-        {currentIngredient && <Modal modalOptions={modalOptions}>
-        <div className='mb-15'>
+        currentIngredient &&
+        (<div className='mb-15'>
             <div>
-                <img src={currentIngredient.image_large} alt={currentIngredient.name}/>
+                <img src={currentIngredient.image_large} alt={currentIngredient.name} />
             </div>
             <div className={ingredientDetailsStyles.center + ' text text_type_main-medium mt-4'}>
                 {currentIngredient.name}
@@ -34,14 +31,8 @@ function IngredientDetails({modalOptions}) {
                 </div>
 
             </div>
-        </div>
-        </Modal>}
-        </>
+        </div>)
     )
-}
-
-IngredientDetails.propTypes = {
-    modalOptions: modalOptionsShape.isRequired    
 }
 
 export default IngredientDetails;

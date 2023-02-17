@@ -4,3 +4,11 @@
     justify-content: flex-end;
     align-content: flex-end;
 }
+
+.drag_icon {
+    width: 36px;
+}
+
+.drag_item {
+    width: 536px;
+}

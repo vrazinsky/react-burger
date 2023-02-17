@@ -2,8 +2,7 @@
     height: 465px;
     overflow-y: auto;
     display: flex;
-    flex-direction: column;
-    justify-content: ;
+    flex-direction: column;    
 }
 
 .total_price {
@@ -22,4 +21,8 @@
     align-items: center;
     justify-content: flex-end;
     align-content: flex-end;
+}
+
+.bun {
+    width: '536px';
 }

@@ -1,8 +1,9 @@
 import {
-    ADD_BUN_TO_CONSTRUCTOR, 
-    ADD_CURRENT_INGREDIENT,      
-    ADD_INNER_INGREDIENT_TO_CONSTRUCTOR, 
-    REMOVE_CURRENT_INGREDIENT, 
+    ADD_BUN_TO_CONSTRUCTOR,
+    REMOVE_BUN_FROM_CONSTRUCTOR,
+    ADD_CURRENT_INGREDIENT,
+    ADD_INNER_INGREDIENT_TO_CONSTRUCTOR,
+    REMOVE_CURRENT_INGREDIENT,
     CHANGE_INNER_INGREDIENTS,
     REMOVE_ORDER_DETAILS,
     GET_INGREDIENTS,
@@ -12,7 +13,8 @@ import {
     GET_ORDER_DETAILS,
     GET_ORDER_DETAILS_FAILED,
     INCREASE_INGREDIENT_COUNTER,
-    DECREASE_INGREDIENT_COUNTER,    
+    DECREASE_INGREDIENT_COUNTER,
+    CLEAR_INGREDIENT_COUNTER
 } from '../../utils/action-types'
 
 const ingredientsInitialState = {
@@ -20,8 +22,8 @@ const ingredientsInitialState = {
     ingredientsRequest: false,
     ingredientsFailed: false
 }
-const constructorItemsInitialState =  {
-    constructorIngredients: {bun: null, innerIngredients: []}
+const constructorItemsInitialState = {
+    constructorIngredients: { bun: null, innerIngredients: [] }
 }
 
 const currentIngredientInitialState = {
@@ -32,62 +34,70 @@ const orderDetailsInitialState = {
     orderDetails: null,
     orderDetailsRequest: false,
     orderDetailsFailed: false
-}  
+}
 
-const ingredientCountersState = {    
+const ingredientCountersState = {
 }
 
 
 export const ingredientsReducer = (state = ingredientsInitialState, action) => {
     switch (action.type) {
-      case GET_INGREDIENTS_SUCCESS:
-        return {
-          ...state,
-          ingredientsRequest: false,
-          ingredients: action.payload
-        }
-     case GET_INGREDIENTS:
-        return {
-            ...state,
-            ingredientsRequest: true,
-            ingredientsFailed: false
-        }
-    case GET_INGREDIENTS_FAILED:
-        return {            
-            ingredientsRequest: false,
-            ingredientsFailed: true,
-            ingredients: []
-
-        }
-    default:
-        return state
-    }
-  } 
-
-export const constructorItemsReducer = (state = constructorItemsInitialState, action) => {    
-    switch (action.type) {
-        case ADD_INNER_INGREDIENT_TO_CONSTRUCTOR:            
+        case GET_INGREDIENTS_SUCCESS:
             return {
                 ...state,
-                constructorIngredients:{
+                ingredientsRequest: false,
+                ingredients: action.payload
+            }
+        case GET_INGREDIENTS:
+            return {
+                ...state,
+                ingredientsRequest: true,
+                ingredientsFailed: false
+            }
+        case GET_INGREDIENTS_FAILED:
+            return {
+                ingredientsRequest: false,
+                ingredientsFailed: true,
+                ingredients: []
+
+            }
+        default:
+            return state
+    }
+}
+
+export const constructorItemsReducer = (state = constructorItemsInitialState, action) => {
+    switch (action.type) {
+        case ADD_INNER_INGREDIENT_TO_CONSTRUCTOR:
+            return {
+                ...state,
+                constructorIngredients: {
                     ...state.constructorIngredients,
-                    innerIngredients : [...state.constructorIngredients.innerIngredients, action.payload]
+                    innerIngredients: [...state.constructorIngredients.innerIngredients, action.payload]
                 }
             }
         case ADD_BUN_TO_CONSTRUCTOR:
             return {
                 ...state,
-                constructorIngredients:{
+                constructorIngredients: {
                     ...state.constructorIngredients,
-                    bun : action.payload
+                    bun: action.payload
                 }
             }
-        case CHANGE_INNER_INGREDIENTS:            
+        case CHANGE_INNER_INGREDIENTS:
             return {
                 ...state,
-                constructorIngredients:{
+                constructorIngredients: {
                     ...state.constructorIngredients,
-                    innerIngredients : action.payload
+                    innerIngredients: action.payload
+                }
+            }
+        case REMOVE_BUN_FROM_CONSTRUCTOR:
+            return {
+                ...state,
+                constructorIngredients: {
+                    ...state.constructorIngredients,
+                    bun: null
                 }
             }
         default:
@@ -98,11 +108,11 @@ export const constructorItemsReducer = (state = constructorItemsInitialState, ac
 export const currentIngredientReducer = (state = currentIngredientInitialState, action) => {
     switch (action.type) {
         case ADD_CURRENT_INGREDIENT:
-            return {                
+            return {
                 currentIngredient: action.payload
             }
         case REMOVE_CURRENT_INGREDIENT:
-            return {                
+            return {
                 currentIngredient: null
             }
         default:
@@ -113,45 +123,47 @@ export const currentIngredientReducer = (state = currentIngredientInitialState, 
 export const orderDetailsReducer = (state = orderDetailsInitialState, action) => {
     switch (action.type) {
         case GET_ORDER_DETAILS_SUCCESS:
-          return {
-            ...state,
-            orderDetailsRequest: false,
-            orderDetails: action.payload
-          }
-       case GET_ORDER_DETAILS:
-          return {
-              ...state,
-              orderDetailsRequest: true,
-              orderDetailsFailed: false
-          }
-      case GET_ORDER_DETAILS_FAILED:
-          return {              
-              orderDetailsRequest: false,
-              orderDetailsFailed: true,
-              orderDetails: null
-          }
-          case REMOVE_ORDER_DETAILS:
+            return {
+                ...state,
+                orderDetailsRequest: false,
+                orderDetails: action.payload
+            }
+        case GET_ORDER_DETAILS:
+            return {
+                ...state,
+                orderDetailsRequest: true,
+                orderDetailsFailed: false
+            }
+        case GET_ORDER_DETAILS_FAILED:
+            return {
+                orderDetailsRequest: false,
+                orderDetailsFailed: true,
+                orderDetails: null
+            }
+        case REMOVE_ORDER_DETAILS:
             return {
                 orderDetails: null
             }
-      default:
-          return state
-      }
+        default:
+            return state
+    }
 }
 
-export const ingredientCountersReducer = (state = ingredientCountersState, action) => {    
-    switch (action.type) {        
+export const ingredientCountersReducer = (state = ingredientCountersState, action) => {
+    switch (action.type) {
         case INCREASE_INGREDIENT_COUNTER:
-            return {             
+            return {
                 ...state,
-                [action.payload]: state[action.payload] ? (state[action.payload] + 1) : 1             
-            }            
+                [action.payload]: state[action.payload] ? (state[action.payload] + 1) : 1
+            }
         case DECREASE_INGREDIENT_COUNTER:
             return {
-                    ...state,
-                    [action.payload]: state[action.payload] - 1
-                    }
-        default: 
+                ...state,
+                [action.payload]: state[action.payload] - 1
+            }
+        case CLEAR_INGREDIENT_COUNTER:
+            return {}
+        default:
             return state
     }
 }

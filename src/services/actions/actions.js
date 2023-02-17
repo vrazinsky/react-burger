@@ -1,5 +1,6 @@
 import {
     ADD_BUN_TO_CONSTRUCTOR, 
+    REMOVE_BUN_FROM_CONSTRUCTOR,
     ADD_CURRENT_INGREDIENT,     
     ADD_INNER_INGREDIENT_TO_CONSTRUCTOR,     
     REMOVE_CURRENT_INGREDIENT, 
@@ -12,13 +13,21 @@ import {
     GET_ORDER_DETAILS_SUCCESS,
     REMOVE_ORDER_DETAILS,
     INCREASE_INGREDIENT_COUNTER,
-    DECREASE_INGREDIENT_COUNTER
+    DECREASE_INGREDIENT_COUNTER,
+    CLEAR_INGREDIENT_COUNTER
 } from '../../utils/action-types'
 
 export function addBunToCunstructor(bun) {
     return {
         type: ADD_BUN_TO_CONSTRUCTOR,
         payload: bun
+    }
+}
+
+export function removeBunFromConstructor() {
+    return {
+        type: REMOVE_BUN_FROM_CONSTRUCTOR,
+       
     }
 }
 
@@ -105,5 +114,11 @@ export function decreaseIngredientCounter(id) {
     return {
         type: DECREASE_INGREDIENT_COUNTER,
         payload: id
+    }
+}
+
+export function clearIngredientCounter() {
+    return {
+        type: CLEAR_INGREDIENT_COUNTER
     }
 }

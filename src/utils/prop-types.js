@@ -15,8 +15,7 @@ const ingredientShape = PropTypes.shape({
     __v: PropTypes.number.isRequired
   })
 
-  const modalOptionsShape = PropTypes.shape({
-    isVisible: PropTypes.bool.isRequired,
+  const modalOptionsShape = PropTypes.shape({    
     onClose: PropTypes.func.isRequired,
     title: PropTypes.string
 })
