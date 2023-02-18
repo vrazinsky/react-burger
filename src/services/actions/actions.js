@@ -1,10 +1,10 @@
 import {
-    ADD_BUN_TO_CONSTRUCTOR, 
+    ADD_BUN_TO_CONSTRUCTOR,
     REMOVE_BUN_FROM_CONSTRUCTOR,
-    ADD_CURRENT_INGREDIENT,     
-    ADD_INNER_INGREDIENT_TO_CONSTRUCTOR,     
-    REMOVE_CURRENT_INGREDIENT, 
-    CHANGE_INNER_INGREDIENTS,    
+    ADD_CURRENT_INGREDIENT,
+    ADD_INNER_INGREDIENT_TO_CONSTRUCTOR,
+    REMOVE_CURRENT_INGREDIENT,
+    CHANGE_INNER_INGREDIENTS,
     GET_INGREDIENTS,
     GET_INGREDIENTS_FAILED,
     GET_INGREDIENTS_SUCCESS,
@@ -27,7 +27,7 @@ export function addBunToCunstructor(bun) {
 export function removeBunFromConstructor() {
     return {
         type: REMOVE_BUN_FROM_CONSTRUCTOR,
-       
+
     }
 }
 
@@ -47,7 +47,7 @@ export function addInnerIngredientToConstructor(ingredient) {
 
 export function removeCurrentIngredient() {
     return {
-        type: REMOVE_CURRENT_INGREDIENT, 
+        type: REMOVE_CURRENT_INGREDIENT,
 
     }
 }
@@ -65,7 +65,7 @@ export function getIngredients() {
     }
 }
 
-export function getIngredientsSuccess(data) {   
+export function getIngredientsSuccess(data) {
     return {
         type: GET_INGREDIENTS_SUCCESS,
         payload: data
@@ -74,7 +74,7 @@ export function getIngredientsSuccess(data) {
 
 export function getIngredientsFailed() {
     return {
-        type: GET_INGREDIENTS_FAILED        
+        type: GET_INGREDIENTS_FAILED
     }
 }
 
@@ -93,7 +93,7 @@ export function getOrderDetailsSuccess(data) {
 
 export function getOrderDetailsFailed() {
     return {
-        type: GET_ORDER_DETAILS_FAILED        
+        type: GET_ORDER_DETAILS_FAILED
     }
 }
 

@@ -2,7 +2,7 @@
     height: 465px;
     overflow-y: auto;
     display: flex;
-    flex-direction: column;    
+    flex-direction: column;
 }
 
 .total_price {
@@ -12,11 +12,11 @@
 }
 
 .container {
-    border: 1px solid grey;    
+    border: 1px solid grey;
     height: 775px;
 }
 
-.list_item {    
+.list_item {
     display: flex;
     align-items: center;
     justify-content: flex-end;

@@ -119,7 +119,7 @@ function BurgerIngredients() {
                     ))}
                 </div>
             </div>
-            {isModalVisible &&<Modal modalOptions={modalOptions}>
+            {isModalVisible && <Modal modalOptions={modalOptions}>
                 <IngredientDetails />
             </Modal>}
         </div>

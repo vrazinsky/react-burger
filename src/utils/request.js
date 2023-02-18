@@ -10,7 +10,7 @@ const checkResponse = (res) => {
 const checkSuccess = (res) => {
   if (res && res.success) {
     return res;
-  } 
+  }
   return Promise.reject(`Ответ не success: ${res}`);
 };
 
