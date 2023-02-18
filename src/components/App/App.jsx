@@ -19,8 +19,8 @@ function App() {
 
   return (
     <>
+      <AppHeader />
       <main>
-        <AppHeader />
         <DndProvider backend={HTML5Backend}>
           <section className={appStyles.section}>
             <div className={appStyles.wrapper}>
@@ -39,8 +39,6 @@ function App() {
           </section>
         </DndProvider>
       </main>
-      <div id="modals">
-      </div>
     </>
   );
 }

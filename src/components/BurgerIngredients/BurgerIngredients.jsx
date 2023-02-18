@@ -64,7 +64,7 @@ function BurgerIngredients() {
     const modalOptions = { onClose: onModalClose, title: 'Детали ингредиента' }
 
 
-    const handleScroll = (e) => {
+    const handleScroll = () => {
         const bunDist = Math.abs(bunRef.current.getBoundingClientRect().top - parentRect.current.bottom);
         const sauceDist = Math.abs(sauceRef.current.getBoundingClientRect().top - parentRect.current.bottom);
         const mainDist = Math.abs(mainRef.current.getBoundingClientRect().top - parentRect.current.bottom);
