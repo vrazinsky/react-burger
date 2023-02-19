@@ -1,16 +1,28 @@
-.list_item {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-}
-
 .list_container {
     height: 465px;
-    overflow-y: scroll;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .total_price {
     display: flex;
     align-items: center;
     justify-content: flex-end;
+}
+
+.container {
+    border: 1px solid grey;
+    height: 775px;
+}
+
+.list_item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    align-content: flex-end;
+}
+
+.bun {
+    width: '536px';
 }

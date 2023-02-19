@@ -1,21 +1,13 @@
-const NORMA_API = 'https://norma.nomoreparties.space/api'
+import { request } from './request'
 
-function getIngredients() {
-    return fetch(`${NORMA_API}/ingredients`)
-    .then(res => res.json())
-      .then(
-        (result) => {
-         return result;
-        })
-        .catch(e => alert('Сервер временно недоступен.'));
- }
+export const getIngredientsRequest = () => request("ingredients");
 
- function getOrderDetails() {
-    return {
-        id: '034536',
-        state: 'Ваш заказ начали готовить',
-        description: 'Дождитесь готовности на орбитальной станции'
-    }
- }
-
- export { getIngredients, getOrderDetails }
+export const getOrderDetailsRequest = (ids) => {
+  const body = { 'ingredients': ids };
+  const options = {
+    method: 'post',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  }
+  return request('orders', options)
+}
