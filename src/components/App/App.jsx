@@ -1,46 +1,33 @@
-import { useEffect } from 'react';
-import appStyles from './App.module.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import appStyles from './App.module.css'
+import { HomePage, LoginPage, RegisterPage, ForgotPasswordPage, ResetPasswordPage, ProfilePage, IngredientPage, OrdersPage, ProfileAccountPage } from '../../pages'
+import ProtectedRouteElement from '../ProtectedRouteElement/ProtectedRouteElement'
 import AppHeader from '../AppHeader/AppHeader'
-import BurgerIngredients from '../BurgerIngredients/BurgerIngredients'
-import BurgerConstructor from '../BurgerConstructor/BurgerConstructor'
-
 import { useDispatch } from 'react-redux';
-import { getIngredientsThunk } from '../../services/thunks/thunks'
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+import { getUserThunk } from '../../services/thunks/auth-thunks'
 
-
-function App() {
+export default function App() {
   const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(getIngredientsThunk())
-  }, [dispatch])
-
-
+  dispatch(getUserThunk())
   return (
     <>
-      <AppHeader />
-      <main>
-        <DndProvider backend={HTML5Backend}>
-          <section className={appStyles.section}>
-            <div className={appStyles.wrapper}>
-              <div>
-
-                <div className='text text_type_main-large mt-10 mb-5'>
-                  Соберите Бургер
-                </div>
-                <BurgerIngredients />
-              </div>
-              <div>
-                <BurgerConstructor />
-              </div>
-            </div>
-
-          </section>
-        </DndProvider>
-      </main>
+      <Router>
+        <AppHeader />
+        <main className={appStyles.main}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+            <Route path="/reset-password" element={<ResetPasswordPage />} />
+            <Route path="/profile" element={<ProtectedRouteElement element={<ProfilePage />} />}>
+              <Route path="" element={<ProfileAccountPage />} />
+              <Route path="orders" element={<OrdersPage />} />
+            </Route>
+            <Route path="/ingredients/:id" element={<IngredientPage />} />
+          </Routes>
+        </main>
+      </Router>
     </>
   );
 }
-
-export default App;
