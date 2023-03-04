@@ -14,7 +14,6 @@ export default function App() {
 
   useEffect(() => {
     dispatch(getIngredientsThunk())
-    console.log('accessToken', getItem('burgerAccessToken'))
     if (getItem('burgerAccessToken'))
       dispatch(getUserThunk())
   }, [dispatch])

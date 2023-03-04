@@ -1,8 +1,10 @@
 import ingredientStyles from './ingredient.module.css'
 import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom'
-export function IngredientPage({ hideTitle }) {
+import { useParams } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
+function IngredientPage({ hideTitle }) {
     const [ingredient, setIngredient] = useState(null)
     const ingredients = useSelector(store => store.ingredientsReducer.ingredients);
     const { id } = useParams()
@@ -50,3 +52,9 @@ export function IngredientPage({ hideTitle }) {
         </div>)
     )
 }
+
+IngredientPage.propTypes = {
+    hideTitle: PropTypes.bool
+}
+
+export { IngredientPage }

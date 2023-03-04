@@ -28,6 +28,9 @@ export function ProfileAccountPage() {
     }
 
     useEffect(() => {
+        console.log(user)
+        console.log(name, user.name)
+        console.log(email, user.email)
         setIsButtonsVisible(name !== user.name || email !== user.email || password !== '')
     }, [user, name, email, password])
 

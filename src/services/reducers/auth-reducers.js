@@ -219,7 +219,7 @@ export const authReducer = (state = authInitialState, action) => {
         case PATCH_USER_SUCCESS:
             return {
                 ...state,
-                user: action.payload,
+                user: action.payload.user,
                 patchUserRequest: false,
                 patchUserSuccess: true,
                 patchUserFailed: false

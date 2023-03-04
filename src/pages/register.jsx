@@ -10,7 +10,7 @@ export function RegisterPage() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const dispatch = useDispatch()
-    const { user, getUserSuccess, getUserFailed } = useSelector(store => store.authReducer);
+    const { user, getUser, getUserSuccess, getUserFailed } = useSelector(store => store.authReducer);
 
     const handleRegisterClick = () => {
         if (!name || !email || !password) {
@@ -18,7 +18,7 @@ export function RegisterPage() {
         }
         dispatch(registerThunk({ name, email, password }))
     }
-    if (!getUserSuccess && !getUserFailed) {
+    if (getUser && !getUserSuccess && !getUserFailed) {
         return null;
     }
     if (user) {

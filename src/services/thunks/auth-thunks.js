@@ -48,7 +48,6 @@ export function loginThunk(data) {
         dispatch(login())
         loginRequest(data)
             .then(res => {
-                console.log('res', res)
                 if (res) {
                     setItem('burgerAccessToken', res.accessToken)
                     setItem('burgerRefreshToken', res.refreshToken)
