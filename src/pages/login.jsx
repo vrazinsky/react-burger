@@ -1,6 +1,6 @@
 import loginStyles from './login.module.css';
 import { Input, Button, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link, Navigate } from "react-router-dom";
 import { loginThunk } from '../services/thunks/auth-thunks'
 import { useDispatch, useSelector } from 'react-redux'
@@ -17,8 +17,8 @@ export function LoginPage() {
             return
         }
         dispatch(loginThunk({ email, password }))
-
     }
+
     if (user) {
         return returnUrl ? <Navigate to={returnUrl} replace /> : <Navigate to="/" replace />
     }

@@ -11,6 +11,8 @@ export function ResetPasswordPage() {
     const { user, getUserSuccess, getUserFailed } = useSelector(store => store.authReducer);
     const { passwordResetSuccess } = useSelector((store) => store.passwordResetReducer)
 
+
+
     const dispatch = useDispatch()
     const handleResetPasswordClick = () => {
         if (!password || !token) {

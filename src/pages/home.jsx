@@ -1,19 +1,13 @@
-import { useEffect } from 'react';
-import homeStyles from './home.module.css';
 
+import homeStyles from './home.module.css';
 import BurgerIngredients from '../components/BurgerIngredients/BurgerIngredients'
 import BurgerConstructor from '../components/BurgerConstructor/BurgerConstructor'
-
-import { useDispatch } from 'react-redux';
-import { getIngredientsThunk } from '../services/thunks/thunks'
+import { Outlet } from 'react-router-dom'
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
 export function HomePage() {
-  const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(getIngredientsThunk())
-  }, [dispatch])
+
   return (
     <DndProvider backend={HTML5Backend}>
       <div className={homeStyles.wrapper}>
@@ -26,6 +20,7 @@ export function HomePage() {
         <div>
           <BurgerConstructor />
         </div>
+        <Outlet />
       </div>
     </DndProvider>
   )

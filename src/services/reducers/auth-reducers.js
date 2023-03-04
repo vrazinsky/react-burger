@@ -165,13 +165,6 @@ export const authReducer = (state = authInitialState, action) => {
                 loginRequest: false,
                 loginFailed: true
             }
-        case GET_USER:
-            return {
-                ...state,
-                getUserRequest: true,
-                getUserSuccess: false,
-                getUserFailed: false
-            }
         case LOGOUT_SUCCESS:
             return {
                 ...state,
@@ -194,7 +187,13 @@ export const authReducer = (state = authInitialState, action) => {
                 logoutSuccess: false,
                 logoutFailed: true
             }
-
+        case GET_USER:
+            return {
+                ...state,
+                getUserRequest: true,
+                getUserSuccess: false,
+                getUserFailed: false
+            }
         case GET_USER_SUCCESS:
             return {
                 ...state,

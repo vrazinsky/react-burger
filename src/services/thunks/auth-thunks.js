@@ -48,6 +48,7 @@ export function loginThunk(data) {
         dispatch(login())
         loginRequest(data)
             .then(res => {
+                console.log('res', res)
                 if (res) {
                     setItem('burgerAccessToken', res.accessToken)
                     setItem('burgerRefreshToken', res.refreshToken)
@@ -57,6 +58,7 @@ export function loginThunk(data) {
                 }
             })
             .catch(err => {
+                alert(err)
                 dispatch(loginFailed())
             })
     }
@@ -68,8 +70,8 @@ export function logoutThunk(data) {
         logoutRequest(data)
             .then(res => {
                 if (res) {
-                    setItem('burgerAccessToken', undefined)
-                    setItem('burgerRefreshToken', undefined)
+                    setItem('burgerAccessToken', '')
+                    setItem('burgerRefreshToken', '')
                     dispatch(logoutSuccess())
                 } else {
                     dispatch(logoutFailed())
@@ -110,6 +112,7 @@ export function resetPasswordThunk(data) {
                 }
             })
             .catch(err => {
+                alert(err)
                 dispatch(resetPasswordFailed())
             })
     }

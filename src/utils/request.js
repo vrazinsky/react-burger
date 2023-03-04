@@ -39,17 +39,14 @@ const checkJwtExpired = (res, endpoint, options, withAuth) => {
 }
 
 const checkResponse = (res) => {
-  if (res.ok) {
-    return res.json();
-  }
-  return Promise.reject(`Ошибка ${res.status}`);
+  return res?.json() || Promise.reject('Error');
 };
 
 const checkSuccess = (res) => {
   if (res && res.success) {
     return res;
   }
-  return Promise.reject(`Ответ не success: ${res}`);
+  return Promise.reject(`Error: ${res?.message}`);
 };
 
 export const request = (endpoint, options, withAuth) => {

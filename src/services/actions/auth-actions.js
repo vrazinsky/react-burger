@@ -55,9 +55,10 @@ export function loginSuccess(data) {
     }
 }
 
-export function loginFailed() {
+export function loginFailed(data) {
     return {
-        type: LOGIN_FAILED
+        type: LOGIN_FAILED,
+        payload: data
     }
 }
 

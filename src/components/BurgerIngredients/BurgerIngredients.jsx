@@ -1,21 +1,22 @@
 import burgerIngredientsStyles from './BurgerIngredients.module.css'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useState, useRef, useMemo, useEffect } from 'react'
-import IngredientDetails from '../IngredientDetails/IngredientDetails'
-import { useSelector, useDispatch } from 'react-redux';
-import { addCurrentIngredient, removeCurrentIngredient } from '../../services/actions/actions'
-import Modal from '../Modal/Modal'
+
+import { useSelector } from 'react-redux';
+
+
+import { useNavigate, useLocation } from 'react-router-dom'
 
 import DraggableIngredient from '../DraggableIngredient/DraggableIngredient'
 
 
 function BurgerIngredients() {
     const [current, setCurrent] = useState('bun')
-    const [isModalVisible, setIsModalVisible] = useState(false)
+
     const { ingredients } = useSelector(store => store.ingredientsReducer)
     const countInfo = useSelector(store => store.ingredientCountersReducer)
-
-    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const location = useLocation()
 
     const handleTabClick = (current) => {
         switch (current) {
@@ -41,14 +42,8 @@ function BurgerIngredients() {
     }
     ), [ingredients]);
 
-    const onModalClose = () => {
-        setIsModalVisible(false)
-        dispatch(removeCurrentIngredient())
-    }
-
     const openIngredientModal = (ingredient) => {
-        dispatch(addCurrentIngredient(ingredient))
-        setIsModalVisible(true)
+        navigate(`/ingredients/${ingredient._id}`, { state: { background: location } })
     }
 
     const bunRef = useRef(null)
@@ -61,7 +56,6 @@ function BurgerIngredients() {
         parentRect.current = tabRef.current.getBoundingClientRect()
     }, [])
 
-    const modalOptions = { onClose: onModalClose, title: 'Детали ингредиента' }
 
 
     const handleScroll = () => {
@@ -119,9 +113,6 @@ function BurgerIngredients() {
                     ))}
                 </div>
             </div>
-            {isModalVisible && <Modal modalOptions={modalOptions}>
-                <IngredientDetails />
-            </Modal>}
         </div>
     )
 }

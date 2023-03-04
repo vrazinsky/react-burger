@@ -10,6 +10,7 @@ export function ForgotPasswordPage() {
     const dispatch = useDispatch()
     const { user, getUserSuccess, getUserFailed } = useSelector(store => store.authReducer);
     const { passwordResetSuccess } = useSelector((store) => store.passwordResetReducer)
+
     if (!getUserSuccess && !getUserFailed) {
         return null;
     }
