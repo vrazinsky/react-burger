@@ -25,19 +25,19 @@ import {
 
 const authInitialState = {
     user: null,
-    registerRequest: false,
+    register: false,
     registerFailed: false,
     registerSuccess: false,
-    loginRequest: false,
+    login: false,
     loginFailed: false,
     loginSoccess: false,
-    logoutRequest: false,
+    logout: false,
     logoutFailed: false,
     logoutSuccess: false,
-    getUserRequest: false,
+    getUser: false,
     getUserSuccess: false,
     getUserFailed: false,
-    patchUserRequest: false,
+    patchUser: false,
     patchUserSuccess: false,
     patchUserFailed: false
 }
@@ -126,21 +126,21 @@ export const authReducer = (state = authInitialState, action) => {
                 ...state,
                 user: action.payload.user,
                 registerSuccess: true,
-                registerRequest: false,
+                register: false,
                 registerFailed: false
             }
         case REGISTER:
             return {
                 ...state,
                 registerSuccess: false,
-                registerRequest: true,
+                register: true,
                 registerFailed: false
             }
         case REGISTER_FAILED:
             return {
                 ...state,
                 registerSuccess: false,
-                registerRequest: false,
+                register: false,
                 registerFailed: true
             }
         case LOGIN_SUCCESS:
@@ -148,21 +148,21 @@ export const authReducer = (state = authInitialState, action) => {
                 ...state,
                 user: action.payload.user,
                 loginSoccess: true,
-                loginRequest: false,
+                login: false,
                 loginFailed: false
             }
         case LOGIN:
             return {
                 ...state,
                 loginSoccess: false,
-                loginRequest: true,
+                login: true,
                 loginFailed: false
             }
         case LOGIN_FAILED:
             return {
                 ...state,
                 loginSoccess: false,
-                loginRequest: false,
+                login: false,
                 loginFailed: true
             }
         case LOGOUT_SUCCESS:
@@ -190,7 +190,7 @@ export const authReducer = (state = authInitialState, action) => {
         case GET_USER:
             return {
                 ...state,
-                getUserRequest: true,
+                getUser: true,
                 getUserSuccess: false,
                 getUserFailed: false
             }
@@ -198,21 +198,21 @@ export const authReducer = (state = authInitialState, action) => {
             return {
                 ...state,
                 user: action.payload,
-                getUserRequest: false,
+                getUser: false,
                 getUserSuccess: true,
                 getUserFailed: false
             }
         case GET_USER_FAILED:
             return {
                 ...state,
-                getUserRequest: false,
+                getUser: false,
                 getUserSuccess: false,
                 getUserFailed: true
             }
         case PATCH_USER:
             return {
                 ...state,
-                patchUserRequest: true,
+                patchUser: true,
                 patchUserSuccess: false,
                 patchUserFailed: false
             }
@@ -220,14 +220,14 @@ export const authReducer = (state = authInitialState, action) => {
             return {
                 ...state,
                 user: action.payload.user,
-                patchUserRequest: false,
+                patchUser: false,
                 patchUserSuccess: true,
                 patchUserFailed: false
             }
         case PATCH_USER_FAILED:
             return {
                 ...state,
-                patchUserRequest: false,
+                patchUser: false,
                 patchUserSuccess: false,
                 patchUserFailed: true
             }

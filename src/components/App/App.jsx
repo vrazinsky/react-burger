@@ -11,7 +11,6 @@ import { getItem } from '../../utils/localStorage'
 export default function App() {
   const dispatch = useDispatch()
 
-
   useEffect(() => {
     dispatch(getIngredientsThunk())
     if (getItem('burgerAccessToken'))
