@@ -22,9 +22,7 @@ export default function RoutesContainer() {
                 <Route path="*" element={<NotFound404 />} />
             </Routes>
             {background && <Routes>
-                <Route path="/" element={<HomePage />}>
-                    <Route path="ingredients/:id" element={<IngredientModal />} />
-                </Route>
+                <Route path="ingredients/:id" element={<IngredientModal />} />
             </Routes>}
 
         </>

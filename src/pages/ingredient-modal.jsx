@@ -1,7 +1,7 @@
 
 import Modal from '../components/Modal/Modal'
 import { useNavigate } from 'react-router-dom'
-import { IngredientPage } from '../pages'
+import IngredientDetails from '../components/IngredientDetails/IngredientDetails'
 
 export function IngredientModal() {
     const navigate = useNavigate()
@@ -13,7 +13,7 @@ export function IngredientModal() {
 
     return (
         <Modal modalOptions={modalOptions}>
-            <IngredientPage hideTitle={true} />
+            <IngredientDetails hideTitle={true} />
         </Modal>
     )
 }

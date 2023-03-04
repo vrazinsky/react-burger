@@ -8,10 +8,10 @@ import { useDispatch, useSelector } from 'react-redux'
 export function ForgotPasswordPage() {
     const [email, setEmail] = useState('')
     const dispatch = useDispatch()
-    const { user, getUser, getUserSuccess, getUserFailed } = useSelector(store => store.authReducer);
+    const { user, getUser } = useSelector(store => store.authReducer);
     const navigate = useNavigate()
 
-    if (getUser && !getUserSuccess && !getUserFailed) {
+    if (getUser) {
         return null;
     }
     if (user) {

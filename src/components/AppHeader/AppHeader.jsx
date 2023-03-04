@@ -31,7 +31,6 @@ function AppHeader() {
                         </div>
                     </NavLink>
                 </div>
-
                 <div>
                     <Logo />
                 </div>

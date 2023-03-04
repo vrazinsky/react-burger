@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 export function ResetPasswordPage() {
     const [password, setPassword] = useState('')
     const [token, setToken] = useState('')
-    const { user, getUser, getUserSuccess, getUserFailed } = useSelector(store => store.authReducer);
+    const { user, getUser } = useSelector(store => store.authReducer);
     const { sendResetEmailSuccess } = useSelector((store) => store.sendResetEmailReducer)
 
     const dispatch = useDispatch()
@@ -20,7 +20,7 @@ export function ResetPasswordPage() {
         }
         dispatch(resetPasswordThunk({ password, token }))
     }
-    if (getUser && !getUserSuccess && !getUserFailed) {
+    if (getUser) {
         return null;
     }
     if (!sendResetEmailSuccess) {

@@ -89,8 +89,8 @@ export function sendResetEmailThunk({ data, callback }) {
         sendResetEmailRequest(data)
             .then(res => {
                 if (res) {
-                    callback()
                     dispatch(sendResetEmailSuccess(res))
+                    callback()
                 } else {
                     dispatch(sendResetEmailFailed())
                 }

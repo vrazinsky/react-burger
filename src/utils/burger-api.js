@@ -41,6 +41,7 @@ export const logoutRequest = () => {
 }
 
 export const sendResetEmailRequest = (data) => {
+  console.log(data)
   const options = {
     method: 'post',
     headers: { 'Content-Type': 'application/json' },

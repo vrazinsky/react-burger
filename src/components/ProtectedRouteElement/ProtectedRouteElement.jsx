@@ -4,7 +4,7 @@ import { addReturnUrl } from '../../services/actions/auth-actions'
 import { useEffect } from 'react'
 
 export default function ProtectedRouteElement({ element }) {
-    const { user, getUser, getUserSuccess, getUserFailed } = useSelector(store => store.authReducer);
+    const { user, getUser } = useSelector(store => store.authReducer);
     const location = useLocation();
     const dispatch = useDispatch();
     //need to be done only once
@@ -12,7 +12,7 @@ export default function ProtectedRouteElement({ element }) {
         dispatch(addReturnUrl(location.pathname))
     }, [])
 
-    if (getUser && !getUserSuccess && !getUserFailed) {
+    if (getUser) {
         return null;
     }
 
