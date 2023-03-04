@@ -12,7 +12,8 @@ export function RegisterPage() {
     const dispatch = useDispatch()
     const { user, getUser, getUserSuccess, getUserFailed } = useSelector(store => store.authReducer);
 
-    const handleRegisterClick = () => {
+    const handleRegisterSubmit = (e) => {
+        e.preventDefault()
         if (!name || !email || !password) {
             return
         }
@@ -26,43 +27,46 @@ export function RegisterPage() {
     }
 
     return (
-        <div className={registerStyles.wrapper + ' mt-20'}>
+        <div className='mt-20'>
             <div className='text text_type_main-large'>Регистрация</div>
-            <div className='mt-6'>
-                <Input
-                    placeholder={'Имя'}
-                    type={'text'}
-                    value={name}
-                    onChange={e => setName(e.target.value)}
-                    size={'default'}
-                />
-            </div>
-            <div className='mt-6'>
-                <Input
-                    placeholder={'E-mail'}
-                    type={'email'}
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                    size={'default'}
-                />
-            </div>
-            <div className='mt-6'>
-                <PasswordInput
-                    placeholder={'Пароль'}
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                />
-            </div>
-            <div className='mt-6'>
-                <Button
-                    htmlType="submit"
-                    type="primary"
-                    size="large"
-                    onClick={handleRegisterClick}
-                >
-                    Зарегистрироваться
-                </Button>
-            </div>
+            <form onSubmit={handleRegisterSubmit}>
+                <div className={registerStyles.wrapper}>
+                    <div className='mt-6'>
+                        <Input
+                            placeholder={'Имя'}
+                            type={'text'}
+                            value={name}
+                            onChange={e => setName(e.target.value)}
+                            size={'default'}
+                        />
+                    </div>
+                    <div className='mt-6'>
+                        <Input
+                            placeholder={'E-mail'}
+                            type={'email'}
+                            value={email}
+                            onChange={e => setEmail(e.target.value)}
+                            size={'default'}
+                        />
+                    </div>
+                    <div className='mt-6'>
+                        <PasswordInput
+                            placeholder={'Пароль'}
+                            value={password}
+                            onChange={e => setPassword(e.target.value)}
+                        />
+                    </div>
+                    <div className='mt-6'>
+                        <Button
+                            htmlType="submit"
+                            type="primary"
+                            size="large"
+                        >
+                            Зарегистрироваться
+                        </Button>
+                    </div>
+                </div>
+            </form>
             <div className={registerStyles.text_block + ' mt-20'}>
                 <div className='text text_type_main-small text_color_inactive'>Уже зарегистрированы?</div>
                 <div className={registerStyles.link + ' ml-1 text text_type_main-small'}><Link className="no_style" to='/login'>Войти</Link></div>

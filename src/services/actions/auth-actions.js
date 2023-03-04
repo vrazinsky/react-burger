@@ -5,9 +5,9 @@ import {
     LOGIN,
     LOGIN_SUCCESS,
     LOGIN_FAILED,
-    PASSWORD_RESET,
-    PASSWORD_RESET_FAILED,
-    PASSWORD_RESET_SUCCESS,
+    SEND_RESET_EMAIL,
+    SEND_RESET_EMAIL_FAILED,
+    SEND_RESET_EMAIL_SUCCESS,
     RESET_PASSWORD,
     RESET_PASSWORD_FAILED,
     RESET_PASSWORD_SUCCESS,
@@ -80,21 +80,21 @@ export function logoutFailed() {
     }
 }
 
-export function passwordReset() {
+export function sendResetEmail() {
     return {
-        type: PASSWORD_RESET
+        type: SEND_RESET_EMAIL
     }
 }
 
-export function passwordResetSuccess() {
+export function sendResetEmailSuccess() {
     return {
-        type: PASSWORD_RESET_SUCCESS,
+        type: SEND_RESET_EMAIL_SUCCESS,
     }
 }
 
-export function passwordResetFailed() {
+export function sendResetEmailFailed() {
     return {
-        type: PASSWORD_RESET_FAILED
+        type: SEND_RESET_EMAIL_FAILED
     }
 }
 

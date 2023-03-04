@@ -40,11 +40,11 @@ export const logoutRequest = () => {
   return request('auth/logout', options)
 }
 
-export const passwordResetRequest = (data) => {
+export const sendResetEmailRequest = (data) => {
   const options = {
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
+    body: JSON.stringify({ data })
   }
   return request('password-reset', options)
 }

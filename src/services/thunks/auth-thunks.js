@@ -8,9 +8,9 @@ import {
     resetPassword,
     resetPasswordFailed,
     resetPasswordSuccess,
-    passwordReset,
-    passwordResetFailed,
-    passwordResetSuccess,
+    sendResetEmail,
+    sendResetEmailFailed,
+    sendResetEmailSuccess,
     getUser,
     getUserFailed,
     getUserSuccess,
@@ -21,7 +21,7 @@ import {
     logoutFailed,
     logoutSuccess
 } from '../actions/auth-actions'
-import { registerRequest, loginRequest, passwordResetRequest, resetPasswordRequest, getUserRequest, patchUserRequest, logoutRequest } from '../../utils/burger-api'
+import { registerRequest, loginRequest, sendResetEmailRequest, resetPasswordRequest, getUserRequest, patchUserRequest, logoutRequest } from '../../utils/burger-api'
 import { setItem } from '../../utils/localStorage'
 
 export function registerThunk(data) {
@@ -82,19 +82,21 @@ export function logoutThunk(data) {
     }
 }
 
-export function passwordResetThunk(data) {
+export function sendResetEmailThunk({ data, callback }) {
+    console.log(data, callback)
     return function (dispatch) {
-        dispatch(passwordReset())
-        passwordResetRequest(data)
+        dispatch(sendResetEmail())
+        sendResetEmailRequest(data)
             .then(res => {
                 if (res) {
-                    dispatch(passwordResetSuccess(res))
+                    callback()
+                    dispatch(sendResetEmailSuccess(res))
                 } else {
-                    dispatch(passwordResetFailed())
+                    dispatch(sendResetEmailFailed())
                 }
             })
             .catch(err => {
-                dispatch(passwordResetFailed())
+                dispatch(sendResetEmailFailed())
             })
     }
 }
@@ -105,6 +107,7 @@ export function resetPasswordThunk(data) {
         resetPasswordRequest(data)
             .then(res => {
                 if (res) {
+                    alert('Пароль успешно восстановлен')
                     dispatch(resetPasswordSuccess(res))
                 } else {
                     dispatch(resetPasswordFailed())

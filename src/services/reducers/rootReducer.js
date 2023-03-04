@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { constructorItemsReducer, currentIngredientReducer, ingredientsReducer, orderDetailsReducer, ingredientCountersReducer } from './reducers'
-import { authReducer, returnUrlReducer, passwordResetReducer, resetPasswordReducer } from './auth-reducers'
+import { authReducer, returnUrlReducer, sendResetEmailReducer, resetPasswordReducer } from './auth-reducers'
 
 export const rootReducer = combineReducers({
     constructorItemsReducer,
@@ -10,6 +10,6 @@ export const rootReducer = combineReducers({
     ingredientCountersReducer,
     authReducer,
     returnUrlReducer,
-    passwordResetReducer,
+    sendResetEmailReducer,
     resetPasswordReducer
 }) 

@@ -12,7 +12,8 @@ export function LoginPage() {
     const { user } = useSelector(store => store.authReducer);
     const returnUrl = useSelector(store => store.returnUrlReducer.url)
 
-    const handleLoginClick = () => {
+    const handleLoginSubmit = (e) => {
+        e.preventDefault();
         if (!email || !password) {
             return
         }
@@ -24,34 +25,37 @@ export function LoginPage() {
     }
 
     return (
-        <div className={loginStyles.wrapper + ' mt-20'}>
+        <div className='mt-20'>
             <div className='text text_type_main-large'>Вход</div>
-            <div className='mt-6'>
-                <Input
-                    placeholder={'E-mail'}
-                    type={'email'}
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                    size={'default'}
-                />
-            </div>
-            <div className='mt-6'>
-                <PasswordInput
-                    placeholder={'Пароль'}
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                />
-            </div>
-            <div className='mt-6'>
-                <Button
-                    htmlType="submit"
-                    type="primary"
-                    size="large"
-                    onClick={handleLoginClick}
-                >
-                    Войти
-                </Button>
-            </div>
+            <form onSubmit={handleLoginSubmit}>
+                <div className={loginStyles.wrapper}>
+                    <div className='mt-6'>
+                        <Input
+                            placeholder={'E-mail'}
+                            type={'email'}
+                            value={email}
+                            onChange={e => setEmail(e.target.value)}
+                            size={'default'}
+                        />
+                    </div>
+                    <div className='mt-6'>
+                        <PasswordInput
+                            placeholder={'Пароль'}
+                            value={password}
+                            onChange={e => setPassword(e.target.value)}
+                        />
+                    </div>
+                    <div className='mt-6'>
+                        <Button
+                            htmlType="submit"
+                            type="primary"
+                            size="large"
+                        >
+                            Войти
+                        </Button>
+                    </div>
+                </div>
+            </form>
             <div className={loginStyles.text_block + ' mt-20'}>
                 <div className='text text_type_main-small text_color_inactive'>Вы - новый пользователь?</div>
                 <div className={loginStyles.link + ' ml-1 text text_type_main-small'}><Link className="no_style" to='/register'>Зарегистрироваться</Link></div>

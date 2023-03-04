@@ -5,9 +5,9 @@ import {
     LOGIN,
     LOGIN_SUCCESS,
     LOGIN_FAILED,
-    PASSWORD_RESET,
-    PASSWORD_RESET_FAILED,
-    PASSWORD_RESET_SUCCESS,
+    SEND_RESET_EMAIL,
+    SEND_RESET_EMAIL_FAILED,
+    SEND_RESET_EMAIL_SUCCESS,
     RESET_PASSWORD,
     RESET_PASSWORD_FAILED,
     RESET_PASSWORD_SUCCESS,
@@ -48,10 +48,10 @@ const resetPasswordInitialState = {
     resetPasswordSuccess: false
 }
 
-const passwordResetInitialState = {
-    passwordReset: false,
-    passwordResetFailed: false,
-    passwordResetSuccess: false
+const sendResetEmailInitialState = {
+    sendResetEmail: false,
+    sendResetEmailFailed: false,
+    sendResetEmailSuccess: false
 }
 
 const returnUrlInitialState = {
@@ -69,25 +69,25 @@ export const returnUrlReducer = (state = returnUrlInitialState, action) => {
     }
 }
 
-export const passwordResetReducer = (state = passwordResetInitialState, action) => {
+export const sendResetEmailReducer = (state = sendResetEmailInitialState, action) => {
     switch (action.type) {
-        case PASSWORD_RESET_SUCCESS:
+        case SEND_RESET_EMAIL_SUCCESS:
             return {
-                passwordReset: false,
-                passwordResetFailed: false,
-                passwordResetSuccess: true
+                sendResetEmail: false,
+                sendResetEmailFailed: false,
+                sendResetEmailSuccess: true
             }
-        case PASSWORD_RESET:
+        case SEND_RESET_EMAIL:
             return {
-                passwordReset: true,
-                passwordResetFailed: false,
-                passwordResetSuccess: false
+                sendResetEmail: true,
+                sendResetEmailFailed: false,
+                sendResetEmailSuccess: false
             }
-        case PASSWORD_RESET_FAILED:
+        case SEND_RESET_EMAIL_FAILED:
             return {
-                passwordReset: false,
-                passwordResetFailed: true,
-                passwordResetSuccess: false
+                sendResetEmail: false,
+                sendResetEmailtFailed: true,
+                sendResetEmailSuccess: false
             }
         default:
             return state

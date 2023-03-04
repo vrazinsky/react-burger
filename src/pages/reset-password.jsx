@@ -9,10 +9,12 @@ export function ResetPasswordPage() {
     const [password, setPassword] = useState('')
     const [token, setToken] = useState('')
     const { user, getUser, getUserSuccess, getUserFailed } = useSelector(store => store.authReducer);
-    const { passwordResetSuccess } = useSelector((store) => store.passwordResetReducer)
+    const { sendResetEmailSuccess } = useSelector((store) => store.sendResetEmailReducer)
 
     const dispatch = useDispatch()
-    const handleResetPasswordClick = () => {
+
+    const handleResetPasswordSubmit = (e) => {
+        e.preventDefault()
         if (!password || !token) {
             return
         }
@@ -21,7 +23,7 @@ export function ResetPasswordPage() {
     if (getUser && !getUserSuccess && !getUserFailed) {
         return null;
     }
-    if (!passwordResetSuccess) {
+    if (!sendResetEmailSuccess) {
         return <Navigate to="/forgot-password" replace />
     }
 
@@ -30,38 +32,41 @@ export function ResetPasswordPage() {
     }
 
     return (
-        <div className={resetPasswordStyles.wrapper + ' mt-20'}>
+        <div className='mt-20'>
             <div className='text text_type_main-large'>Восстановление пароля</div>
-            <div className='mt-6'>
-                <PasswordInput
-                    placeholder={'Введите новый пароль'}
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                />
-            </div>
-            <div className='mt-6'>
-                <Input
-                    placeholder={'Введите код из письма'}
-                    type={'text'}
-                    value={token}
-                    onChange={e => setToken(e.target.value)}
-                    size={'default'}
-                />
-            </div>
-            <div className='mt-6'>
-                <Button
-                    htmlType="submit"
-                    type="primary"
-                    size="large"
-                    onClick={handleResetPasswordClick}
-                >
-                    Сохранить
-                </Button>
-            </div>
+            <form onSubmit={handleResetPasswordSubmit}>
+                <div className={resetPasswordStyles.wrapper}>
+                    <div className='mt-6'>
+                        <PasswordInput
+                            placeholder={'Введите новый пароль'}
+                            value={password}
+                            onChange={e => setPassword(e.target.value)}
+                        />
+                    </div>
+                    <div className='mt-6'>
+                        <Input
+                            placeholder={'Введите код из письма'}
+                            type={'text'}
+                            value={token}
+                            onChange={e => setToken(e.target.value)}
+                            size={'default'}
+                        />
+                    </div>
+                    <div className='mt-6'>
+                        <Button
+                            htmlType="submit"
+                            type="primary"
+                            size="large"
+                        >
+                            Сохранить
+                        </Button>
+                    </div>
+                </div>
+            </form>
             <div className={resetPasswordStyles.text_block + ' mt-20'}>
                 <div className='text text_type_main-small text_color_inactive'>Вспомнили пароль?</div>
                 <div className={resetPasswordStyles.link + ' ml-1 text text_type_main-small'}><Link className="no_style" to='/login'>Войти</Link></div>
             </div>
-        </div>
+        </div >
     )
 }
