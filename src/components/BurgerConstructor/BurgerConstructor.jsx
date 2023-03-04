@@ -11,6 +11,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { useDndScrolling } from 'react-dnd-scrolling';
 import Modal from '../Modal/Modal'
 import { ProgressBar } from 'react-loader-spinner'
+import { useNavigate } from 'react-router-dom';
+import { addReturnUrl } from '../../services/actions/auth-actions'
 
 function BurgerConstructor() {
     const storeIngredients = useSelector(store => store.constructorItemsReducer.constructorIngredients)
@@ -19,6 +21,8 @@ function BurgerConstructor() {
     const [isModalVisible, setIsModalVisible] = useState(false)
     const dispatch = useDispatch()
     const { orderDetailsRequest, orderDetails } = useSelector(store => store.orderDetailsReducer)
+    const { user } = useSelector(store => store.authReducer);
+    const navigate = useNavigate()
 
     const ref = useRef(null);
     useDndScrolling(ref)
@@ -92,6 +96,11 @@ function BurgerConstructor() {
     const modalOptions = { onClose: onModalClose }
 
     const handleOrderClick = (e) => {
+        if (!user) {
+            dispatch(addReturnUrl('/'))
+            navigate('/login')
+            return;
+        }
         if (!bun) {
             return;
         }

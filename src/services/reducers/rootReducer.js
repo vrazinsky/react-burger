@@ -1,10 +1,15 @@
 import { combineReducers } from 'redux';
 import { constructorItemsReducer, currentIngredientReducer, ingredientsReducer, orderDetailsReducer, ingredientCountersReducer } from './reducers'
+import { authReducer, returnUrlReducer, sendResetEmailReducer, resetPasswordReducer } from './auth-reducers'
 
 export const rootReducer = combineReducers({
     constructorItemsReducer,
     currentIngredientReducer,
     ingredientsReducer,
     orderDetailsReducer,
-    ingredientCountersReducer
+    ingredientCountersReducer,
+    authReducer,
+    returnUrlReducer,
+    sendResetEmailReducer,
+    resetPasswordReducer
 }) 

@@ -13,14 +13,19 @@ code {
     monospace;
 }
 
+.no_style {
+  text-decoration: inherit;
+  color: inherit;
+}
+
 ::-webkit-scrollbar {
   width: 8px;
 }
 
-::-webkit-scrollbar-thumb  {
-  background: #8585AD;  
+::-webkit-scrollbar-thumb {
+  background: #8585AD;
 }
 
 ::-webkit-scrollbar-track {
-  background: #2F2F37;  
+  background: #2F2F37;
 }
