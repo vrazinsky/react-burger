@@ -82,11 +82,10 @@ export function logoutThunk(data) {
     }
 }
 
-export function sendResetEmailThunk({ data, callback }) {
-    console.log(data, callback)
+export function sendResetEmailThunk({ email, callback }) {
     return function (dispatch) {
         dispatch(sendResetEmail())
-        sendResetEmailRequest(data)
+        sendResetEmailRequest({ email })
             .then(res => {
                 if (res) {
                     dispatch(sendResetEmailSuccess(res))

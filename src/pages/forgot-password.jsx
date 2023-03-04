@@ -27,7 +27,7 @@ export function ForgotPasswordPage() {
         if (!email) {
             return
         }
-        dispatch(sendResetEmailThunk({ data: { email }, callback: redirectToResetPassword }))
+        dispatch(sendResetEmailThunk({ email, callback: redirectToResetPassword }))
     }
 
 
