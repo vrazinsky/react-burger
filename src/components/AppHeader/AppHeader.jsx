@@ -1,6 +1,6 @@
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import appHeaderStyles from './AppHeader.module.css'
-import { NavLink, useLocation } from 'react-router-dom'
+import { NavLink, Link, useLocation } from 'react-router-dom'
 import { activePaths } from '../../utils/paths'
 function AppHeader() {
     const location = useLocation()
@@ -32,7 +32,7 @@ function AppHeader() {
                     </NavLink>
                 </div>
                 <div>
-                    <Logo />
+                    <Link to='/'><Logo /></Link>
                 </div>
                 <NavLink to='/profile' className={isActiveClass('profile').navClass}>
                     <div className={appHeaderStyles.button + ' pl-5 pr-5'}>
