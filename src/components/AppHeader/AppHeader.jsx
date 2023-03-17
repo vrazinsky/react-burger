@@ -1,28 +1,45 @@
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import appHeaderStyles from './AppHeader.module.css'
+import { NavLink, Link, useLocation } from 'react-router-dom'
+import { activePaths } from '../../utils/paths'
 function AppHeader() {
+    const location = useLocation()
+
+    const isActiveClass = (navName) => {
+        let isActive = false;
+        activePaths[navName].forEach((pathObj) => {
+            if ((pathObj.exact && location.pathname === pathObj.path) || (!pathObj.exact && location.pathname.includes(pathObj.path))) {
+                isActive = true;
+            }
+        })
+        return { navClass: isActive ? 'no_style ml-2' : 'no_style ml-2 text_color_inactive', iconType: isActive ? 'primary' : 'secondary' }
+    }
     return (
         <header className={appHeaderStyles.header}>
             <div className={appHeaderStyles.header_wrapper + ' pt-4 pb-4'}>
                 <div className={appHeaderStyles.toolbar}>
+                    <NavLink to='/' className={isActiveClass('home').navClass}>
+                        <div className={appHeaderStyles.button + ' pl-5 pr-5'}>
+                            <BurgerIcon type={isActiveClass('home').iconType} />
+                            <div>Конструктор</div>
+                        </div>
+                    </NavLink>
+                    <NavLink to='/orders-feed' className={isActiveClass('ordersFeed').navClass}>
+                        <div className={appHeaderStyles.button + ' pl-5 pr-5'}>
+                            <ListIcon type={isActiveClass('ordersFeed').iconType} />
+                            <div>Лента заказов</div>
+                        </div>
+                    </NavLink>
+                </div>
+                <div>
+                    <Link to='/'><Logo /></Link>
+                </div>
+                <NavLink to='/profile' className={isActiveClass('profile').navClass}>
                     <div className={appHeaderStyles.button + ' pl-5 pr-5'}>
-                        <BurgerIcon />
-                        <div className='ml-2 text text_type_main-default'><a href='/' className={appHeaderStyles.nostyle}>Конструктор</a></div>
+                        <ProfileIcon type={isActiveClass('profile').iconType} />
+                        <div>Личный кабинет</div>
                     </div>
-                    <div className={appHeaderStyles.button + ' ' + appHeaderStyles.secondary + ' pl-5 pr-5'}>
-                        <ListIcon type='secondary' />
-                        <div className='ml-2 text text_type_main-default'><a href='/' className={appHeaderStyles.nostyle}>Лента заказов</a></div>
-                    </div>
-                </div>
-                <div>
-                    <Logo />
-                </div>
-                <div>
-                    <div className={appHeaderStyles.button + ' ' + appHeaderStyles.secondary + ' pl-5 pr-5'}>
-                        <ProfileIcon type='secondary' />
-                        <div className='ml-2 text text_type_main-default'><a href='/' className={appHeaderStyles.nostyle}>Личный кабинет</a></div>
-                    </div>
-                </div>
+                </NavLink>
             </div>
         </header>
     )

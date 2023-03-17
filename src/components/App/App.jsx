@@ -1,46 +1,31 @@
-import { useEffect } from 'react';
-import appStyles from './App.module.css';
+import { BrowserRouter as Router } from 'react-router-dom';
+import appStyles from './App.module.css'
 import AppHeader from '../AppHeader/AppHeader'
-import BurgerIngredients from '../BurgerIngredients/BurgerIngredients'
-import BurgerConstructor from '../BurgerConstructor/BurgerConstructor'
-
 import { useDispatch } from 'react-redux';
+import { getUserThunk } from '../../services/thunks/auth-thunks'
 import { getIngredientsThunk } from '../../services/thunks/thunks'
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+import { useEffect } from 'react'
+import RoutesContainer from '../../components/RoutesContainer/RoutesContainer'
+import { getItem } from '../../utils/localStorage'
 
-
-function App() {
+export default function App() {
   const dispatch = useDispatch()
+
   useEffect(() => {
     dispatch(getIngredientsThunk())
+    if (getItem('burgerAccessToken'))
+      dispatch(getUserThunk())
   }, [dispatch])
 
-
   return (
+
     <>
-      <AppHeader />
-      <main>
-        <DndProvider backend={HTML5Backend}>
-          <section className={appStyles.section}>
-            <div className={appStyles.wrapper}>
-              <div>
-
-                <div className='text text_type_main-large mt-10 mb-5'>
-                  Соберите Бургер
-                </div>
-                <BurgerIngredients />
-              </div>
-              <div>
-                <BurgerConstructor />
-              </div>
-            </div>
-
-          </section>
-        </DndProvider>
-      </main>
+      <Router>
+        <AppHeader />
+        <main className={appStyles.main}>
+          <RoutesContainer />
+        </main>
+      </Router>
     </>
   );
 }
-
-export default App;
