@@ -1,9 +1,10 @@
 import { request } from './request'
 import { getItem } from './localStorage'
+import { TUserData, TLoginData, TResetEmailData, TResetData, TPatchUserData } from '../types/types'
 
 export const getIngredientsRequest = () => request("ingredients");
 
-export const getOrderDetailsRequest = (ids) => {
+export const getOrderDetailsRequest = (ids: Array<string>) => {
   const body = { 'ingredients': ids };
   const options = {
     method: 'post',
@@ -13,20 +14,20 @@ export const getOrderDetailsRequest = (ids) => {
   return request('orders', options)
 }
 
-export const registerRequest = (data) => {
+export const registerRequest = (userData: TUserData) => {
   const options = {
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
+    body: JSON.stringify(userData)
   }
   return request('auth/register', options)
 }
 
-export const loginRequest = (data) => {
+export const loginRequest = (loginData: TLoginData) => {
   const options = {
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
+    body: JSON.stringify(loginData)
   }
   return request('auth/login', options)
 }
@@ -40,20 +41,20 @@ export const logoutRequest = () => {
   return request('auth/logout', options)
 }
 
-export const sendResetEmailRequest = (data) => {
+export const sendResetEmailRequest = (resetEmailData: TResetEmailData) => {
   const options = {
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
+    body: JSON.stringify(resetEmailData)
   }
   return request('password-reset', options)
 }
 
-export const resetPasswordRequest = (data) => {
+export const resetPasswordRequest = (resetData: TResetData) => {
   const options = {
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
+    body: JSON.stringify(resetData)
   }
   return request('password-reset/reset', options)
 }
@@ -66,11 +67,11 @@ export const getUserRequest = () => {
   return request('auth/user', options, true)
 }
 
-export const patchUserRequest = (data) => {
+export const patchUserRequest = (patchUserData: TPatchUserData) => {
   const options = {
     method: 'PATCH',
     headers: { 'Content-type': 'application/json; charset=UTF-8', 'Authorization': getItem('burgerAccessToken') },
-    body: JSON.stringify(data)
+    body: JSON.stringify(patchUserData)
   }
   return request('auth/user', options, true)
 }

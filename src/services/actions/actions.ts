@@ -16,8 +16,9 @@ import {
     DECREASE_INGREDIENT_COUNTER,
     CLEAR_INGREDIENT_COUNTER
 } from '../../utils/action-types'
+import { TIngredient, TOrder } from '../../types/types'
 
-export function addBunToCunstructor(bun) {
+export function addBunToCunstructor(bun: TIngredient) {
     return {
         type: ADD_BUN_TO_CONSTRUCTOR,
         payload: bun
@@ -31,14 +32,14 @@ export function removeBunFromConstructor() {
     }
 }
 
-export function addCurrentIngredient(ingredient) {
+export function addCurrentIngredient(ingredient: TIngredient) {
     return {
         type: ADD_CURRENT_INGREDIENT,
         payload: ingredient
     }
 }
 
-export function addInnerIngredientToConstructor(ingredient) {
+export function addInnerIngredientToConstructor(ingredient: TIngredient) {
     return {
         type: ADD_INNER_INGREDIENT_TO_CONSTRUCTOR,
         payload: ingredient
@@ -52,7 +53,7 @@ export function removeCurrentIngredient() {
     }
 }
 
-export function changeInnerIngredients(innerIngredients) {
+export function changeInnerIngredients(innerIngredients: Array<TIngredient>) {
     return {
         type: CHANGE_INNER_INGREDIENTS,
         payload: innerIngredients
@@ -65,7 +66,7 @@ export function getIngredients() {
     }
 }
 
-export function getIngredientsSuccess(data) {
+export function getIngredientsSuccess(data: Array<TIngredient> = []) {
     return {
         type: GET_INGREDIENTS_SUCCESS,
         payload: data
@@ -84,7 +85,7 @@ export function getOrderDetails() {
     }
 }
 
-export function getOrderDetailsSuccess(data) {
+export function getOrderDetailsSuccess(data: TOrder | undefined) {
     return {
         type: GET_ORDER_DETAILS_SUCCESS,
         payload: data
@@ -103,14 +104,14 @@ export function removeOrderDetails() {
     }
 }
 
-export function increaseIngredientCounter(id) {
+export function increaseIngredientCounter(id: string) {
     return {
         type: INCREASE_INGREDIENT_COUNTER,
         payload: id
     }
 }
 
-export function decreaseIngredientCounter(id) {
+export function decreaseIngredientCounter(id: string) {
     return {
         type: DECREASE_INGREDIENT_COUNTER,
         payload: id
