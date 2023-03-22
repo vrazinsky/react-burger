@@ -3,16 +3,16 @@ import { Input, Button, PasswordInput } from '@ya.praktikum/react-developer-burg
 import { useState } from 'react'
 import { Link, Navigate } from "react-router-dom";
 import { loginThunk } from '../services/thunks/auth-thunks'
-import { useDispatch, useSelector } from 'react-redux'
+import { useAppSelector, useAppDispatch } from '../hooks/hooks'
 
 export function LoginPage() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const dispatch = useDispatch()
-    const { user } = useSelector(store => store.authReducer);
-    const returnUrl = useSelector(store => store.returnUrlReducer.url)
+    const dispatch = useAppDispatch()
+    const { user } = useAppSelector(store => store.authReducer);
+    const returnUrl = useAppSelector(store => store.returnUrlReducer.url)
 
-    const handleLoginSubmit = (e) => {
+    const handleLoginSubmit = (e: React.SyntheticEvent) => {
         e.preventDefault();
         if (!email || !password) {
             return

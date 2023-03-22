@@ -1,11 +1,14 @@
 import { Navigate, useLocation } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { addReturnUrl } from '../../services/actions/auth-actions'
-import { useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
+import { useEffect, useState, FunctionComponent } from 'react'
+import { useAppSelector } from '../../hooks/hooks'
 
-function ProtectedRouteElement({ element }) {
-    const { user, getUser } = useSelector(store => store.authReducer);
+type TProtectedRouteElement = {
+    element: JSX.Element;
+}
+const ProtectedRouteElement: FunctionComponent<TProtectedRouteElement> = ({ element }) => {
+    const { user, getUser } = useAppSelector(store => store.authReducer);
     const [userNotLoaded, setUserNotLoaded] = useState(true)
     const location = useLocation();
     const dispatch = useDispatch();
@@ -21,10 +24,6 @@ function ProtectedRouteElement({ element }) {
     } else {
         return user ? element : <Navigate to="/login" replace />;
     }
-}
-
-ProtectedRouteElement.propTypes = {
-    element: PropTypes.element.isRequired
 }
 
 export default ProtectedRouteElement

@@ -1,12 +1,17 @@
 import ingredientDetailsStyles from './IngredientDetails.module.css'
-import { useSelector } from 'react-redux'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, FunctionComponent } from 'react'
 import { useParams } from 'react-router-dom'
 import PropTypes from 'prop-types';
+import { useAppSelector } from '../../hooks/hooks'
+import { TIngredient } from '../../types/types'
 
-function IngredientDetails({ hideTitle }) {
-    const [ingredient, setIngredient] = useState(null)
-    const ingredients = useSelector(store => store.ingredientsReducer.ingredients);
+type TIngredientDetailsProps = {
+    hideTitle: boolean
+}
+
+const IngredientDetails: FunctionComponent<TIngredientDetailsProps> = ({ hideTitle }) => {
+    const [ingredient, setIngredient] = useState<TIngredient | null>(null)
+    const ingredients = useAppSelector(store => store.ingredientsReducer.ingredients) as Array<TIngredient>;
     const { id } = useParams()
 
     useEffect(() => {

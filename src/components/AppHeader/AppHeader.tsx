@@ -2,17 +2,18 @@ import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-dev
 import appHeaderStyles from './AppHeader.module.css'
 import { NavLink, Link, useLocation } from 'react-router-dom'
 import { activePaths } from '../../utils/paths'
+import { TIconProps } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons/utils'
 function AppHeader() {
     const location = useLocation()
 
-    const isActiveClass = (navName) => {
+    const isActiveClass = (navName: string) => {
         let isActive = false;
         activePaths[navName].forEach((pathObj) => {
             if ((pathObj.exact && location.pathname === pathObj.path) || (!pathObj.exact && location.pathname.includes(pathObj.path))) {
                 isActive = true;
             }
         })
-        return { navClass: isActive ? 'no_style ml-2' : 'no_style ml-2 text_color_inactive', iconType: isActive ? 'primary' : 'secondary' }
+        return { navClass: isActive ? 'no_style ml-2' : 'no_style ml-2 text_color_inactive', iconType: isActive ? { type: 'primary' } as TIconProps : { type: 'secondary' } as TIconProps }
     }
     return (
         <header className={appHeaderStyles.header}>
@@ -20,13 +21,13 @@ function AppHeader() {
                 <div className={appHeaderStyles.toolbar}>
                     <NavLink to='/' className={isActiveClass('home').navClass}>
                         <div className={appHeaderStyles.button + ' pl-5 pr-5'}>
-                            <BurgerIcon type={isActiveClass('home').iconType} />
+                            <BurgerIcon type={isActiveClass('home').iconType.type} />
                             <div>Конструктор</div>
                         </div>
                     </NavLink>
                     <NavLink to='/orders-feed' className={isActiveClass('ordersFeed').navClass}>
                         <div className={appHeaderStyles.button + ' pl-5 pr-5'}>
-                            <ListIcon type={isActiveClass('ordersFeed').iconType} />
+                            <ListIcon type={isActiveClass('ordersFeed').iconType.type} />
                             <div>Лента заказов</div>
                         </div>
                     </NavLink>
@@ -36,7 +37,7 @@ function AppHeader() {
                 </div>
                 <NavLink to='/profile' className={isActiveClass('profile').navClass}>
                     <div className={appHeaderStyles.button + ' pl-5 pr-5'}>
-                        <ProfileIcon type={isActiveClass('profile').iconType} />
+                        <ProfileIcon type={isActiveClass('profile').iconType.type} />
                         <div>Личный кабинет</div>
                     </div>
                 </NavLink>

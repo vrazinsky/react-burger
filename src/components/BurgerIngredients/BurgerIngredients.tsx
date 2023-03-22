@@ -1,10 +1,8 @@
 import burgerIngredientsStyles from './BurgerIngredients.module.css'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useState, useRef, useMemo, useEffect } from 'react'
-
-import { useSelector } from 'react-redux';
-
-
+import { useAppSelector } from '../../hooks/hooks'
+import { TIngredient } from '../../types/types'
 import { useNavigate, useLocation } from 'react-router-dom'
 
 import DraggableIngredient from '../DraggableIngredient/DraggableIngredient'
@@ -13,21 +11,21 @@ import DraggableIngredient from '../DraggableIngredient/DraggableIngredient'
 function BurgerIngredients() {
     const [current, setCurrent] = useState('bun')
 
-    const { ingredients } = useSelector(store => store.ingredientsReducer)
-    const countInfo = useSelector(store => store.ingredientCountersReducer)
+    const ingredients: Array<TIngredient> = useAppSelector(store => store.ingredientsReducer.ingredients)
+    const countInfo: { [name: string]: number } = useAppSelector(store => store.ingredientCountersReducer as { [name: string]: number })
     const navigate = useNavigate()
     const location = useLocation()
 
-    const handleTabClick = (current) => {
+    const handleTabClick = (current: string) => {
         switch (current) {
             case 'bun':
-                bunRef.current.scrollIntoView({ behavior: 'smooth' })
+                bunRef.current?.scrollIntoView({ behavior: 'smooth' })
                 break;
             case 'sauce':
-                sauceRef.current.scrollIntoView({ behavior: 'smooth' })
+                sauceRef.current?.scrollIntoView({ behavior: 'smooth' })
                 break;
             case 'main':
-                mainRef.current.scrollIntoView({ behavior: 'smooth' })
+                mainRef.current?.scrollIntoView({ behavior: 'smooth' })
                 break;
             default:
                 break;
@@ -42,26 +40,26 @@ function BurgerIngredients() {
     }
     ), [ingredients]);
 
-    const openIngredientModal = (ingredient) => {
+    const openIngredientModal = (ingredient: TIngredient) => {
         navigate(`/ingredients/${ingredient._id}`, { state: { background: location } })
     }
 
-    const bunRef = useRef(null)
-    const sauceRef = useRef(null)
-    const mainRef = useRef(null)
-    const tabRef = useRef(null)
+    const bunRef = useRef<HTMLInputElement>(null)
+    const sauceRef = useRef<HTMLInputElement>(null)
+    const mainRef = useRef<HTMLInputElement>(null)
+    const tabRef = useRef<HTMLInputElement>(null)
 
-    const parentRect = useRef(null);
+    const parentRect = useRef<DOMRect | undefined | null>(null);
     useEffect(() => {
-        parentRect.current = tabRef.current.getBoundingClientRect()
+        parentRect.current = tabRef.current?.getBoundingClientRect()
     }, [])
 
 
 
     const handleScroll = () => {
-        const bunDist = Math.abs(bunRef.current.getBoundingClientRect().top - parentRect.current.bottom);
-        const sauceDist = Math.abs(sauceRef.current.getBoundingClientRect().top - parentRect.current.bottom);
-        const mainDist = Math.abs(mainRef.current.getBoundingClientRect().top - parentRect.current.bottom);
+        const bunDist = Math.abs((bunRef.current?.getBoundingClientRect().top || 0) - (parentRect.current?.bottom || 0));
+        const sauceDist = Math.abs((sauceRef.current?.getBoundingClientRect().top || 0) - (parentRect.current?.bottom || 0));
+        const mainDist = Math.abs((mainRef.current?.getBoundingClientRect().top || 0) - (parentRect.current?.bottom || 0));
         const minDist = Math.min(bunDist, sauceDist, mainDist)
         if (minDist === bunDist) {
             setCurrent('bun')

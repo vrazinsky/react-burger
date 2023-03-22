@@ -3,17 +3,17 @@ import { Input, Button, PasswordInput } from '@ya.praktikum/react-developer-burg
 import { useState } from 'react'
 import { Link, Navigate } from "react-router-dom";
 import { resetPasswordThunk } from '../services/thunks/auth-thunks'
-import { useDispatch, useSelector } from 'react-redux'
+import { useAppSelector, useAppDispatch } from '../hooks/hooks'
 
 export function ResetPasswordPage() {
     const [password, setPassword] = useState('')
     const [token, setToken] = useState('')
-    const { user, getUser } = useSelector(store => store.authReducer);
-    const { sendResetEmailSuccess } = useSelector((store) => store.sendResetEmailReducer)
+    const { user, getUser } = useAppSelector(store => store.authReducer);
+    const { sendResetEmailSuccess } = useAppSelector((store) => store.sendResetEmailReducer)
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
-    const handleResetPasswordSubmit = (e) => {
+    const handleResetPasswordSubmit = (e: React.SyntheticEvent) => {
         e.preventDefault()
         if (!password || !token) {
             return

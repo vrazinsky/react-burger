@@ -1,9 +1,12 @@
 import orderDetailsStyles from './OrderDetails.module.css'
 import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import { useSelector } from 'react-redux';
 
-function OrderDetails() {
-    const { orderDetails } = useSelector(store => store.orderDetailsReducer)
+import { FunctionComponent } from 'react';
+import { useAppSelector } from '../../hooks/hooks';
+import { TOrder } from '../../types/types'
+
+const OrderDetails: FunctionComponent = () => {
+    const { orderDetails } = useAppSelector(store => store.orderDetailsReducer as { orderDetails: TOrder })
     return (
         orderDetails &&
         <div>
@@ -14,7 +17,7 @@ function OrderDetails() {
                 идентификатор заказа
             </div>
             <div className={orderDetailsStyles.center + ' mt-15'}>
-                <CheckMarkIcon />
+                <CheckMarkIcon type="primary" />
             </div>
             <div className={orderDetailsStyles.center + ' text text_type_main-small mt-15'} >
                 Ваш заказ начали готовить

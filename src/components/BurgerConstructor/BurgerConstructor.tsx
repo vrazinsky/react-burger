@@ -2,7 +2,6 @@ import { useState, useMemo, useCallback, useEffect, useRef } from 'react'
 import burgerConstructorStyles from './BurgerConstructor.module.css'
 import { ConstructorElement, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import OrderDetails from '../OrderDetails/OrderDetails'
-import { useSelector, useDispatch } from 'react-redux';
 import { getOrderDetailsThunk } from '../../services/thunks/thunks'
 import { useDrop } from 'react-dnd'
 import { addBunToCunstructor, addInnerIngredientToConstructor, removeOrderDetails, changeInnerIngredients, increaseIngredientCounter, decreaseIngredientCounter, removeBunFromConstructor, clearIngredientCounter } from '../../services/actions/actions'
@@ -13,19 +12,21 @@ import Modal from '../Modal/Modal'
 import { ProgressBar } from 'react-loader-spinner'
 import { useNavigate } from 'react-router-dom';
 import { addReturnUrl } from '../../services/actions/auth-actions'
+import { useAppSelector, useAppDispatch } from '../../hooks/hooks'
+import { TIngredient } from '../../types/types'
 
 function BurgerConstructor() {
-    const storeIngredients = useSelector(store => store.constructorItemsReducer.constructorIngredients)
-    const [bun, setBun] = useState(null)
-    const [innerIngredients, setInnerIngredients] = useState([])
+    const storeIngredients = useAppSelector(store => store.constructorItemsReducer.constructorIngredients)
+    const [bun, setBun] = useState<TIngredient | null>(null)
+    const [innerIngredients, setInnerIngredients] = useState<Array<TIngredient>>([])
     const [isModalVisible, setIsModalVisible] = useState(false)
-    const dispatch = useDispatch()
-    const { orderDetailsRequest, orderDetails } = useSelector(store => store.orderDetailsReducer)
-    const { user } = useSelector(store => store.authReducer);
+    const dispatch = useAppDispatch()
+    const { orderDetailsRequest, orderDetails } = useAppSelector(store => store.orderDetailsReducer)
+    const { user } = useAppSelector(store => store.authReducer);
     const navigate = useNavigate()
 
-    const ref = useRef(null);
-    useDndScrolling(ref)
+    const ref = useRef<HTMLInputElement>(null);
+    useDndScrolling(ref, {})
 
     useEffect(() => {
         setBun(storeIngredients.bun)
@@ -46,7 +47,7 @@ function BurgerConstructor() {
         }
     }, [dispatch, orderDetails])
 
-    const onDrop = (ingredient) => {
+    const onDrop = (ingredient: TIngredient) => {
         if (ingredient.type === 'bun') {
             if (bun) {
                 dispatch(decreaseIngredientCounter(bun._id))
@@ -65,11 +66,11 @@ function BurgerConstructor() {
     const [, dropTarget] = useDrop({
         accept: "food",
         drop(ingredient) {
-            onDrop(ingredient)
+            onDrop(ingredient as TIngredient)
         },
     });
 
-    const onInnerIngredientRemove = useCallback((id, index) => {
+    const onInnerIngredientRemove = useCallback((id: string, index: number) => {
         const newInnerIngredients = JSON.parse(JSON.stringify(innerIngredients))
         newInnerIngredients.splice(index, 1)
         dispatch(changeInnerIngredients(newInnerIngredients))
@@ -81,7 +82,7 @@ function BurgerConstructor() {
         dispatch(removeOrderDetails())
     }
 
-    const onConstructorElementDrop = (isDropSuccessful) => {
+    const onConstructorElementDrop = (isDropSuccessful: boolean) => {
         if (isDropSuccessful) {
             dispatch(changeInnerIngredients(innerIngredients))
         } else {
@@ -90,12 +91,12 @@ function BurgerConstructor() {
     }
 
     const sum = useMemo(() => {
-        return innerIngredients.reduce((prev, curr) => prev + curr?.price, bun?.price * 2 || 0)
+        return innerIngredients.reduce((prev, curr: TIngredient) => prev + curr?.price, (bun?.price || 0) * 2)
     }, [bun, innerIngredients])
 
     const modalOptions = { onClose: onModalClose }
 
-    const handleOrderClick = (e) => {
+    const handleOrderClick = () => {
         if (!user) {
             dispatch(addReturnUrl('/'))
             navigate('/login')
@@ -108,7 +109,7 @@ function BurgerConstructor() {
         dispatch(getOrderDetailsThunk(dataForOrder))
     }
 
-    const moveCard = useCallback((dragIndex, hoverIndex) => {
+    const moveCard = useCallback((dragIndex: number, hoverIndex: number) => {
         const newInnerIngredients = JSON.parse(JSON.stringify(innerIngredients))
         newInnerIngredients[dragIndex] = newInnerIngredients.splice(hoverIndex, 1, newInnerIngredients[dragIndex])[0]
         setInnerIngredients(newInnerIngredients)
@@ -129,7 +130,7 @@ function BurgerConstructor() {
             </div>
             <div className={burgerConstructorStyles.list_container} ref={ref}>
                 {innerIngredients.map((item, index) =>
-                    <  DraggableConstructorElement ingredient={item} onInnerIngredientRemove={onInnerIngredientRemove} moveCard={moveCard} uuid={item.uuid} index={index} key={item.uuid} onDrop={onConstructorElementDrop} />
+                    <  DraggableConstructorElement ingredient={item} onInnerIngredientRemove={onInnerIngredientRemove} moveCard={moveCard} index={index} key={item.uuid} onDrop={onConstructorElementDrop} />
                 )}
             </div>
             <div className={burgerConstructorStyles.list_item + ' pb-4 ml-4 mr-4 mt-4'}>
@@ -147,7 +148,7 @@ function BurgerConstructor() {
                     {sum > 0 && sum}
                 </div>
                 <div className='ml-1'>
-                    <CurrencyIcon />
+                    <CurrencyIcon type="primary" />
                 </div>
                 <div className='ml-10'>
                     {orderDetailsRequest ? <ProgressBar /> :
