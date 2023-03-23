@@ -4,15 +4,15 @@ import { useState, useRef, useMemo, useEffect } from 'react'
 import { useAppSelector } from '../../hooks/hooks'
 import { TIngredient } from '../../types/types'
 import { useNavigate, useLocation } from 'react-router-dom'
+import { getIngredients, getCountInfo } from '../../store/store'
 
 import DraggableIngredient from '../DraggableIngredient/DraggableIngredient'
 
 
 function BurgerIngredients() {
     const [current, setCurrent] = useState('bun')
-
-    const ingredients: Array<TIngredient> = useAppSelector(store => store.ingredientsReducer.ingredients)
-    const countInfo: { [name: string]: number } = useAppSelector(store => store.ingredientCountersReducer as { [name: string]: number })
+    const ingredients: Array<TIngredient> = useAppSelector(getIngredients)
+    const countInfo: { [name: string]: number } = useAppSelector(getCountInfo)
     const navigate = useNavigate()
     const location = useLocation()
 

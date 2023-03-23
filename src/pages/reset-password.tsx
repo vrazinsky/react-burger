@@ -4,12 +4,14 @@ import { useState } from 'react'
 import { Link, Navigate } from "react-router-dom";
 import { resetPasswordThunk } from '../services/thunks/auth-thunks'
 import { useAppSelector, useAppDispatch } from '../hooks/hooks'
+import { getAuth, getResetEmail } from '../store/store'
 
 export function ResetPasswordPage() {
     const [password, setPassword] = useState('')
     const [token, setToken] = useState('')
-    const { user, getUser } = useAppSelector(store => store.authReducer);
-    const { sendResetEmailSuccess } = useAppSelector((store) => store.sendResetEmailReducer)
+    const { user, getUser } = useAppSelector(getAuth);
+
+    const { sendResetEmailSuccess } = useAppSelector(getResetEmail)
 
     const dispatch = useAppDispatch()
 

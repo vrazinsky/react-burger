@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import PropTypes from 'prop-types';
 import { useAppSelector } from '../../hooks/hooks'
 import { TIngredient } from '../../types/types'
+import { getIngredients } from '../../store/store'
 
 type TIngredientDetailsProps = {
     hideTitle: boolean
@@ -11,7 +12,7 @@ type TIngredientDetailsProps = {
 
 const IngredientDetails: FunctionComponent<TIngredientDetailsProps> = ({ hideTitle }) => {
     const [ingredient, setIngredient] = useState<TIngredient | null>(null)
-    const ingredients = useAppSelector(store => store.ingredientsReducer.ingredients) as Array<TIngredient>;
+    const ingredients = useAppSelector(getIngredients) as Array<TIngredient>;
     const { id } = useParams()
 
     useEffect(() => {

@@ -4,13 +4,15 @@ import { useState } from 'react'
 import { Link, Navigate } from "react-router-dom";
 import { loginThunk } from '../services/thunks/auth-thunks'
 import { useAppSelector, useAppDispatch } from '../hooks/hooks'
+import { getAuth, getReturnUrl } from '../store/store'
 
 export function LoginPage() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const dispatch = useAppDispatch()
-    const { user } = useAppSelector(store => store.authReducer);
-    const returnUrl = useAppSelector(store => store.returnUrlReducer.url)
+    const { user } = useAppSelector(getAuth);
+
+    const returnUrl = useAppSelector(getReturnUrl)
 
     const handleLoginSubmit = (e: React.SyntheticEvent) => {
         e.preventDefault();

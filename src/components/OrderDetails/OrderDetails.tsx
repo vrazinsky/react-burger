@@ -3,10 +3,10 @@ import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-component
 
 import { FunctionComponent } from 'react';
 import { useAppSelector } from '../../hooks/hooks';
-import { TOrder } from '../../types/types'
+import { getOrderDetails } from '../../store/store'
 
 const OrderDetails: FunctionComponent = () => {
-    const { orderDetails } = useAppSelector(store => store.orderDetailsReducer as { orderDetails: TOrder })
+    const { orderDetails } = useAppSelector(getOrderDetails)
     return (
         orderDetails &&
         <div>

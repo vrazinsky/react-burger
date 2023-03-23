@@ -3,6 +3,7 @@ import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-component
 import { useState, useEffect } from 'react'
 import { patchUserThunk } from '../services/thunks/auth-thunks'
 import { useAppSelector, useAppDispatch } from '../hooks/hooks'
+import { getAuth } from '../store/store'
 
 
 export function ProfileAccountPage() {
@@ -10,7 +11,7 @@ export function ProfileAccountPage() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [isButtonsVisible, setIsButtonsVisible] = useState(false)
-    const user = useAppSelector(store => store.authReducer.user)
+    const { user } = useAppSelector(getAuth)
     const dispatch = useAppDispatch()
 
     const handleSaveClick = () => {

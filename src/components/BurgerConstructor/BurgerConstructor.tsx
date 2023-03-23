@@ -14,15 +14,16 @@ import { useNavigate } from 'react-router-dom';
 import { addReturnUrl } from '../../services/actions/auth-actions'
 import { useAppSelector, useAppDispatch } from '../../hooks/hooks'
 import { TIngredient } from '../../types/types'
+import { getAuth, getOrderDetails, getConstructorIngredients } from '../../store/store'
 
 function BurgerConstructor() {
-    const storeIngredients = useAppSelector(store => store.constructorItemsReducer.constructorIngredients)
+    const storeIngredients = useAppSelector(getConstructorIngredients)
     const [bun, setBun] = useState<TIngredient | null>(null)
     const [innerIngredients, setInnerIngredients] = useState<Array<TIngredient>>([])
     const [isModalVisible, setIsModalVisible] = useState(false)
     const dispatch = useAppDispatch()
-    const { orderDetailsRequest, orderDetails } = useAppSelector(store => store.orderDetailsReducer)
-    const { user } = useAppSelector(store => store.authReducer);
+    const { orderDetailsRequest, orderDetails } = useAppSelector(getOrderDetails)
+    const { user } = useAppSelector(getAuth);
     const navigate = useNavigate()
 
     const ref = useRef<HTMLInputElement>(null);
