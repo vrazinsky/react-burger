@@ -13,6 +13,11 @@ type TDraggableConstructorProps = {
     onDrop: (isDropSuccessful: boolean) => void;
 }
 
+type TDragItem = {
+    uuid: string,
+    index: number
+}
+
 const DraggableConstructorElement: FunctionComponent<TDraggableConstructorProps> = ({ ingredient, onInnerIngredientRemove, index, moveCard, onDrop }) => {
     const { type, name, price, _id, image, uuid } = ingredient;
     const [style, setStyle] = useState({ opacity: 1 })
@@ -30,7 +35,7 @@ const DraggableConstructorElement: FunctionComponent<TDraggableConstructorProps>
             if (!ref.current) {
                 return
             }
-            const dragIndex = (item as { uuid: string, index: number }).index
+            const dragIndex = (item as TDragItem).index
             const hoverIndex = index
             if (dragIndex === hoverIndex) {
                 setStyle({ opacity: 0 })
@@ -51,7 +56,7 @@ const DraggableConstructorElement: FunctionComponent<TDraggableConstructorProps>
             }
             setStyle({ opacity: 1 });
             moveCard(dragIndex, hoverIndex);
-            (item as { uuid: string, index: number }).index = hoverIndex
+            (item as TDragItem).index = hoverIndex
         },
     })
     const [, drag] = useDrag({
