@@ -1,8 +1,9 @@
 import profileAccountStyles from './profile-account.module.css';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 import { patchUserThunk } from '../services/thunks/auth-thunks'
+import { useAppSelector, useAppDispatch } from '../hooks/hooks'
+import { getAuth } from '../store/store'
 
 
 export function ProfileAccountPage() {
@@ -10,11 +11,11 @@ export function ProfileAccountPage() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [isButtonsVisible, setIsButtonsVisible] = useState(false)
-    const user = useSelector(store => store.authReducer.user)
-    const dispatch = useDispatch()
+    const { user } = useAppSelector(getAuth)
+    const dispatch = useAppDispatch()
 
     const handleSaveClick = () => {
-        const dataObj = {}
+        const dataObj: { name?: string, email?: string, password?: string } = {}
         if (name !== user.name) {
             dataObj.name = name
         }

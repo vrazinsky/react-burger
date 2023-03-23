@@ -1,17 +1,17 @@
 import profileStyles from './profile.module.css';
 import { NavLink, Outlet } from 'react-router-dom'
-import { useDispatch } from 'react-redux';
 import { logoutThunk } from '../services/thunks/auth-thunks'
+import { useAppDispatch } from '../hooks/hooks'
 
 export function ProfilePage() {
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     const handleLogoutClick = () => {
         dispatch(logoutThunk())
     }
 
-    const getActiveClass = (isActive) => {
+    const getActiveClass = (isActive: boolean) => {
         return 'no_style' + (isActive ? '' : ' text_color_inactive')
     }
 

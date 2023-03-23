@@ -1,25 +1,17 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './components/App/App';
 import reportWebVitals from './reportWebVitals';
-import { compose, createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
-import { rootReducer } from './services/reducers/rootReducer'
+import { store } from './store/store'
 
-const composeEnhancers = window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__'] || compose;
-
-    const enhancer = composeEnhancers(applyMiddleware(thunk));
-
-    const store = createStore(rootReducer, enhancer)
 const root = ReactDOM.createRoot(
-  document.getElementById('root')
+  document.getElementById('root')!
 );
 
 root.render(
   <Provider store={store}>
-      <App />
+    <App />
   </Provider>
 );
 

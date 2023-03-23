@@ -1,10 +1,16 @@
 import draggableIngredientStyles from './DraggableIngredient.module.css'
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useDrag } from "react-dnd";
-import { ingredientShape } from '../../utils/prop-types'
-import PropTypes from 'prop-types';
+import { TIngredient } from '../../types/types'
+import { FunctionComponent } from 'react'
 
-const DraggableIngredient = ({ ingredient, openIngredientModal, count = 0 }) => {
+type TDraggableIngredientsProps = {
+    ingredient: TIngredient;
+    openIngredientModal: (ingredient: TIngredient) => void;
+    count: number;
+}
+
+const DraggableIngredient: FunctionComponent<TDraggableIngredientsProps> = ({ ingredient, openIngredientModal, count = 0 }) => {
     const { name, image, price } = ingredient;
     const [, dragRef] = useDrag({
         type: 'food',
@@ -20,7 +26,7 @@ const DraggableIngredient = ({ ingredient, openIngredientModal, count = 0 }) => 
             <div className={draggableIngredientStyles.price + ' text text_type_digits-default mt-1'}>
                 {price}
                 <div className='ml-1'>
-                    <CurrencyIcon />
+                    <CurrencyIcon type="primary" />
                 </div>
             </div>
             <div className='text text_type_main-default mt-1'>
@@ -29,12 +35,6 @@ const DraggableIngredient = ({ ingredient, openIngredientModal, count = 0 }) => 
 
         </div>
     )
-}
-
-DraggableIngredient.propTypes = {
-    ingredient: ingredientShape.isRequired,
-    openIngredientModal: PropTypes.func.isRequired,
-    count: PropTypes.number
 }
 
 export default DraggableIngredient;

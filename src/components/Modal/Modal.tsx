@@ -1,31 +1,40 @@
 
-import { useEffect } from 'react'
+import { useEffect, FunctionComponent } from 'react'
 import { createPortal } from 'react-dom';
 import ModalOverlay from '../ModalOverlay/ModalOverlay';
 import modalStyles from './Modal.module.css'
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import { modalOptionsShape } from '../../utils/prop-types'
 
-const ESCAPEKEY = 27;
+const ESCAPEKEYSTRING = 'Escape';
 
-function Modal({ modalOptions, children }) {
-    const modalRoot = document.getElementById("modals");
+type TModal = {
+    modalOptions: { title?: string, onClose: Function },
+    children?: React.ReactNode
+}
+
+const Modal: FunctionComponent<TModal> = ({ modalOptions, children }) => {
+    const modalRoot = document.getElementById("modals")!;
     const { onClose, title } = modalOptions
-    const close = (e) => {
-        if (!e.nativeEvent && e.keyCode !== ESCAPEKEY) {
+
+    const documentOnClose = (e: KeyboardEvent) => {
+        if (e.key !== ESCAPEKEYSTRING) {
             return;
         }
         onClose()
     }
 
-    const handleModalClick = (e) => {
+    const close = () => {
+        onClose()
+    }
+
+    const handleModalClick = (e: React.MouseEvent<HTMLDivElement>) => {
         e.stopPropagation();
     }
 
     useEffect(() => {
-        document.addEventListener('keydown', close);
+        document.addEventListener('keydown', documentOnClose);
         return () => {
-            document.removeEventListener('keydown', close);
+            document.removeEventListener('keydown', documentOnClose);
         }
     })
 
@@ -35,7 +44,7 @@ function Modal({ modalOptions, children }) {
             <div className={modalStyles.modal + ' pt-10 pb-10'} onClick={handleModalClick}>
                 <div className={modalStyles.toolbar + ' ml-10 mr-10'}>
                     <div className='text text_type_main-large'>{title}</div>
-                    <div className={modalStyles.close} onClick={close}><CloseIcon /></div>
+                    <div className={modalStyles.close} onClick={close}><CloseIcon type="primary" /></div>
                 </div>
                 <div className={modalStyles.content + ' ml-30 mr-30'}>
                     {children}
@@ -44,10 +53,6 @@ function Modal({ modalOptions, children }) {
         </>
 
     ), modalRoot)
-}
-
-Modal.propTypes = {
-    modalOptions: modalOptionsShape.isRequired
 }
 
 export default Modal;
