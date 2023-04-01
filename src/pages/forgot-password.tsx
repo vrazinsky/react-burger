@@ -5,10 +5,11 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import { sendResetEmailThunk } from '../services/thunks/auth-thunks'
 import { useAppSelector, useAppDispatch } from '../hooks/hooks'
 import { getAuth } from '../store/store'
+import { AppThunkDispatch } from '../store/store'
 
 export function ForgotPasswordPage() {
     const [email, setEmail] = useState('')
-    const dispatch = useAppDispatch()
+    const dispatch: AppThunkDispatch = useAppDispatch()
     const { user, getUser } = useAppSelector(getAuth);
     const navigate = useNavigate()
 

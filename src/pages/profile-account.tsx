@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { patchUserThunk } from '../services/thunks/auth-thunks'
 import { useAppSelector, useAppDispatch } from '../hooks/hooks'
 import { getAuth } from '../store/store'
+import { AppThunkDispatch } from '../store/store'
 
 
 export function ProfileAccountPage() {
@@ -12,14 +13,14 @@ export function ProfileAccountPage() {
     const [password, setPassword] = useState('')
     const [isButtonsVisible, setIsButtonsVisible] = useState(false)
     const { user } = useAppSelector(getAuth)
-    const dispatch = useAppDispatch()
+    const dispatch: AppThunkDispatch = useAppDispatch()
 
     const handleSaveClick = () => {
         const dataObj: { name?: string, email?: string, password?: string } = {}
-        if (name !== user.name) {
+        if (name !== user?.name) {
             dataObj.name = name
         }
-        if (email !== user.email) {
+        if (email !== user?.email) {
             dataObj.email = email
         }
         if (password) {
@@ -29,13 +30,15 @@ export function ProfileAccountPage() {
     }
 
     useEffect(() => {
-        setIsButtonsVisible(name !== user.name || email !== user.email || password !== '')
+        setIsButtonsVisible(name !== user?.name || email !== user?.email || password !== '')
     }, [user, name, email, password])
 
     const handleCancelClick = () => {
-        setName(user.name)
-        setEmail(user.email)
-        setPassword('')
+        if (user) {
+            setName(user.name)
+            setEmail(user.email)
+            setPassword('')
+        }
     }
 
     useEffect(() => {

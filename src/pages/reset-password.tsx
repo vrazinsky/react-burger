@@ -5,6 +5,7 @@ import { Link, Navigate } from "react-router-dom";
 import { resetPasswordThunk } from '../services/thunks/auth-thunks'
 import { useAppSelector, useAppDispatch } from '../hooks/hooks'
 import { getAuth, getResetEmail } from '../store/store'
+import { AppThunkDispatch } from '../store/store'
 
 export function ResetPasswordPage() {
     const [password, setPassword] = useState('')
@@ -13,7 +14,7 @@ export function ResetPasswordPage() {
 
     const { sendResetEmailSuccess } = useAppSelector(getResetEmail)
 
-    const dispatch = useAppDispatch()
+    const dispatch: AppThunkDispatch = useAppDispatch()
 
     const handleResetPasswordSubmit = (e: React.SyntheticEvent) => {
         e.preventDefault()

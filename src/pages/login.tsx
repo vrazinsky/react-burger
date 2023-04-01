@@ -5,11 +5,12 @@ import { Link, Navigate } from "react-router-dom";
 import { loginThunk } from '../services/thunks/auth-thunks'
 import { useAppSelector, useAppDispatch } from '../hooks/hooks'
 import { getAuth, getReturnUrl } from '../store/store'
+import { AppThunkDispatch } from '../store/store'
 
 export function LoginPage() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const dispatch = useAppDispatch()
+    const dispatch: AppThunkDispatch = useAppDispatch()
     const { user } = useAppSelector(getAuth);
 
     const returnUrl = useAppSelector(getReturnUrl)

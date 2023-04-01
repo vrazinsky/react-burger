@@ -5,12 +5,13 @@ import { Link, Navigate } from "react-router-dom";
 import { registerThunk } from '../services/thunks/auth-thunks'
 import { useAppSelector, useAppDispatch } from '../hooks/hooks'
 import { getAuth } from '../store/store'
+import { AppThunkDispatch } from '../store/store'
 
 export function RegisterPage() {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const dispatch = useAppDispatch()
+    const dispatch: AppThunkDispatch = useAppDispatch()
     const { user, getUser } = useAppSelector(getAuth);
 
     const handleRegisterSubmit = (e: React.SyntheticEvent) => {

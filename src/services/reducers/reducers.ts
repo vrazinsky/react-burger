@@ -16,31 +16,38 @@ import {
     DECREASE_INGREDIENT_COUNTER,
     CLEAR_INGREDIENT_COUNTER
 } from '../../utils/action-types'
+import { TIngredientsInitialState, TConstructorItemsInitialState, TCurrentIngredientInitialState, TOrderDetailsInitialState } from '../../types/types'
 
-const ingredientsInitialState = {
+import { TGetIngredientsActions, TConstructorItemsActions, TCurrentIngredientActions, TOrderDetailsActions, TIngredientCountersActions } from '../actions/actions'
+
+
+
+const ingredientsInitialState: TIngredientsInitialState = {
     ingredients: [],
     ingredientsRequest: false,
     ingredientsFailed: false
 }
-const constructorItemsInitialState = {
+const constructorItemsInitialState: TConstructorItemsInitialState = {
     constructorIngredients: { bun: null, innerIngredients: [] }
 }
 
-const currentIngredientInitialState = {
+const currentIngredientInitialState: TCurrentIngredientInitialState = {
     currentIngredient: null
 }
 
-const orderDetailsInitialState = {
+const orderDetailsInitialState: TOrderDetailsInitialState = {
     orderDetails: null,
     orderDetailsRequest: false,
     orderDetailsFailed: false
 }
 
-const ingredientCountersState = {
+type TIngredientCountersState = { [name: string]: number }
+
+const ingredientCountersState: TIngredientCountersState = {
 }
 
 
-export const ingredientsReducer = (state = ingredientsInitialState, action) => {
+export const ingredientsReducer = (state = ingredientsInitialState, action: TGetIngredientsActions): TIngredientsInitialState => {
     switch (action.type) {
         case GET_INGREDIENTS_SUCCESS:
             return {
@@ -66,7 +73,7 @@ export const ingredientsReducer = (state = ingredientsInitialState, action) => {
     }
 }
 
-export const constructorItemsReducer = (state = constructorItemsInitialState, action) => {
+export const constructorItemsReducer = (state = constructorItemsInitialState, action: TConstructorItemsActions): TConstructorItemsInitialState => {
     switch (action.type) {
         case ADD_INNER_INGREDIENT_TO_CONSTRUCTOR:
             return {
@@ -105,7 +112,7 @@ export const constructorItemsReducer = (state = constructorItemsInitialState, ac
     }
 }
 
-export const currentIngredientReducer = (state = currentIngredientInitialState, action) => {
+export const currentIngredientReducer = (state = currentIngredientInitialState, action: TCurrentIngredientActions): TCurrentIngredientInitialState => {
     switch (action.type) {
         case ADD_CURRENT_INGREDIENT:
             return {
@@ -120,7 +127,7 @@ export const currentIngredientReducer = (state = currentIngredientInitialState, 
     }
 }
 
-export const orderDetailsReducer = (state = orderDetailsInitialState, action) => {
+export const orderDetailsReducer = (state = orderDetailsInitialState, action: TOrderDetailsActions): TOrderDetailsInitialState => {
     switch (action.type) {
         case GET_ORDER_DETAILS_SUCCESS:
             return {
@@ -142,6 +149,7 @@ export const orderDetailsReducer = (state = orderDetailsInitialState, action) =>
             }
         case REMOVE_ORDER_DETAILS:
             return {
+                ...state,
                 orderDetails: null
             }
         default:
@@ -149,7 +157,7 @@ export const orderDetailsReducer = (state = orderDetailsInitialState, action) =>
     }
 }
 
-export const ingredientCountersReducer = (state = ingredientCountersState, action) => {
+export const ingredientCountersReducer = (state = ingredientCountersState, action: TIngredientCountersActions) => {
     switch (action.type) {
         case INCREASE_INGREDIENT_COUNTER:
             return {

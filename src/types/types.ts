@@ -78,3 +78,58 @@ export type {
     TIngredient,
     TOrder
 }
+
+export type TIngredientsInitialState = {
+    ingredients: Array<TIngredient>;
+    ingredientsRequest: boolean;
+    ingredientsFailed: boolean;
+}
+
+export type TConstructorItemsInitialState = {
+    constructorIngredients: { bun: TIngredient | null, innerIngredients: Array<TIngredient> }
+}
+
+export type TCurrentIngredientInitialState = {
+    currentIngredient: TIngredient | null
+}
+
+export type TOrderDetailsInitialState = {
+    orderDetails: TOrder | null | undefined,
+    orderDetailsRequest: boolean;
+    orderDetailsFailed: boolean;
+}
+
+export type TAuthInitialState = {
+    user: TUserData | null | undefined;
+    register: boolean;
+    registerFailed: boolean;
+    registerSuccess: boolean;
+    login: boolean;
+    loginFailed: boolean;
+    loginSoccess: boolean;
+    logout: boolean;
+    logoutFailed: boolean;
+    logoutSuccess: boolean;
+    getUser: boolean;
+    getUserSuccess: boolean;
+    getUserFailed: boolean;
+    patchUser: boolean;
+    patchUserSuccess: boolean;
+    patchUserFailed: boolean;
+}
+
+export type TResetPasswordInitialState = {
+    resetPassword: boolean;
+    resetPasswordFailed: boolean;
+    resetPasswordSuccess: boolean;
+}
+
+export type TSendResetEmailInitialState = {
+    sendResetEmail: boolean;
+    sendResetEmailFailed: boolean;
+    sendResetEmailSuccess: boolean;
+}
+
+export type TReturnUrlInitialState = {
+    url: string
+}

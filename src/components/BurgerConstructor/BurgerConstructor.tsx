@@ -15,13 +15,14 @@ import { addReturnUrl } from '../../services/actions/auth-actions'
 import { useAppSelector, useAppDispatch } from '../../hooks/hooks'
 import { TIngredient } from '../../types/types'
 import { getAuth, getOrderDetails, getConstructorIngredients } from '../../store/store'
+import { AppThunkDispatch } from '../../store/store'
 
 function BurgerConstructor() {
     const storeIngredients = useAppSelector(getConstructorIngredients)
     const [bun, setBun] = useState<TIngredient | null>(null)
     const [innerIngredients, setInnerIngredients] = useState<Array<TIngredient>>([])
     const [isModalVisible, setIsModalVisible] = useState(false)
-    const dispatch = useAppDispatch()
+    const dispatch: AppThunkDispatch = useAppDispatch()
     const { orderDetailsRequest, orderDetails } = useAppSelector(getOrderDetails)
     const { user } = useAppSelector(getAuth);
     const navigate = useNavigate()

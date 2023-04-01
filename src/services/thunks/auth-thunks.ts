@@ -25,9 +25,10 @@ import { registerRequest, loginRequest, sendResetEmailRequest, resetPasswordRequ
 import { setItem } from '../../utils/localStorage'
 import { Dispatch } from 'redux'
 import { TUserData, TLoginData, TResetData, TPatchUserData } from '../../types/types'
+import { AppDispatch, AppThunk } from '../../store/store'
 
-export function registerThunk(userData: TUserData) {
-    return function (dispatch: Dispatch) {
+export const registerThunk: AppThunk = (userData: TUserData) => {
+    return function (dispatch: AppDispatch) {
         dispatch(register())
         registerRequest(userData)
             .then(res => {
@@ -45,8 +46,8 @@ export function registerThunk(userData: TUserData) {
     }
 }
 
-export function loginThunk(loginData: TLoginData) {
-    return function (dispatch: Dispatch) {
+export const loginThunk: AppThunk = (loginData: TLoginData) => {
+    return function (dispatch: AppDispatch) {
         dispatch(login())
         loginRequest(loginData)
             .then(res => {
@@ -65,8 +66,8 @@ export function loginThunk(loginData: TLoginData) {
     }
 }
 
-export function logoutThunk() {
-    return function (dispatch: Dispatch) {
+export const logoutThunk: AppThunk = () => {
+    return function (dispatch: AppDispatch) {
         dispatch(logout())
         logoutRequest()
             .then(res => {
@@ -84,7 +85,7 @@ export function logoutThunk() {
     }
 }
 
-export function sendResetEmailThunk({ email, callback }: { email: string, callback: Function }) {
+export const sendResetEmailThunk: AppThunk = ({ email, callback }: { email: string, callback: Function }) => {
     return function (dispatch: Dispatch) {
         dispatch(sendResetEmail())
         sendResetEmailRequest({ email })
@@ -102,7 +103,7 @@ export function sendResetEmailThunk({ email, callback }: { email: string, callba
     }
 }
 
-export function resetPasswordThunk(data: TResetData) {
+export const resetPasswordThunk: AppThunk = (data: TResetData) => {
     return function (dispatch: Dispatch) {
         dispatch(resetPassword())
         resetPasswordRequest(data)
@@ -121,7 +122,7 @@ export function resetPasswordThunk(data: TResetData) {
     }
 }
 
-export function getUserThunk() {
+export const getUserThunk: AppThunk = () => {
     return function (dispatch: Dispatch) {
         dispatch(getUser())
         getUserRequest()
@@ -139,7 +140,7 @@ export function getUserThunk() {
     }
 }
 
-export function patchUserThunk(data: TPatchUserData) {
+export const patchUserThunk: AppThunk = (data: TPatchUserData) => {
     return function (dispatch: Dispatch) {
         dispatch(patchUser())
         patchUserRequest(data)
