@@ -6,9 +6,14 @@ import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { ActionCreator } from 'redux';
 import { TConstructorItemsActions, TCurrentIngredientActions, TGetIngredientsActions, TIngredientCountersActions, TOrderDetailsActions } from '../services/actions/actions'
 import { TAddReturnUrlActions, TAuthActions, TResetPasswordActions, TSendResetEmailActions } from '../services/actions/auth-actions'
+import { socketMiddleware } from '../middlewares/socket-middleware'
+import { WsFeedActions, WsOrdersActions } from '../utils/action-types'
+const wsFeedUrl = 'wss://norma.nomoreparties.space/orders/all'
+const wsOrdersUrl = 'wss://norma.nomoreparties.space/order'
 
 const composeEnhancers = (window as any)['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__'] || compose;
-const enhancer = composeEnhancers(applyMiddleware(thunk));
+const enhancer = composeEnhancers(applyMiddleware(thunk), applyMiddleware(socketMiddleware(wsFeedUrl, WsFeedActions)));
+
 
 export const store = createStore(rootReducer, enhancer)
 

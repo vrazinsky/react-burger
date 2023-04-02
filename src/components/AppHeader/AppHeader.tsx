@@ -25,9 +25,9 @@ function AppHeader() {
                             <div>Конструктор</div>
                         </div>
                     </NavLink>
-                    <NavLink to='/orders-feed' className={isActiveClass('ordersFeed').navClass}>
+                    <NavLink to='/feed' className={isActiveClass('feed').navClass}>
                         <div className={appHeaderStyles.button + ' pl-5 pr-5'}>
-                            <ListIcon type={isActiveClass('ordersFeed').iconType.type} />
+                            <ListIcon type={isActiveClass('feed').iconType.type} />
                             <div>Лента заказов</div>
                         </div>
                     </NavLink>

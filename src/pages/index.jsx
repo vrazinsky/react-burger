@@ -9,6 +9,6 @@ import { ProfileOrdersPage } from './profile-orders'
 import { ProfileAccountPage } from './profile-account'
 import { IngredientModal } from './ingredient-modal'
 import { NotFound404 } from './not-found'
-import { OrdersFeedPage } from './orders-feed'
+import { FeedPage } from './feed'
 
-export { HomePage, LoginPage, RegisterPage, ForgotPasswordPage, ResetPasswordPage, ProfilePage, IngredientPage, ProfileOrdersPage, ProfileAccountPage, IngredientModal, NotFound404, OrdersFeedPage }
+export { HomePage, LoginPage, RegisterPage, ForgotPasswordPage, ResetPasswordPage, ProfilePage, IngredientPage, ProfileOrdersPage, ProfileAccountPage, IngredientModal, NotFound404, FeedPage }

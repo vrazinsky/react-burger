@@ -1,5 +1,5 @@
 import { Routes, Route, useLocation } from 'react-router-dom';
-import { HomePage, LoginPage, RegisterPage, ForgotPasswordPage, ResetPasswordPage, ProfilePage, IngredientPage, ProfileOrdersPage, ProfileAccountPage, IngredientModal, NotFound404, OrdersFeedPage } from '../../pages'
+import { HomePage, LoginPage, RegisterPage, ForgotPasswordPage, ResetPasswordPage, ProfilePage, IngredientPage, ProfileOrdersPage, ProfileAccountPage, IngredientModal, NotFound404, FeedPage } from '../../pages'
 import ProtectedRouteElement from '../ProtectedRouteElement/ProtectedRouteElement'
 
 export default function RoutesContainer() {
@@ -9,7 +9,7 @@ export default function RoutesContainer() {
         <>
             <Routes location={background || location}>
                 <Route path="/" element={<HomePage />} />
-                <Route path='/orders-feed' element={<OrdersFeedPage />} />
+                <Route path='/feed' element={<FeedPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/forgot-password" element={<ForgotPasswordPage />} />
