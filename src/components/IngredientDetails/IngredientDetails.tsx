@@ -25,7 +25,7 @@ const IngredientDetails: FunctionComponent<TIngredientDetailsProps> = ({ hideTit
     }, [id, ingredients])
     return (
         ingredient &&
-        (<div className='mt-20'>
+        (<div className='mt-20 ml-30 mr-30'>
             {!hideTitle && <div className={ingredientDetailsStyles.center + ' text text_type_main-large'}>
                 Детали ингредиента
             </div>}

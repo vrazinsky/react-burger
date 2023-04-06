@@ -52,6 +52,7 @@ const checkSuccess = (res: TFetchResJson) => {
 };
 
 export const request = (endpoint: string, options: TFetchOptions | undefined = undefined, withAuth: boolean = false) => {
+  console.log(endpoint, options, withAuth)
   return fetch(`${BASE_URL}${endpoint}`, options)
     .then((res) => checkJwtExpired(res, endpoint, options, withAuth))
     .then(checkResponse)

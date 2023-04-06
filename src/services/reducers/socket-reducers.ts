@@ -25,7 +25,7 @@ type TWSFeedInitialState = {
 type TWSOrdersInitialState = {
     wsConnected: boolean;
     //messages: IMessage[];
-    messages: any;
+    message: TFeedMessage;
 
     error?: Event;
 }
@@ -37,7 +37,7 @@ const feedInitialState: TWSFeedInitialState = {
 
 const ordersInitialState: TWSOrdersInitialState = {
     wsConnected: false,
-    messages: []
+    message: { success: false, orders: [], total: 0, totalToday: 0 }
 };
 
 export const wsFeedReducer = (state = feedInitialState, action: TWSFeedActions): TWSFeedInitialState => {
@@ -95,7 +95,7 @@ export const wsOrdersReducer = (state = ordersInitialState, action: TWSOrdersAct
             return {
                 ...state,
                 error: undefined,
-                messages: [...state.messages, action.payload]
+                message: JSON.parse(action.payload)
             };
         default:
             return state;

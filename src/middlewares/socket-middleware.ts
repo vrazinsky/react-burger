@@ -3,7 +3,9 @@ import type { Middleware, MiddlewareAPI } from 'redux';
 import type { AppDispatch, RootState } from '../store/store';
 import { TWSFeedActions, TWSOrdersActions } from '../services/actions/socket-actions'
 import { TActionsType } from '../utils/action-types'
-export const socketMiddleware = (wsUrl: string, wsActions: TActionsType): Middleware => {
+import { getItem } from '../utils/localStorage'
+
+export const socketMiddleware = (wsUrl: string, wsActions: TActionsType, withToken: boolean): Middleware => {
   return ((store: MiddlewareAPI<AppDispatch, RootState>) => {
     let socket: WebSocket | null = null;
 
@@ -14,12 +16,15 @@ export const socketMiddleware = (wsUrl: string, wsActions: TActionsType): Middle
       const { wsConnectionStart, wsConnectionClosed, wsConnectionError, wsConnectionSuccess, wsGetMessage } = wsActions;
 
       if (type === wsConnectionStart) {
-        console.log('start')
-        // объект класса WebSocket
-        socket = new WebSocket(wsUrl);
+        if (withToken) {
+          const token = getItem("burgerAccessToken");
+          socket = new WebSocket(`${wsUrl}?token=${token.replace('Bearer ', '')}`);
+        }
+        else {
+          socket = new WebSocket(wsUrl);
+        }
       }
       if (socket) {
-
         // функция, которая вызывается при открытии сокета
         socket.onopen = event => {
           dispatch({ type: wsConnectionSuccess, payload: event });

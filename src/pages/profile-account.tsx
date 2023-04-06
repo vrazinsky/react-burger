@@ -48,7 +48,7 @@ export function ProfileAccountPage() {
             setEmail(user.email)
     }, [user])
 
-    return (<div className='ml-30'>
+    return (<div className='ml-30 mt-20'>
         <div>
             <div>
                 <Input

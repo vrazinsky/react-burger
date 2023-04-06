@@ -46,7 +46,7 @@ const Modal: FunctionComponent<TModal> = ({ modalOptions, children }) => {
                     <div className='text text_type_main-large'>{title}</div>
                     <div className={modalStyles.close} onClick={close}><CloseIcon type="primary" /></div>
                 </div>
-                <div className={modalStyles.content + ' ml-30 mr-30'}>
+                <div className={modalStyles.content}>
                     {children}
                 </div>
             </div>

@@ -8,11 +8,17 @@ import { TConstructorItemsActions, TCurrentIngredientActions, TGetIngredientsAct
 import { TAddReturnUrlActions, TAuthActions, TResetPasswordActions, TSendResetEmailActions } from '../services/actions/auth-actions'
 import { socketMiddleware } from '../middlewares/socket-middleware'
 import { WsFeedActions, WsOrdersActions } from '../utils/action-types'
+
+
 const wsFeedUrl = 'wss://norma.nomoreparties.space/orders/all'
-const wsOrdersUrl = 'wss://norma.nomoreparties.space/order'
+const wsOrdersUrl = 'wss://norma.nomoreparties.space/orders'
+
 
 const composeEnhancers = (window as any)['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__'] || compose;
-const enhancer = composeEnhancers(applyMiddleware(thunk), applyMiddleware(socketMiddleware(wsFeedUrl, WsFeedActions)));
+const enhancer = composeEnhancers(
+    applyMiddleware(thunk),
+    applyMiddleware(socketMiddleware(wsFeedUrl, WsFeedActions, false)),
+    applyMiddleware(socketMiddleware(wsOrdersUrl, WsOrdersActions, true)));
 
 
 export const store = createStore(rootReducer, enhancer)

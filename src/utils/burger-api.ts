@@ -5,13 +5,14 @@ import { TUserData, TLoginData, TResetEmailData, TResetData, TPatchUserData } fr
 export const getIngredientsRequest = () => request("ingredients");
 
 export const getOrderDetailsRequest = (ids: Array<string>) => {
+  console.log('getOrders')
   const body = { 'ingredients': ids };
   const options = {
     method: 'post',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', 'Authorization': getItem('burgerAccessToken') },
     body: JSON.stringify(body)
   }
-  return request('orders', options)
+  return request('orders', options, true)
 }
 
 export const registerRequest = (userData: TUserData) => {
