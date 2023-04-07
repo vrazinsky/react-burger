@@ -2,9 +2,13 @@ import { useAppDispatch, useAppSelector } from '../hooks/hooks'
 import { useEffect } from 'react'
 import { wsOrderConnectionStart, wsOrderConnectionClose } from '../services/actions/socket-actions'
 import OrdersList from '../components/OrdersList/OrdersList'
+import { useNavigate, useLocation } from "react-router-dom";
+
 export function ProfileOrdersPage() {
     const dispatch = useAppDispatch()
     const { orders } = useAppSelector(store => store.wsOrdersReducer.message)
+    const navigate = useNavigate()
+    const location = useLocation()
     useEffect(() => {
         dispatch(wsOrderConnectionStart())
         return () => {
@@ -12,8 +16,9 @@ export function ProfileOrdersPage() {
         }
     }, [dispatch])
 
+
     const orderOnClick = (id: number) => {
-        console.log(id)
+        navigate(`/profile/orders/${id}`, { state: { background: location } })
     }
 
     return (

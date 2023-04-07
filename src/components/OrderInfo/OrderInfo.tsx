@@ -7,10 +7,10 @@ import { TIngredient } from '../../types/types'
 import { FormattedDate, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 type TOrderInfo = {
     order: TFeedOrder | undefined;
-    withTitle: boolean
+    fullPage: boolean
 
 }
-const OrderInfo: FunctionComponent<TOrderInfo> = ({ order, withTitle = false }) => {
+const OrderInfo: FunctionComponent<TOrderInfo> = ({ order, fullPage = false }) => {
     const ingredients = useAppSelector(store => store.ingredientsReducer.ingredients)
 
     const { bun, innerIngredients, sum } = useMemo(() => {
@@ -35,7 +35,7 @@ const OrderInfo: FunctionComponent<TOrderInfo> = ({ order, withTitle = false }) 
 
     return (
         order ? <div className='ml-6 mr-6'>
-            {withTitle && <div className='text text_type_digits-default'>
+            {fullPage && <div className={orderInfoStyles.title + ' text text_type_digits-medium mt-20'}>
                 #{order.number}
             </div>}
             <div className='text text_type_main-medium mt-10'>
@@ -66,7 +66,7 @@ const OrderInfo: FunctionComponent<TOrderInfo> = ({ order, withTitle = false }) 
                         </div>
                     </div>
                 </div>}
-                {innerIngredients && innerIngredients.map(ingredient => <div className={orderInfoStyles.ingredient_container + ' mt-6 mr-6'}>
+                {innerIngredients && innerIngredients.map((ingredient, index) => <div className={orderInfoStyles.ingredient_container + ' mt-6 mr-6'} key={ingredient._id + '_' + index}>
                     <div className={orderInfoStyles.flex_row}>
                         <div className={orderInfoStyles.ingredient_preview}>
                             <img src={ingredient.image_mobile} className={orderInfoStyles.image} alt={order.name} />

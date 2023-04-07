@@ -23,7 +23,7 @@ export function FeedOrderModal() {
 
     return (
         <Modal modalOptions={modalOptions}>
-            <OrderInfo order={order} withTitle={false} />
+            <OrderInfo order={order} fullPage={false} />
         </Modal>
     )
 }

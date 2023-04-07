@@ -36,7 +36,7 @@ function AppHeader() {
                     <Link to='/'><Logo /></Link>
                 </div>
                 <NavLink to='/profile' className={isActiveClass('profile').navClass}>
-                    <div className={appHeaderStyles.button + ' pl-5 pr-5'}>
+                    <div className={appHeaderStyles.button + ' ' + appHeaderStyles.lk + ' pl-5 pr-5'}>
                         <ProfileIcon type={isActiveClass('profile').iconType.type} />
                         <div>Личный кабинет</div>
                     </div>

@@ -42,7 +42,7 @@ export function FeedPage() {
     return (
         <div className={feedStyles.wrapper + ' mt-15'}>
             <div>
-                <div className='text text_type_main-large'>Лента заказов</div>
+                <div className='text text_type_main-large mb-4'>Лента заказов</div>
                 <OrdersList orders={orders} clickHandler={orderOnClick} />
             </div>
             <div>

@@ -31,5 +31,10 @@
 .nostyle {
     text-decoration: inherit;
     color: inherit;
+}
 
+.lk {
+    width: 340px;
+    display: flex;
+    justify-content: flex-end;
 }
