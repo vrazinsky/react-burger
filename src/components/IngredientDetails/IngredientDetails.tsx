@@ -1,7 +1,6 @@
 import ingredientDetailsStyles from './IngredientDetails.module.css'
 import { useState, useEffect, FunctionComponent } from 'react'
 import { useParams } from 'react-router-dom'
-import PropTypes from 'prop-types';
 import { useAppSelector } from '../../hooks/hooks'
 import { TIngredient } from '../../types/types'
 import { getIngredients } from '../../store/store'
@@ -56,10 +55,6 @@ const IngredientDetails: FunctionComponent<TIngredientDetailsProps> = ({ hideTit
             </div>
         </div>)
     )
-}
-
-IngredientDetails.propTypes = {
-    hideTitle: PropTypes.bool.isRequired
 }
 
 

@@ -13,25 +13,42 @@ type TOrderInfo = {
 const OrderInfo: FunctionComponent<TOrderInfo> = ({ order, fullPage = false }) => {
     const ingredients = useAppSelector(store => store.ingredientsReducer.ingredients)
 
-    const { bun, innerIngredients, sum } = useMemo(() => {
+    const { bun, innerIngredients, sum, counter } = useMemo(() => {
         if (!ingredients || ingredients.length === 0 || !order?.ingredients || order.ingredients.length === 0) {
             return {
                 bun: null,
                 innerIngredients: [],
-                sum: 0
+                sum: 0,
+                counter: {} as { [name: string]: number }
             };
         }
-        const currentIngredients = order?.ingredients.map(id => ingredients.find(i => i._id === id) as TIngredient)
+        const counter: { [name: string]: number } = {}
+        //const currentIngredients = order?.ingredients.map(id => ingredients.find(i => i._id === id) as TIngredient)
+        const currentIngredients = order?.ingredients.reduce<TIngredient[]>((prev: TIngredient[], curr: string) => {
+            if (!counter[curr]) {
+                counter[curr] = 1;
+            } else {
+                counter[curr]++;
+            }
+            if (counter[curr] === 1) {
+                const ingredient = ingredients.find(i => i._id === curr) as TIngredient
+                return [...prev, ingredient]
+            } else {
+                return prev
+            }
+        }, [])
         const bun = currentIngredients.find(i => i.type === 'bun');
         const innerIngredients = currentIngredients.filter(i => i?.type !== 'bun')
-        const sum = innerIngredients.reduce((prev, curr: TIngredient) => prev + curr?.price, (bun?.price || 0) * 2)
+        const sum = innerIngredients.reduce((prev, curr: TIngredient) => prev + curr?.price * counter[curr?._id], (bun?.price || 0) * 2)
 
         return {
             bun,
             innerIngredients,
-            sum
+            sum,
+            counter
         }
     }, [order?.ingredients, ingredients])
+    console.log(counter)
 
     return (
         order ? <div className='ml-6 mr-6'>
@@ -77,7 +94,7 @@ const OrderInfo: FunctionComponent<TOrderInfo> = ({ order, fullPage = false }) =
                     </div>
                     <div className={orderInfoStyles.flex_row}>
                         <div className='ext text_type_digits-default ml-4'>
-                            1 x {ingredient.price}
+                            {counter[ingredient._id]} x {ingredient.price}
                         </div>
                         <div className='ml-1'>
                             <CurrencyIcon type="primary" />
