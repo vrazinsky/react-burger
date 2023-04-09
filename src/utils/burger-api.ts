@@ -5,7 +5,6 @@ import { TUserData, TLoginData, TResetEmailData, TResetData, TPatchUserData } fr
 export const getIngredientsRequest = () => request("ingredients");
 
 export const getOrderDetailsRequest = (ids: Array<string>) => {
-  console.log('getOrders')
   const body = { 'ingredients': ids };
   const options = {
     method: 'post',

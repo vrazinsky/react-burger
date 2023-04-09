@@ -70,12 +70,12 @@ export function FeedPage() {
                         </div>
                     </div>
                 </div>
-                {total && totalToday && <div>
+                {total && totalToday ? <div>
                     <div className='text text_type_main-medium  mt-15'>Выполнено за всё время:</div>
                     <div className='text text_type_digits-large'>{total}</div>
                     <div className='text text_type_main-medium  mt-15'>Выполнено за сегодня:</div>
                     <div className='text text_type_digits-large'>{totalToday}</div>
-                </div>}
+                </div> : <div></div>}
             </div>
 
         </div>
