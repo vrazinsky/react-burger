@@ -2,11 +2,11 @@ import profileStyles from './profile.module.css';
 import { NavLink, Outlet } from 'react-router-dom'
 import { logoutThunk } from '../services/thunks/auth-thunks'
 import { useAppDispatch } from '../hooks/hooks'
-import { AppThunkDispatch } from '../store/store'
+
 
 export function ProfilePage() {
 
-    const dispatch: AppThunkDispatch = useAppDispatch()
+    const dispatch = useAppDispatch()
 
     const handleLogoutClick = () => {
         dispatch(logoutThunk())

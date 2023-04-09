@@ -6,6 +6,7 @@ import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { ActionCreator } from 'redux';
 import { TConstructorItemsActions, TCurrentIngredientActions, TGetIngredientsActions, TIngredientCountersActions, TOrderDetailsActions } from '../services/actions/actions'
 import { TAddReturnUrlActions, TAuthActions, TResetPasswordActions, TSendResetEmailActions } from '../services/actions/auth-actions'
+import { TWSFeedActions, TWSOrdersActions } from '../services/actions/socket-actions'
 import { socketMiddleware } from '../middlewares/socket-middleware'
 import { WsFeedActions, WsOrdersActions } from '../utils/action-types'
 
@@ -23,15 +24,14 @@ const enhancer = composeEnhancers(
 
 export const store = createStore(rootReducer, enhancer)
 
+type TAppActions = | TConstructorItemsActions | TCurrentIngredientActions | TGetIngredientsActions | TIngredientCountersActions | TOrderDetailsActions
+    | TAddReturnUrlActions | TAuthActions | TResetPasswordActions | TSendResetEmailActions | TWSFeedActions | TWSOrdersActions
+
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
-export type AppThunkDispatch = ThunkDispatch<RootState, any, TConstructorItemsActions | TCurrentIngredientActions | TGetIngredientsActions | TIngredientCountersActions | TOrderDetailsActions
-    | TAddReturnUrlActions | TAuthActions | TResetPasswordActions | TSendResetEmailActions>;
-// export type AppDispatch = Dispatch<TConstructorItemsActions | TCurrentIngredientActions | TGetIngredientsActions | TIngredientCountersActions | TOrderDetailsActions
-//     | TAddReturnUrlActions | TAuthActions | TResetPasswordActions | TSendResetEmailActions>
+export type AppThunkDispatch = ThunkDispatch<RootState, any, TAppActions>;
 export type AppThunk<TReturn = void> = ActionCreator<
-    ThunkAction<TReturn, RootState, any, TConstructorItemsActions | TCurrentIngredientActions | TGetIngredientsActions | TIngredientCountersActions | TOrderDetailsActions
-        | TAddReturnUrlActions | TAuthActions | TResetPasswordActions | TSendResetEmailActions>
+    ThunkAction<TReturn, RootState, any, TAppActions>
 >;
 
 

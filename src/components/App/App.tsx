@@ -7,10 +7,9 @@ import { useEffect } from 'react'
 import RoutesContainer from '../RoutesContainer/RoutesContainer'
 import { getItem } from '../../utils/localStorage'
 import { useAppDispatch } from '../../hooks/hooks'
-import { AppThunkDispatch } from '../../store/store'
 
 export default function App() {
-  const dispatch: AppThunkDispatch = useAppDispatch()
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     dispatch(getIngredientsThunk())

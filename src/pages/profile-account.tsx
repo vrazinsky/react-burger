@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react'
 import { patchUserThunk } from '../services/thunks/auth-thunks'
 import { useAppSelector, useAppDispatch } from '../hooks/hooks'
 import { getAuth } from '../store/store'
-import { AppThunkDispatch } from '../store/store'
 
 
 export function ProfileAccountPage() {
@@ -13,7 +12,7 @@ export function ProfileAccountPage() {
     const [password, setPassword] = useState('')
     const [isButtonsVisible, setIsButtonsVisible] = useState(false)
     const { user } = useAppSelector(getAuth)
-    const dispatch: AppThunkDispatch = useAppDispatch()
+    const dispatch = useAppDispatch()
 
     const handleSaveClick = () => {
         const dataObj: { name?: string, email?: string, password?: string } = {}
