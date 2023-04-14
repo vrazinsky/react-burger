@@ -1,7 +1,8 @@
 .container {
     display: grid;
     width: 1240px;
-    grid-template-columns: 320px 600px;
+    /* grid-template-columns: 320px 600px; */
+    grid-template-columns: 320px 660px;
 }
 
 .menu_item {

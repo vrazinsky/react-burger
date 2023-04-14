@@ -16,10 +16,10 @@ export function ProfileAccountPage() {
 
     const handleSaveClick = () => {
         const dataObj: { name?: string, email?: string, password?: string } = {}
-        if (name !== user.name) {
+        if (name !== user?.name) {
             dataObj.name = name
         }
-        if (email !== user.email) {
+        if (email !== user?.email) {
             dataObj.email = email
         }
         if (password) {
@@ -29,13 +29,15 @@ export function ProfileAccountPage() {
     }
 
     useEffect(() => {
-        setIsButtonsVisible(name !== user.name || email !== user.email || password !== '')
+        setIsButtonsVisible(name !== user?.name || email !== user?.email || password !== '')
     }, [user, name, email, password])
 
     const handleCancelClick = () => {
-        setName(user.name)
-        setEmail(user.email)
-        setPassword('')
+        if (user) {
+            setName(user.name)
+            setEmail(user.email)
+            setPassword('')
+        }
     }
 
     useEffect(() => {
@@ -45,7 +47,7 @@ export function ProfileAccountPage() {
             setEmail(user.email)
     }, [user])
 
-    return (<div className='ml-30'>
+    return (<div className='ml-30 mt-20'>
         <div>
             <div>
                 <Input

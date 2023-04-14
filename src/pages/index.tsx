@@ -9,6 +9,10 @@ import { ProfileOrdersPage } from './profile-orders'
 import { ProfileAccountPage } from './profile-account'
 import { IngredientModal } from './ingredient-modal'
 import { NotFound404 } from './not-found'
-import { OrdersFeedPage } from './orders-feed'
+import { FeedPage } from './feed'
+import { ProfileOrderPage } from './profile-order'
+import { ProfileOrderModal } from './profile-order-modal'
+import { FeedOrderPage } from './feed-order'
+import { FeedOrderModal } from './feed-order-modal'
 
-export { HomePage, LoginPage, RegisterPage, ForgotPasswordPage, ResetPasswordPage, ProfilePage, IngredientPage, ProfileOrdersPage, ProfileAccountPage, IngredientModal, NotFound404, OrdersFeedPage }
+export { HomePage, LoginPage, RegisterPage, ForgotPasswordPage, ResetPasswordPage, ProfilePage, IngredientPage, ProfileOrdersPage, ProfileAccountPage, IngredientModal, NotFound404, FeedPage, ProfileOrderPage, FeedOrderPage, ProfileOrderModal, FeedOrderModal }

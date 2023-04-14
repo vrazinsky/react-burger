@@ -9,7 +9,7 @@ const OrderDetails: FunctionComponent = () => {
     const { orderDetails } = useAppSelector(getOrderDetails)
     return (
         orderDetails &&
-        <div>
+        <div className='ml-30 mr-30'>
             <div className={orderDetailsStyles.center + ' text text_type_digits-large'}>
                 {orderDetails.number}
             </div>

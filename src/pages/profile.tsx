@@ -3,6 +3,7 @@ import { NavLink, Outlet } from 'react-router-dom'
 import { logoutThunk } from '../services/thunks/auth-thunks'
 import { useAppDispatch } from '../hooks/hooks'
 
+
 export function ProfilePage() {
 
     const dispatch = useAppDispatch()
@@ -16,8 +17,8 @@ export function ProfilePage() {
     }
 
     return (
-        <div className={profileStyles.container + ' mt-20'}>
-            <div className='text text_type_main-medium'>
+        <div className={profileStyles.container}>
+            <div className='text text_type_main-medium mt-20'>
                 <div className={profileStyles.menu_item}><NavLink end to='/profile' className={({ isActive }) => getActiveClass(isActive)}>Профиль</NavLink></div>
                 <div className={profileStyles.menu_item}><NavLink className={({ isActive }) => getActiveClass(isActive)} to='/profile/orders'>История заказов</NavLink></div>
                 <div className={profileStyles.menu_item}><div className={profileStyles.button + ' text_color_inactive'} onClick={handleLogoutClick}>Выход</div></div>

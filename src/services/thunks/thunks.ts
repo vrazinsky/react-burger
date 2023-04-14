@@ -1,9 +1,9 @@
 import { getIngredients, getIngredientsFailed, getIngredientsSuccess, getOrderDetails, getOrderDetailsFailed, getOrderDetailsSuccess } from '../actions/actions'
 import { getIngredientsRequest, getOrderDetailsRequest } from '../../utils/burger-api'
-import { Dispatch } from 'redux'
+import { AppDispatch, AppThunk } from '../../store/store'
 
-export function getIngredientsThunk() {
-    return function (dispatch: Dispatch) {
+export const getIngredientsThunk: AppThunk = () => {
+    return function (dispatch: AppDispatch) {
         dispatch(getIngredients())
         getIngredientsRequest()
             .then(res => {
@@ -20,8 +20,8 @@ export function getIngredientsThunk() {
     }
 }
 
-export function getOrderDetailsThunk(ids: Array<string>) {
-    return function (dispatch: Dispatch) {
+export const getOrderDetailsThunk: AppThunk = (ids: Array<string>) => {
+    return function (dispatch: AppDispatch) {
         dispatch(getOrderDetails())
         getOrderDetailsRequest(ids)
             .then(res => {

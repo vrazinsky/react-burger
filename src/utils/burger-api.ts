@@ -8,10 +8,10 @@ export const getOrderDetailsRequest = (ids: Array<string>) => {
   const body = { 'ingredients': ids };
   const options = {
     method: 'post',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', 'Authorization': getItem('burgerAccessToken') },
     body: JSON.stringify(body)
   }
-  return request('orders', options)
+  return request('orders', options, true)
 }
 
 export const registerRequest = (userData: TUserData) => {
