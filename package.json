@@ -53,6 +53,7 @@
     ]
   },
   "devDependencies": {
+    "@4tw/cypress-drag-drop": "^2.2.3",
     "@types/jest": "^29.5.0",
     "@types/node": "^18.15.3",
     "@types/react": "^18.0.28",

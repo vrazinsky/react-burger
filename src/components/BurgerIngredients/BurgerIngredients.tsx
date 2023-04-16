@@ -89,7 +89,7 @@ function BurgerIngredients() {
                 <div className='text text_type_main-large mb-6' ref={bunRef}>
                     Булки
                 </div>
-                <div className={burgerIngredientsStyles.list}>
+                <div className={burgerIngredientsStyles.list + ' buns'}>
                     {bunIngredients.map((item) => (
                         <DraggableIngredient ingredient={item} openIngredientModal={openIngredientModal} key={item._id} count={countInfo[item._id]} />
                     ))}
@@ -97,7 +97,7 @@ function BurgerIngredients() {
                 <div className='text text_type_main-large mt-10 mb-6' ref={sauceRef}>
                     Соусы
                 </div>
-                <div className={burgerIngredientsStyles.list}>
+                <div className={burgerIngredientsStyles.list + ' sauces'}>
                     {sauceIngredients.map((item, index) => (
                         <DraggableIngredient ingredient={item} openIngredientModal={openIngredientModal} key={item._id} count={countInfo[item._id]} />
                     ))}
@@ -105,7 +105,7 @@ function BurgerIngredients() {
                 <div className='text text_type_main-large mt-10 mb-6' ref={mainRef}>
                     Начинки
                 </div>
-                <div className={burgerIngredientsStyles.list}>
+                <div className={burgerIngredientsStyles.list + ' main'}>
                     {mainIngredients.map((item, index) => (
                         <DraggableIngredient ingredient={item} openIngredientModal={openIngredientModal} key={item._id} count={countInfo[item._id]} />
                     ))}

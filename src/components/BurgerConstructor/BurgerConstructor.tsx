@@ -129,7 +129,7 @@ function BurgerConstructor() {
                         thumbnail={bun.image} />
                 </div>)}
             </div>
-            <div className={burgerConstructorStyles.list_container} ref={ref}>
+            <div className={burgerConstructorStyles.list_container + ' drag_target'} ref={ref}>
                 {innerIngredients.map((item, index) =>
                     <  DraggableConstructorElement ingredient={item} onInnerIngredientRemove={onInnerIngredientRemove} moveCard={moveCard} index={index} key={item.uuid} onDrop={onConstructorElementDrop} />
                 )}
@@ -153,7 +153,7 @@ function BurgerConstructor() {
                 </div>
                 <div className='ml-10'>
                     {orderDetailsRequest ? <ProgressBar /> :
-                        <Button htmlType="button" type="primary" size="large" onClick={handleOrderClick}>
+                        <Button htmlType="button" type="primary" size="large" onClick={handleOrderClick} className='order_button'>
                             Оформить заказ
                         </Button>
                     }
