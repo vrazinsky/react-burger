@@ -323,3 +323,160 @@ describe('auth reducer', () => {
     })
 
 })
+
+describe('reset password reducer', () => {
+    it('should return the initial state', () => {
+        expect(resetPasswordReducer(undefined, undefined)).toEqual(
+            {
+                resetPassword: false,
+                resetPasswordFailed: false,
+                resetPasswordSuccess: false
+            }
+        )
+    })
+
+    it('should handle RESET_PASSWORD_SUCCESS', () => {
+        expect(
+            resetPasswordReducer({
+                resetPassword: false,
+                resetPasswordFailed: false,
+                resetPasswordSuccess: false
+            }, {
+                type: RESET_PASSWORD_SUCCESS
+            })
+        ).toEqual(
+            {
+                resetPassword: false,
+                resetPasswordFailed: false,
+                resetPasswordSuccess: true
+            }
+        )
+    })
+
+    it('should handle RESET_PASSWORD', () => {
+        expect(
+            resetPasswordReducer({
+                resetPassword: false,
+                resetPasswordFailed: false,
+                resetPasswordSuccess: false
+            }, {
+                type: RESET_PASSWORD
+            })
+        ).toEqual(
+            {
+                resetPassword: true,
+                resetPasswordFailed: false,
+                resetPasswordSuccess: false
+            }
+        )
+    })
+
+    it('should handle RESET_PASSWORD_FAILED', () => {
+        expect(
+            resetPasswordReducer({
+                resetPassword: false,
+                resetPasswordFailed: false,
+                resetPasswordSuccess: false
+            }, {
+                type: RESET_PASSWORD_FAILED
+            })
+        ).toEqual(
+            {
+                resetPassword: false,
+                resetPasswordFailed: true,
+                resetPasswordSuccess: false
+            }
+        )
+    })
+})
+
+describe('send reset email reducer', () => {
+    it('should return the initial state', () => {
+        expect(sendResetEmailReducer(undefined, undefined)).toEqual(
+            {
+                sendResetEmail: false,
+                sendResetEmailFailed: false,
+                sendResetEmailSuccess: false
+            }
+        )
+    })
+
+    it('should handle SEND_RESET_EMAIL_SUCCESS', () => {
+        expect(
+            sendResetEmailReducer({
+                sendResetEmail: false,
+                sendResetEmailFailed: false,
+                sendResetEmailSuccess: false
+            }, {
+                type: SEND_RESET_EMAIL_SUCCESS
+            })
+        ).toEqual(
+            {
+                sendResetEmail: false,
+                sendResetEmailFailed: false,
+                sendResetEmailSuccess: true
+            }
+        )
+    })
+
+    it('should handle SEND_RESET_EMAIL', () => {
+        expect(
+            sendResetEmailReducer({
+                sendResetEmail: false,
+                sendResetEmailFailed: false,
+                sendResetEmailSuccess: false
+            }, {
+                type: SEND_RESET_EMAIL
+            })
+        ).toEqual(
+            {
+                sendResetEmail: true,
+                sendResetEmailFailed: false,
+                sendResetEmailSuccess: false
+            }
+        )
+    })
+
+    it('should handle SEND_RESET_EMAIL_FAILED', () => {
+        expect(
+            sendResetEmailReducer({
+                sendResetEmail: false,
+                sendResetEmailFailed: false,
+                sendResetEmailSuccess: false
+            }, {
+                type: SEND_RESET_EMAIL_FAILED
+            })
+        ).toEqual(
+            {
+                sendResetEmail: false,
+                sendResetEmailFailed: true,
+                sendResetEmailSuccess: false
+            }
+        )
+    })
+})
+
+describe('return url reducer', () => {
+    it('should return the initial state', () => {
+        expect(returnUrlReducer(undefined, undefined)).toEqual(
+            {
+                url: ''
+            }
+        )
+    })
+
+    it('should handle SEND_RESET_EMAIL_SUCCESS', () => {
+        expect(
+            returnUrlReducer({
+                url: ''
+            }, {
+                type: ADD_RETURN_URL,
+                payload: 'url'
+            })
+        ).toEqual(
+            {
+                url: 'url'
+            }
+        )
+    })
+})
