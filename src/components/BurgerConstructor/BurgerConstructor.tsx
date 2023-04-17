@@ -135,7 +135,7 @@ function BurgerConstructor() {
                 )}
             </div>
             <div className={burgerConstructorStyles.list_item + ' pb-4 ml-4 mr-4 mt-4'}>
-                {bun && <div className={burgerConstructorStyles.bun}>
+                {bun && <div className={burgerConstructorStyles.bun + ' top_bun'}>
                     <ConstructorElement
                         type={'bottom'}
                         isLocked={true}
@@ -144,7 +144,7 @@ function BurgerConstructor() {
                         thumbnail={bun.image} />
                 </div>}
             </div>
-            {bun && <div className={burgerConstructorStyles.total_price + ' mt-10 mr-6'}>
+            {bun && <div className={burgerConstructorStyles.total_price + ' mt-10 mr-6 bottom_bun'}>
                 <div className='text text_type_digits-medium'>
                     {sum > 0 && sum}
                 </div>
