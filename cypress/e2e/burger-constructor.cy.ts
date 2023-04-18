@@ -10,7 +10,12 @@ describe('template spec', () => {
   it('should open and then close modal', () => {
     cy.get('.buns > div').first().click()
     cy.contains('Детали ингредиента')
-    cy.get('*[class^="IngredientDetails_macronutrients"] > div > div').eq(1).should('have.text', '420');
+    cy.contains('Краторная булка N-200i')
+    cy.get('.calories').should('have.text', '420');
+    cy.get('.proteins').should('have.text', '80');
+    cy.get('.fat').should('have.text', '24');
+    cy.get('.carbohydrates').should('have.text', '53');
+
     cy.get('*[class^="Modal_close"]').click()
     cy.contains('Детали ингредиента').should('not.exist')
 
