@@ -151,19 +151,21 @@ function BurgerConstructor() {
                 <div className='ml-1'>
                     <CurrencyIcon type="primary" />
                 </div>
-                <div className='ml-10'>
+                <div className='ml-10 order_button'>
                     {orderDetailsRequest ? <ProgressBar /> :
-                        <Button htmlType="button" type="primary" size="large" onClick={handleOrderClick} className='order_button'>
+                        <Button htmlType="button" type="primary" size="large" onClick={handleOrderClick}>
                             Оформить заказ
                         </Button>
                     }
                 </div>
             </div>
             }
-            {isModalVisible && <Modal modalOptions={modalOptions}>
-                <OrderDetails />
-            </Modal>}
-        </div>
+            {
+                isModalVisible && <Modal modalOptions={modalOptions}>
+                    <OrderDetails />
+                </Modal>
+            }
+        </div >
     )
 
 }

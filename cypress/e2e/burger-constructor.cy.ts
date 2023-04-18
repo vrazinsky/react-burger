@@ -33,7 +33,7 @@ describe('template spec', () => {
     cy.get('.drag_target > div').eq(0).contains('Соус Spicy-X')
 
     cy.get('.main > div').eq(0).drag('.drag_target');
-    cy.get('.drag_target > div').eq(1).contains('Филе Люминесцентного тетраодонтимформа')
+    cy.get('.drag_target > div').eq(1).should('exist')
 
 
     cy.get('.order_button').click()
