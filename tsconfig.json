@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    "types": [
+      "cypress",
+      "@4tw/cypress-drag-drop"
+    ],
     "target": "esnext",
     "lib": [
       "dom",

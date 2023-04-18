@@ -47,8 +47,8 @@ const ingredientCountersState: TIngredientCountersState = {
 }
 
 
-export const ingredientsReducer = (state = ingredientsInitialState, action: TGetIngredientsActions): TIngredientsInitialState => {
-    switch (action.type) {
+export const ingredientsReducer = (state = ingredientsInitialState, action: TGetIngredientsActions | undefined): TIngredientsInitialState => {
+    switch (action?.type) {
         case GET_INGREDIENTS_SUCCESS:
             return {
                 ...state,
@@ -73,8 +73,8 @@ export const ingredientsReducer = (state = ingredientsInitialState, action: TGet
     }
 }
 
-export const constructorItemsReducer = (state = constructorItemsInitialState, action: TConstructorItemsActions): TConstructorItemsInitialState => {
-    switch (action.type) {
+export const constructorItemsReducer = (state = constructorItemsInitialState, action: TConstructorItemsActions | undefined): TConstructorItemsInitialState => {
+    switch (action?.type) {
         case ADD_INNER_INGREDIENT_TO_CONSTRUCTOR:
             return {
                 ...state,
@@ -112,8 +112,8 @@ export const constructorItemsReducer = (state = constructorItemsInitialState, ac
     }
 }
 
-export const currentIngredientReducer = (state = currentIngredientInitialState, action: TCurrentIngredientActions): TCurrentIngredientInitialState => {
-    switch (action.type) {
+export const currentIngredientReducer = (state = currentIngredientInitialState, action: TCurrentIngredientActions | undefined): TCurrentIngredientInitialState => {
+    switch (action?.type) {
         case ADD_CURRENT_INGREDIENT:
             return {
                 currentIngredient: action.payload
@@ -127,8 +127,8 @@ export const currentIngredientReducer = (state = currentIngredientInitialState, 
     }
 }
 
-export const orderDetailsReducer = (state = orderDetailsInitialState, action: TOrderDetailsActions): TOrderDetailsInitialState => {
-    switch (action.type) {
+export const orderDetailsReducer = (state = orderDetailsInitialState, action: TOrderDetailsActions | undefined): TOrderDetailsInitialState => {
+    switch (action?.type) {
         case GET_ORDER_DETAILS_SUCCESS:
             return {
                 ...state,
@@ -157,8 +157,8 @@ export const orderDetailsReducer = (state = orderDetailsInitialState, action: TO
     }
 }
 
-export const ingredientCountersReducer = (state = ingredientCountersState, action: TIngredientCountersActions) => {
-    switch (action.type) {
+export const ingredientCountersReducer = (state = ingredientCountersState, action: TIngredientCountersActions | undefined) => {
+    switch (action?.type) {
         case INCREASE_INGREDIENT_COUNTER:
             return {
                 ...state,

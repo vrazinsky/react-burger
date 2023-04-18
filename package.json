@@ -31,7 +31,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cypress:open": "./node_modules/.bin/cypress open",
+    "deploy-script": "npm run build && scp -r ./build/* silentsoul@158.160.23.3:/home/silentsoul/practicum/stellar-frontend/"
   },
   "eslintConfig": {
     "extends": [
@@ -52,9 +54,12 @@
     ]
   },
   "devDependencies": {
+    "@4tw/cypress-drag-drop": "^2.2.3",
     "@types/jest": "^29.5.0",
     "@types/node": "^18.15.3",
     "@types/react": "^18.0.28",
-    "@types/react-dom": "^18.0.11"
+    "@types/react-dom": "^18.0.11",
+    "cypress": "^12.9.0",
+    "eslint-plugin-cypress": "^2.13.2"
   }
 }

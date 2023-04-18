@@ -37,19 +37,19 @@ const IngredientDetails: FunctionComponent<TIngredientDetailsProps> = ({ hideTit
             <div className={ingredientDetailsStyles.macronutrients + ' mt-8'}>
                 <div className='mr-5'>
                     <div className={ingredientDetailsStyles.center + ' text text_type_main-default text_color_inactive'}>Калории, ккал</div>
-                    <div className={ingredientDetailsStyles.center + ' text text_type_digits-default text_color_inactive'}>{ingredient.calories}</div>
+                    <div className={ingredientDetailsStyles.center + ' text text_type_digits-default text_color_inactive calories'}>{ingredient.calories}</div>
                 </div>
                 <div className='mr-5'>
                     <div className={ingredientDetailsStyles.center + ' text text_type_main-default text_color_inactive'}>Белки, г</div>
-                    <div className={ingredientDetailsStyles.center + ' text text_type_digits-default text_color_inactive'}>{ingredient.proteins}</div>
+                    <div className={ingredientDetailsStyles.center + ' text text_type_digits-default text_color_inactive proteins'}>{ingredient.proteins}</div>
                 </div>
                 <div className='mr-5'>
                     <div className={ingredientDetailsStyles.center + ' text text_type_main-default text_color_inactive'}>Жиры, г</div>
-                    <div className={ingredientDetailsStyles.center + ' text text_type_digits-default text_color_inactive'}>{ingredient.fat}</div>
+                    <div className={ingredientDetailsStyles.center + ' text text_type_digits-default text_color_inactive fat'}>{ingredient.fat}</div>
                 </div>
                 <div>
                     <div className={ingredientDetailsStyles.center + ' text text_type_main-default text_color_inactive'}>Углеводы, г</div>
-                    <div className={ingredientDetailsStyles.center + ' text text_type_digits-default text_color_inactive'}>{ingredient.carbohydrates}</div>
+                    <div className={ingredientDetailsStyles.center + ' text text_type_digits-default text_color_inactive carbohydrates'}>{ingredient.carbohydrates}</div>
                 </div>
 
             </div>

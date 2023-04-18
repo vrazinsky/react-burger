@@ -129,13 +129,13 @@ function BurgerConstructor() {
                         thumbnail={bun.image} />
                 </div>)}
             </div>
-            <div className={burgerConstructorStyles.list_container} ref={ref}>
+            <div className={burgerConstructorStyles.list_container + ' drag_target'} ref={ref}>
                 {innerIngredients.map((item, index) =>
                     <  DraggableConstructorElement ingredient={item} onInnerIngredientRemove={onInnerIngredientRemove} moveCard={moveCard} index={index} key={item.uuid} onDrop={onConstructorElementDrop} />
                 )}
             </div>
             <div className={burgerConstructorStyles.list_item + ' pb-4 ml-4 mr-4 mt-4'}>
-                {bun && <div className={burgerConstructorStyles.bun}>
+                {bun && <div className={burgerConstructorStyles.bun + ' top_bun'}>
                     <ConstructorElement
                         type={'bottom'}
                         isLocked={true}
@@ -144,14 +144,14 @@ function BurgerConstructor() {
                         thumbnail={bun.image} />
                 </div>}
             </div>
-            {bun && <div className={burgerConstructorStyles.total_price + ' mt-10 mr-6'}>
+            {bun && <div className={burgerConstructorStyles.total_price + ' mt-10 mr-6 bottom_bun'}>
                 <div className='text text_type_digits-medium'>
                     {sum > 0 && sum}
                 </div>
                 <div className='ml-1'>
                     <CurrencyIcon type="primary" />
                 </div>
-                <div className='ml-10'>
+                <div className='ml-10 order_button'>
                     {orderDetailsRequest ? <ProgressBar /> :
                         <Button htmlType="button" type="primary" size="large" onClick={handleOrderClick}>
                             Оформить заказ
@@ -160,10 +160,12 @@ function BurgerConstructor() {
                 </div>
             </div>
             }
-            {isModalVisible && <Modal modalOptions={modalOptions}>
-                <OrderDetails />
-            </Modal>}
-        </div>
+            {
+                isModalVisible && <Modal modalOptions={modalOptions}>
+                    <OrderDetails />
+                </Modal>
+            }
+        </div >
     )
 
 }
