@@ -290,7 +290,7 @@ describe('current ingredient reducer', () => {
         )
     })
 
-    it('should handle ADD_INNER_INGREDIENT_TO_CONSTRUCTOR', () => {
+    it('should handle ADD_CURRENT_INGREDIENT', () => {
         expect(
             currentIngredientReducer({
                 currentIngredient: null
@@ -464,6 +464,21 @@ describe('ingredients counter reducer', () => {
         ).toEqual(
             {
                 "string": 1
+            }
+        )
+    })
+
+    it('should handle INCREASE_INGREDIENT_COUNTER when exists', () => {
+        expect(
+            ingredientCountersReducer({
+                "string": 1
+            }, {
+                type: INCREASE_INGREDIENT_COUNTER,
+                payload: "string"
+            })
+        ).toEqual(
+            {
+                "string": 2
             }
         )
     })

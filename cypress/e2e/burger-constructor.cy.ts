@@ -1,10 +1,12 @@
 import '@4tw/cypress-drag-drop'
 Cypress.config("defaultCommandTimeout", 40000);
 
+const BASE_URL = 'http://localhost:3000'
+
 describe('template spec', () => {
 
   beforeEach(function () {
-    cy.visit('http://localhost:3000');
+    cy.visit(BASE_URL);
   });
 
   it('should open and then close modal', () => {
@@ -22,8 +24,8 @@ describe('template spec', () => {
 
   })
 
-  it('drag and drop ingredients and create order', () => {
-    cy.visit('http://localhost:3000/login');
+  it('drag and drop ingredients', () => {
+    cy.visit(`${BASE_URL}/login`);
     cy.get('*[class^="login_wrapper"] > div > div > div > input').eq(0).type('v.razinsky@yandex.ru')
     cy.get('*[class^="login_wrapper"] > div > div > div > input').eq(1).type('password')
     cy.get('button').click()
@@ -39,11 +41,15 @@ describe('template spec', () => {
 
     cy.get('.main > div').eq(0).drag('.drag_target');
     cy.get('.drag_target > div').eq(1).should('exist')
+  });
 
 
+  it('create order', () => {
     cy.get('.order_button').click()
     cy.contains('идентификатор заказа')
     cy.get('*[class^="Modal_close"]').click()
     cy.contains('идентификатор заказа').should('not.exist')
-  });
+  })
+
+
 })
