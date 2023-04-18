@@ -37,9 +37,11 @@ const OrderInfo: FunctionComponent<TOrderInfo> = ({ order, fullPage = false }) =
                 return prev
             }
         }, [])
-        const bun = currentIngredients.find(i => i.type === 'bun');
+        const bun = currentIngredients.find(i => i?.type === 'bun');
         const innerIngredients = currentIngredients.filter(i => i?.type !== 'bun')
-        const sum = innerIngredients.reduce((prev, curr: TIngredient) => prev + curr?.price * counter[curr?._id], (bun?.price || 0) * 2)
+
+        const sum = innerIngredients.reduce((prev, curr: TIngredient) => prev + (curr && curr?.price * counter[curr?._id] || 0), (bun?.price || 0) * 2)
+
 
         return {
             bun,
@@ -48,7 +50,6 @@ const OrderInfo: FunctionComponent<TOrderInfo> = ({ order, fullPage = false }) =
             counter
         }
     }, [order?.ingredients, ingredients])
-    console.log(counter)
 
     return (
         order ? <div className='ml-6 mr-6'>
@@ -83,7 +84,7 @@ const OrderInfo: FunctionComponent<TOrderInfo> = ({ order, fullPage = false }) =
                         </div>
                     </div>
                 </div>}
-                {innerIngredients && innerIngredients.map((ingredient, index) => <div className={orderInfoStyles.ingredient_container + ' mt-6 mr-6'} key={ingredient._id + '_' + index}>
+                {innerIngredients && innerIngredients.map((ingredient, index) => ingredient && <div className={orderInfoStyles.ingredient_container + ' mt-6 mr-6'} key={ingredient._id + '_' + index}>
                     <div className={orderInfoStyles.flex_row}>
                         <div className={orderInfoStyles.ingredient_preview}>
                             <img src={ingredient.image_mobile} className={orderInfoStyles.image} alt={order.name} />

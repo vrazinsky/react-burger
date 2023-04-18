@@ -25,7 +25,7 @@ const OrderItem: FunctionComponent<TOrderItem> = ({ order, clickHandler }) => {
         if (currentIngredients && currentIngredients.length > 0) {
             const bun = currentIngredients.find(i => i?.type === 'bun')
             const innerIngredients = currentIngredients.filter(i => i?.type !== 'bun')
-            _sum = innerIngredients.reduce((prev, curr: TIngredient) => prev + curr?.price, (bun?.price || 0) * 2)
+            _sum = innerIngredients.reduce((prev, curr: TIngredient) => prev + (curr?.price || 0), (bun?.price || 0) * 2)
         }
         return {
             images: currentIngredients.map(i => i?.image_mobile),
